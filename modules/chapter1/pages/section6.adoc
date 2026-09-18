@@ -1,0 +1,8 @@
+== Key Takeaways
+
+* **MCP provides a standard way** to connect AI models with external systems.
+* **Ansible MCP Server connects AI with AAP**, exposing AAP capabilities through MCP toolsets.
+* **The MCP Server acts as the gatekeeper**, handling requests between the AI client and AAP.
+* **Authentication and RBAC are enforced**, ensuring users can only access and perform actions permitted by their AAP permissions.
+* **AAP data is standardized**, providing the AI with consistent and easier-to-process responses.
+* **Natural-language interaction simplifies automation**, reducing the need for manual UI navigation or direct API calls.

@@ -1,4 +1,4 @@
-= Section 4: Communication Workflow
+= Communication Workflow
 
 == The Full Journey: From User to AAP
 
@@ -15,6 +15,7 @@ You: "Show me failed jobs from the past 7 days"
 This is a natural language request sent to your AI tool (Claude, Cursor, ChatGPT, etc).
 
 *What's happening*:
+
 * The AI client receives your message
 * It sends it to the AI model for interpretation
 
@@ -34,6 +35,7 @@ I need to call the job_list tool with:
 ----
 
 *What's happening*:
+
 * The AI model understands your intent
 * It maps your request to available MCP tools
 * It prepares the structured request with parameters
@@ -55,6 +57,7 @@ Request from AI:
 ----
 
 *What's happening*:
+
 * The MCP server receives a structured tool call
 * It validates the request format
 * It checks that the tool exists
@@ -71,6 +74,7 @@ Status: AUTHENTICATED
 ----
 
 *What's happening*:
+
 * The MCP server extracts your API token from the request headers
 * It verifies the token with AAP
 * It loads your user's permissions and RBAC settings
@@ -87,6 +91,7 @@ Headers:
 ----
 
 *What's happening*:
+
 * The MCP server converts the tool call into an AAP API request
 * It uses your API token to authenticate with AAP
 * It applies any RBAC restrictions from your user account
@@ -100,6 +105,7 @@ RESULT: 3 failed jobs found
 ----
 
 *What's happening*:
+
 * AAP queries its database
 * It applies your user's permission restrictions
 * It only returns jobs you're allowed to see
@@ -141,6 +147,7 @@ MCP Server Standardizes:
 ----
 
 *What's happening*:
+
 * The MCP server receives raw AAP data
 * It extracts only relevant fields
 * It formats data in a way the AI can easily understand
@@ -156,6 +163,7 @@ in a clear, readable format"
 ----
 
 *What's happening*:
+
 * The AI receives the structured data
 * It reads and understands the job details
 * It composes a human-readable summary
@@ -188,6 +196,7 @@ You see in your AI chat:
 ----
 
 *What's happening*:
+
 * The AI client displays the formatted response
 * You read the summary
 * You can now ask follow-up questions
@@ -262,13 +271,17 @@ You see in your AI chat:
 == Key Insights
 
 === Security Checkpoints
+
 The workflow has **multiple security checkpoints**:
+
 1. ✓ Token validation (is the request from a valid user?)
 2. ✓ RBAC check (does the user have permission for this action?)
 3. ✓ Data filtering (only show data the user is allowed to see)
 
 === Data Flow
+
 Data flows in **two directions**:
+
 1. **Request direction**: Natural language → Structured tool call → API call → Database query
 2. **Response direction**: Database result → Formatted response → Natural language summary → Display
 
@@ -276,18 +289,11 @@ Data flows in **two directions**:
 **Important**: The AI model never talks directly to AAP.
 
 The MCP server is always in the middle:
+
 * ✓ The AI cannot bypass authentication
 * ✓ The AI cannot exceed user permissions
 * ✓ All requests are logged and auditable
 * ✓ All data is standardized and validated
-
-== Key Takeaways
-
-* **9 steps** happen in seconds when you ask a question
-* **MCP Server is the gatekeeper** at every step
-* **RBAC is enforced** — you can only see/do what your AAP user allows
-* **Data is standardized** — complex AAP data is simplified for the AI
-* **Security first** — tokens, permissions, and audit logs protect everything
 
 == Next Steps
 

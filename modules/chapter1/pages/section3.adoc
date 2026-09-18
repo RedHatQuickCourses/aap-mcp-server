@@ -1,4 +1,4 @@
-= Section 3: AAP Integration & Toolsets
+= AAP Integration & Toolsets
 
 == What is the Ansible MCP Server?
 
@@ -11,6 +11,7 @@ Instead of logging into the AAP web UI manually, you can ask an AI: "Launch the 
 == Why AAP Needs an MCP Server
 
 AAP manages:
+
 * **Thousands of servers and devices**
 * **Complex automation workflows and job executions**
 * **Sensitive credentials and access control**
@@ -18,6 +19,7 @@ AAP manages:
 * **Audit logs and compliance data**
 
 Before MCP, the only way to query this was:
+
 1. Log into the web UI manually
 2. Click through menus
 3. Run API commands with `curl` or write custom scripts
@@ -32,6 +34,7 @@ The Ansible MCP Server exposes **6 separate toolsets**, each focused on a differ
 *What it does*: Execute and monitor automation jobs.
 
 *Tools you can call*:
+
 * List job templates
 * Start a job run
 * Check job status
@@ -50,6 +53,7 @@ The Ansible MCP Server exposes **6 separate toolsets**, each focused on a differ
 *What it does*: Manage hosts, groups, and inventories.
 
 *Tools you can call*:
+
 * List inventories
 * Get hosts in a group
 * List inventory groups
@@ -68,6 +72,7 @@ The Ansible MCP Server exposes **6 separate toolsets**, each focused on a differ
 *What it does*: Monitor platform health and performance metrics.
 
 *Tools you can call*:
+
 * Check AAP health status
 * Get execution node metrics
 * View job execution statistics
@@ -86,6 +91,7 @@ The Ansible MCP Server exposes **6 separate toolsets**, each focused on a differ
 *What it does*: Manage users, teams, and organizations.
 
 *Tools you can call*:
+
 * List users and teams
 * Get team memberships
 * View organization details
@@ -104,6 +110,7 @@ The Ansible MCP Server exposes **6 separate toolsets**, each focused on a differ
 *What it does*: Access security policies, credentials, and audit logs.
 
 *Tools you can call*:
+
 * View audit logs
 * List credentials
 * Check security settings
@@ -122,6 +129,7 @@ The Ansible MCP Server exposes **6 separate toolsets**, each focused on a differ
 *What it does*: Configure platform settings and resources.
 
 *Tools you can call*:
+
 * List projects and their status
 * View execution environments
 * Get platform settings
@@ -176,18 +184,11 @@ Denied:
 ----
 
 This means:
+
 * **Admins** can use the AI to do anything they could do manually
 * **Read-only users** can only query information
 * **Team members** respect team-level permissions
 * **Audit logs** track all AI-driven actions
-
-== Key Takeaways
-
-* **Ansible MCP Server** brings AI access to your AAP environment
-* **6 toolsets** cover: jobs, inventory, monitoring, users, security, and configuration
-* **1 server, 6 endpoints** — all can be connected at once
-* **RBAC is enforced** — permissions from AAP flow through to MCP
-* **Natural language** replaces manual web UI clicks and API calls
 
 == Next Steps
 

@@ -1,4 +1,4 @@
-= Section 2: MCP Architecture
+= MCP Architecture
 
 == What are the Building Blocks?
 
@@ -133,14 +133,6 @@ MCP Server checks:
 
 Response to AI: "You don't have permission to delete hosts"
 ----
-
-== Key Takeaways
-
-* **Four components** work together: Client, AI Model, MCP Server, Your System
-* **MCP Server is the gatekeeper** — it validates and secures all requests
-* **Tokens provide authentication** — proving who you are
-* **RBAC is enforced** — you can only do what your user account allows
-* **Response is standardized** — the AI gets consistent, predictable data
 
 == Next Steps
 

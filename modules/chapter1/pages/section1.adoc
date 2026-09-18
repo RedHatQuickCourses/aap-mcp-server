@@ -1,4 +1,4 @@
-= Section 1: What is MCP?
+= What is MCP?
 
 == What is the Model Context Protocol?
 
@@ -56,14 +56,6 @@ MCP Server: Queries AAP and returns the list of jobs
    ↓
 AI: "Here are your last 5 jobs: ..."
 ----
-
-== Key Takeaways
-
-* **MCP is a standard** for connecting AI models to external systems
-* **It's like USB-C** — one standard that works with many AI tools
-* **It solves a real problem** — giving AI real-time access to live data
-* **It reduces duplication** — one integration instead of many
-* **It's secure** — authentication and permissions are baked in
 
 == Next Steps
 
