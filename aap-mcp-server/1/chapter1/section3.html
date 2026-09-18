@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Section 3: AAP Integration &amp; Toolsets :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <link rel="prev" href="section2.html">
+    <link rel="next" href="section4.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section3.html">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section5.html">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a></li>
+    <li><a href="section3.html">Section 3: AAP Integration &amp; Toolsets</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Section 3: AAP Integration &amp; Toolsets</h1>
+<div class="sect1">
+<h2 id="_what_is_the_ansible_mcp_server"><a class="anchor" href="#_what_is_the_ansible_mcp_server"></a>What is the Ansible MCP Server?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>Ansible MCP Server</strong> is Ansible Automation Platform&#8217;s implementation of the MCP standard.</p>
+</div>
+<div class="paragraph">
+<p>It enables connecting AAP with any preferred external AI tool (such as Claude, Cursor, or ChatGPT). The AI tools can access information about your AAP environment and perform tasks using natural language.</p>
+</div>
+<div class="paragraph">
+<p>Instead of logging into the AAP web UI manually, you can ask an AI: "Launch the 'Deploy Web Servers' job template" and it does it for you.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_aap_needs_an_mcp_server"><a class="anchor" href="#_why_aap_needs_an_mcp_server"></a>Why AAP Needs an MCP Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>AAP manages:
+* <strong>Thousands of servers and devices</strong>
+* <strong>Complex automation workflows and job executions</strong>
+* <strong>Sensitive credentials and access control</strong>
+* <strong>User teams and role-based permissions</strong>
+* <strong>Audit logs and compliance data</strong></p>
+</div>
+<div class="paragraph">
+<p>Before MCP, the only way to query this was:
+1. Log into the web UI manually
+2. Click through menus
+3. Run API commands with <code>curl</code> or write custom scripts</p>
+</div>
+<div class="paragraph">
+<p><strong>MCP enables</strong>: Ask the AI in natural language, get instant answers.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_6_aap_mcp_toolsets"><a class="anchor" href="#_the_6_aap_mcp_toolsets"></a>The 6 AAP MCP Toolsets</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Ansible MCP Server exposes <strong>6 separate toolsets</strong>, each focused on a different area of AAP:</p>
+</div>
+<div class="sect2">
+<h3 id="_1_job_management"><a class="anchor" href="#_1_job_management"></a>1. Job Management</h3>
+<div class="paragraph">
+<p><strong>What it does</strong>: Execute and monitor automation jobs.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tools you can call</strong>:
+* List job templates
+* Start a job run
+* Check job status
+* View job output/logs
+* List recent jobs</p>
+</div>
+<div class="paragraph">
+<p><strong>Example queries</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"Show me failed jobs from the last 24 hours"
+"Launch the 'Configure Servers' job template"
+"What jobs are currently running?"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_inventory_management"><a class="anchor" href="#_2_inventory_management"></a>2. Inventory Management</h3>
+<div class="paragraph">
+<p><strong>What it does</strong>: Manage hosts, groups, and inventories.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tools you can call</strong>:
+* List inventories
+* Get hosts in a group
+* List inventory groups
+* Get host details and variables
+* Filter hosts by properties</p>
+</div>
+<div class="paragraph">
+<p><strong>Example queries</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"Show me all Windows hosts"
+"Which hosts are in the 'production' group?"
+"List hosts that haven't checked in for 7 days"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_system_monitoring"><a class="anchor" href="#_3_system_monitoring"></a>3. System Monitoring</h3>
+<div class="paragraph">
+<p><strong>What it does</strong>: Monitor platform health and performance metrics.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tools you can call</strong>:
+* Check AAP health status
+* Get execution node metrics
+* View job execution statistics
+* Monitor capacity and usage
+* Get system performance data</p>
+</div>
+<div class="paragraph">
+<p><strong>Example queries</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"What's the health status of my AAP instance?"
+"Show me job execution metrics for the past week"
+"What's the capacity utilization?"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_user_management"><a class="anchor" href="#_4_user_management"></a>4. User Management</h3>
+<div class="paragraph">
+<p><strong>What it does</strong>: Manage users, teams, and organizations.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tools you can call</strong>:
+* List users and teams
+* Get team memberships
+* View organization details
+* Check user roles and permissions
+* Manage RBAC assignments</p>
+</div>
+<div class="paragraph">
+<p><strong>Example queries</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"List all users in my organization"
+"Who are the members of the ops team?"
+"What permissions does user 'alice' have?"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_security_compliance"><a class="anchor" href="#_5_security_compliance"></a>5. Security &amp; Compliance</h3>
+<div class="paragraph">
+<p><strong>What it does</strong>: Access security policies, credentials, and audit logs.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tools you can call</strong>:
+* View audit logs
+* List credentials
+* Check security settings
+* Review compliance data
+* Monitor access and changes</p>
+</div>
+<div class="paragraph">
+<p><strong>Example queries</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"Show me audit logs from the past 24 hours"
+"What credentials are stored in AAP?"
+"List all security-related activity"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_6_platform_configuration"><a class="anchor" href="#_6_platform_configuration"></a>6. Platform Configuration</h3>
+<div class="paragraph">
+<p><strong>What it does</strong>: Configure platform settings and resources.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tools you can call</strong>:
+* List projects and their status
+* View execution environments
+* Get platform settings
+* Manage integrations
+* Configure system properties</p>
+</div>
+<div class="paragraph">
+<p><strong>Example queries</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"List all projects and their SCM status"
+"What execution environments are available?"
+"Show me platform configuration settings"</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_one_server_many_endpoints"><a class="anchor" href="#_one_server_many_endpoints"></a>One Server, Many Endpoints</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All 6 toolsets are served by <strong>one MCP server</strong> with <strong>6 separate endpoints</strong>:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Toolset</th>
+<th class="tableblock halign-left valign-top">Endpoint Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job Management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/job_management/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inventory Management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/inventory_management/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System Monitoring</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/system_monitoring/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/user_management/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security &amp; Compliance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/security_compliance/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/platform_configuration/mcp</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>When you configure an AI tool, you connect it to <strong>all 6 endpoints</strong> so the AI has access to everything.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_role_based_access_control_rbac"><a class="anchor" href="#_role_based_access_control_rbac"></a>Role-Based Access Control (RBAC)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The MCP server respects your AAP permissions. If you create an API token for a user with "read-only" permissions, the AI can only read data—it cannot launch jobs or make changes.</p>
+</div>
+<div class="listingblock">
+<div class="title">RBAC Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Token created with SCOPE: Read
+
+Allowed:
+✓ List jobs
+✓ View job output
+✓ List inventories
+✓ View hosts
+
+Denied:
+✗ Launch a job
+✗ Create users
+✗ Delete credentials
+✗ Modify settings</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This means:
+* <strong>Admins</strong> can use the AI to do anything they could do manually
+* <strong>Read-only users</strong> can only query information
+* <strong>Team members</strong> respect team-level permissions
+* <strong>Audit logs</strong> track all AI-driven actions</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_key_takeaways"><a class="anchor" href="#_key_takeaways"></a>Key Takeaways</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Ansible MCP Server</strong> brings AI access to your AAP environment</p>
+</li>
+<li>
+<p><strong>6 toolsets</strong> cover: jobs, inventory, monitoring, users, security, and configuration</p>
+</li>
+<li>
+<p><strong>1 server, 6 endpoints</strong> — all can be connected at once</p>
+</li>
+<li>
+<p><strong>RBAC is enforced</strong> — permissions from AAP flow through to MCP</p>
+</li>
+<li>
+<p><strong>Natural language</strong> replaces manual web UI clicks and API calls</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You understand the toolsets. Now let&#8217;s see the <strong>complete communication workflow</strong>—how a request flows from user to AI to AAP.</p>
+</div>
+<div class="paragraph">
+<p>→ <strong>Continue to Section 4: Communication Workflow</strong></p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section2.html">Section 2: MCP Architecture</a></span>
+  <span class="next"><a href="section4.html">Section 4: Communication Workflow</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Section 2: MCP Architecture :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <link rel="prev" href="section1.html">
+    <link rel="next" href="section3.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section2.html">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section5.html">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a></li>
+    <li><a href="section2.html">Section 2: MCP Architecture</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Section 2: MCP Architecture</h1>
+<div class="sect1">
+<h2 id="_what_are_the_building_blocks"><a class="anchor" href="#_what_are_the_building_blocks"></a>What are the Building Blocks?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MCP is built from <strong>four main components</strong>. Let&#8217;s break them down:</p>
+</div>
+<div class="sect2">
+<h3 id="_component_1_the_ai_client_the_requester"><a class="anchor" href="#_component_1_the_ai_client_the_requester"></a>Component 1: The AI Client (The Requester)</h3>
+<div class="paragraph">
+<p>This is where <strong>you</strong> interact with the AI. It could be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Claude Desktop</strong> — A desktop application by Anthropic</p>
+</li>
+<li>
+<p><strong>Cursor IDE</strong> — A code editor with AI built in</p>
+</li>
+<li>
+<p><strong>LibreChat</strong> — A web-based chat interface</p>
+</li>
+<li>
+<p><strong>ChatGPT</strong> — OpenAI&#8217;s chatbot</p>
+</li>
+<li>
+<p><strong>Any MCP-compatible tool</strong> you&#8217;re using</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Role</strong>: You enter natural language requests here. "Show me failed jobs from yesterday." The client sends your request to the AI model.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_component_2_the_ai_model_the_translator"><a class="anchor" href="#_component_2_the_ai_model_the_translator"></a>Component 2: The AI Model (The Translator)</h3>
+<div class="paragraph">
+<p>This is the <strong>large language model (LLM)</strong> — the brain of the operation.</p>
+</div>
+<div class="paragraph">
+<p>Examples:
+* Claude (Anthropic)
+* GPT-4 (OpenAI)
+* Qwen (Alibaba)
+* Any LLM that supports MCP</p>
+</div>
+<div class="paragraph">
+<p><strong>Role</strong>: It interprets your natural language request and figures out which MCP <strong>tools</strong> to call and with what parameters.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example Interpretation</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Your Input: "How many Windows servers do I have?"
+
+AI Model Thinks: "The user wants server counts. I should:
+1. Call inventory_list to get hosts
+2. Filter for hosts with 'os_windows' group
+3. Count them"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_component_3_mcp_server_the_gatekeeper"><a class="anchor" href="#_component_3_mcp_server_the_gatekeeper"></a>Component 3: MCP Server (The Gatekeeper)</h3>
+<div class="paragraph">
+<p>The <strong>MCP Server</strong> is the bridge between the AI and your infrastructure.</p>
+</div>
+<div class="paragraph">
+<p><strong>Role</strong>:
+* Receives structured requests from the AI model
+* Validates the request using your API token
+* Executes the request against your system (AAP, in this case)
+* Standardizes the response and sends it back to the AI</p>
+</div>
+<div class="paragraph">
+<p>The MCP server <strong>never trusts the AI directly</strong>. It requires authentication and applies your system&#8217;s security policies.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_component_4_your_system_the_executor"><a class="anchor" href="#_component_4_your_system_the_executor"></a>Component 4: Your System (The Executor)</h3>
+<div class="paragraph">
+<p>In this course, it&#8217;s <strong>Ansible Automation Platform (AAP)</strong>, but it could be:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Your cloud platform (AWS, Azure, GCP)</p>
+</li>
+<li>
+<p>Your internal database</p>
+</li>
+<li>
+<p>Your monitoring system</p>
+</li>
+<li>
+<p>Any system with an API</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Role</strong>: Executes the actual action or returns the requested data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_they_connect"><a class="anchor" href="#_how_they_connect"></a>How They Connect</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s the complete architecture:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">┌──────────────┐
+│   You        │  Enter natural language
+└──────┬───────┘
+       │
+┌──────▼─────────────────────────────┐
+│  AI Client                          │  (Claude, Cursor, etc)
+│ "List my jobs"                      │
+└──────┬─────────────────────────────┘
+       │ Sends to LLM
+┌──────▼─────────────────────────────┐
+│  AI Model (LLM)                     │  Interprets intent
+│ "I need to call job_list tool"     │
+└──────┬─────────────────────────────┘
+       │ Calls MCP tool
+┌──────▼─────────────────────────────┐
+│  MCP Server                         │  Validates &amp; translates
+│ Authenticates with token            │
+│ Translates to AAP API call          │
+└──────┬─────────────────────────────┘
+       │ Makes API call
+┌──────▼─────────────────────────────┐
+│  Ansible Automation Platform        │  Executes
+│ Queries job database                │
+│ Returns list of jobs                │
+└──────┬─────────────────────────────┘
+       │ Returns raw data
+┌──────▼─────────────────────────────┐
+│  MCP Server (cont'd)                │  Standardizes
+│ Formats response                    │
+│ Sends to AI Model                   │
+└──────┬─────────────────────────────┘
+       │ Returns formatted data
+┌──────▼─────────────────────────────┐
+│  AI Model (LLM) (cont'd)            │  Explains to user
+│ Reads job list                      │
+│ Composes natural language response  │
+└──────┬─────────────────────────────┘
+       │ Displays response
+┌──────▼──────────────┐
+│  You                 │
+│ Reads job summary    │
+└─────────────────────┘</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_about_security"><a class="anchor" href="#_what_about_security"></a>What About Security?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The MCP Server is the <strong>security checkpoint</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Authentication</strong>: Uses your AAP API token to verify requests</p>
+</li>
+<li>
+<p><strong>Authorization</strong>: Only allows actions your user account has permission to perform</p>
+</li>
+<li>
+<p><strong>Standardization</strong>: Ensures all requests follow the same format</p>
+</li>
+<li>
+<p><strong>Validation</strong>: Checks that parameters are valid before sending to AAP</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">Security Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">AI asks: "Delete all hosts"
+
+MCP Server checks:
+✓ Is the API token valid? YES
+✓ Does the user have delete permission? NO
+✗ DENIED - Permission rejected
+
+Response to AI: "You don't have permission to delete hosts"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_key_takeaways"><a class="anchor" href="#_key_takeaways"></a>Key Takeaways</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Four components</strong> work together: Client, AI Model, MCP Server, Your System</p>
+</li>
+<li>
+<p><strong>MCP Server is the gatekeeper</strong> — it validates and secures all requests</p>
+</li>
+<li>
+<p><strong>Tokens provide authentication</strong> — proving who you are</p>
+</li>
+<li>
+<p><strong>RBAC is enforced</strong> — you can only do what your user account allows</p>
+</li>
+<li>
+<p><strong>Response is standardized</strong> — the AI gets consistent, predictable data</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You understand the components. Now let&#8217;s see how <strong>Ansible Automation Platform</strong> uses MCP.</p>
+</div>
+<div class="paragraph">
+<p>→ <strong>Continue to Section 3: AAP Integration &amp; Toolsets</strong></p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section1.html">Section 1: What is MCP?</a></span>
+  <span class="next"><a href="section3.html">Section 3: AAP Integration &amp; Toolsets</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

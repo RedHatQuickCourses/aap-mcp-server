@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Chapter 1: Understanding MCP &amp; AAP Integration :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
-    <link rel="prev" href="../LABENV/index.html">
-    <link rel="next" href="section1.html">
+    <title>Section 1: What is MCP? :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="section2.html">
     <meta name="generator" content="Antora 3.2.0-alpha.12">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -62,11 +62,11 @@
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="section1.html">Section 1: What is MCP?</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -150,6 +150,7 @@
   <ul>
     <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
     <li><a href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a></li>
+    <li><a href="section1.html">Section 1: What is MCP?</a></li>
   </ul>
 </nav>
 </div>
@@ -158,61 +159,160 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Chapter 1: Understanding MCP &amp; AAP Integration</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Welcome to the learning section of this course. In this chapter, you will understand what the Model Context Protocol is, how it works, and how Ansible Automation Platform uses it to connect with AI tools.</p>
-</div>
-<div class="paragraph">
-<p>We&#8217;ll break this down into bite-sized sections that follow a simple pattern: <strong>What is it? → Why is it needed? → How does it work?</strong></p>
-</div>
-</div>
-</div>
+<h1 class="page">Section 1: What is MCP?</h1>
 <div class="sect1">
-<h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You&#8217;ll Learn</h2>
+<h2 id="_what_is_the_model_context_protocol"><a class="anchor" href="#_what_is_the_model_context_protocol"></a>What is the Model Context Protocol?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>By the end of this chapter, you will be able to:</p>
+<p>The <strong>Model Context Protocol (MCP)</strong> is an open-source standard that provides a universal way for AI models to interact with external data and tools.</p>
+</div>
+<div class="paragraph">
+<p>Think of it as <strong>"USB-C for the AI ecosystem"</strong> — just like USB-C works with many different devices without custom adapters, MCP works with many different AI models and tools without requiring custom integrations.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="mcp-concept.png" alt="MCP as USB-C for AI" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p>Instead of building a unique integration every time you want an AI model to interact with a new system, MCP provides a standardized method. This means:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Define the Model Context Protocol and understand its role in the AI ecosystem</p>
+<p>✅ AI models can connect to different data sources without model-specific code</p>
 </li>
 <li>
-<p>Understand the architecture of MCP and how different components interact</p>
+<p>✅ You can swap AI providers without rewriting integrations</p>
 </li>
 <li>
-<p>Explain Ansible Automation Platform&#8217;s MCP server and its capabilities</p>
-</li>
-<li>
-<p>Describe the complete communication workflow from user to AI to AAP</p>
-</li>
-<li>
-<p>Identify and describe the 6 AAP MCP toolsets</p>
-</li>
-<li>
-<p>Understand the end-to-end workflow for deploying and using MCP</p>
+<p>✅ Security and permissions are handled consistently</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_time_required"><a class="anchor" href="#_time_required"></a>Time Required</h2>
+<h2 id="_why_is_mcp_needed"><a class="anchor" href="#_why_is_mcp_needed"></a>Why is MCP Needed?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This chapter takes approximately <strong>30-45 minutes</strong> to read and understand. Each section builds on the previous one, so go through them in order.</p>
+<p>Imagine you want to use ChatGPT to query your servers, while a colleague uses Claude to do the same thing. Without a standard protocol:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ChatGPT integration team writes custom code to connect ChatGPT to your servers</p>
+</li>
+<li>
+<p>Claude integration team writes completely different code to do the same thing</p>
+</li>
+<li>
+<p>You have duplicated code, duplicated bugs, and duplicated maintenance</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><strong>Ready?</strong> Start with Section 1 below!</p>
+<p><strong>With MCP</strong>, both ChatGPT and Claude connect to the same MCP server. No duplication. No redundancy.</p>
+</div>
+<div class="sect2">
+<h3 id="_the_real_problem_mcp_solves"><a class="anchor" href="#_the_real_problem_mcp_solves"></a>The Real Problem MCP Solves</h3>
+<div class="paragraph">
+<p>AI models like Claude or ChatGPT are trained on data <strong>frozen at a point in time</strong>. They don&#8217;t know:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>What jobs ran in your Ansible Automation Platform <strong>yesterday</strong></p>
+</li>
+<li>
+<p>Which servers are currently online in your inventory</p>
+</li>
+<li>
+<p>What security events happened <strong>today</strong></p>
+</li>
+<li>
+<p>Real-time metrics or current status</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>MCP solves this by giving AI models <strong>real-time access</strong> to your live systems. They can ask questions and get current answers, not guesses based on training data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_does_it_work_simple_version"><a class="anchor" href="#_how_does_it_work_simple_version"></a>How Does It Work? (Simple Version)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MCP works in three simple steps:</p>
+</div>
+<div class="olist arabic">
+<div class="title">MCP Flow</div>
+<ol class="arabic">
+<li>
+<p><strong>You ask</strong> → You send a natural language request to your AI tool</p>
+</li>
+<li>
+<p><strong>AI translates</strong> → The AI understands your intent and calls the appropriate MCP tool</p>
+</li>
+<li>
+<p><strong>MCP delivers</strong> → The MCP server fetches real data and returns it to the AI</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "List my recent Ansible jobs"
+   ↓
+AI: "I need to call the job_list tool with recent=true"
+   ↓
+MCP Server: Queries AAP and returns the list of jobs
+   ↓
+AI: "Here are your last 5 jobs: ..."</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_key_takeaways"><a class="anchor" href="#_key_takeaways"></a>Key Takeaways</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MCP is a standard</strong> for connecting AI models to external systems</p>
+</li>
+<li>
+<p><strong>It&#8217;s like USB-C</strong> — one standard that works with many AI tools</p>
+</li>
+<li>
+<p><strong>It solves a real problem</strong> — giving AI real-time access to live data</p>
+</li>
+<li>
+<p><strong>It reduces duplication</strong> — one integration instead of many</p>
+</li>
+<li>
+<p><strong>It&#8217;s secure</strong> — authentication and permissions are baked in</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You understand <strong>what</strong> MCP is. Now let&#8217;s understand <strong>how</strong> it&#8217;s built — the architecture and components.</p>
+</div>
+<div class="paragraph">
+<p>→ <strong>Continue to Section 2: MCP Architecture</strong></p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../LABENV/index.html">Lab Environment</a></span>
-  <span class="next"><a href="section1.html">Section 1: What is MCP?</a></span>
+  <span class="prev"><a href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a></span>
+  <span class="next"><a href="section2.html">Section 2: MCP Architecture</a></span>
 </nav>
 </article>
   </div>

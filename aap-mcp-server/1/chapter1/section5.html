@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Section 5: End-to-End Workflow :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <link rel="prev" href="section4.html">
+    <link rel="next" href="#pages/index.adoc">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section3.html">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section4.html">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section5.html">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a></li>
+    <li><a href="section5.html">Section 5: End-to-End Workflow</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Section 5: End-to-End Workflow</h1>
+<div class="sect1">
+<h2 id="_getting_mcp_running_the_three_steps"><a class="anchor" href="#_getting_mcp_running_the_three_steps"></a>Getting MCP Running: The Three Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you understand <strong>what</strong> MCP is and <strong>how</strong> it works, here&#8217;s what you actually <strong>do</strong> to make it work.</p>
+</div>
+<div class="paragraph">
+<p>Every deployment follows the same three-step workflow:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 50%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Step</th>
+<th class="tableblock halign-left valign-top">What Happens</th>
+<th class="tableblock halign-left valign-top">Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>1. Deploy</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Get the MCP server running on your infrastructure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chapter 2, Lab 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>2. Authenticate</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create an API token so the AI tool can prove it&#8217;s you</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chapter 2, Lab 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>3. Configure</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tell your AI tool where the MCP server is and provide the token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Chapter 2, Lab 2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_deploy_the_mcp_server"><a class="anchor" href="#_step_1_deploy_the_mcp_server"></a>Step 1: Deploy the MCP Server</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_where_does_it_run"><a class="anchor" href="#_where_does_it_run"></a>Where Does It Run?</h3>
+<div class="paragraph">
+<p>The Ansible MCP Server runs as a containerized service on your infrastructure. You can deploy it on:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>OpenShift Container Platform (OCP)</strong> — Most common for enterprise</p>
+</li>
+<li>
+<p><strong>RHEL with containers</strong> — Simpler, on a single machine</p>
+</li>
+<li>
+<p><strong>Kubernetes</strong> — Any Kubernetes cluster</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_do_you_enable_it"><a class="anchor" href="#_how_do_you_enable_it"></a>How Do You Enable It?</h3>
+<div class="paragraph">
+<p>For <strong>OpenShift deployments</strong>, you enable it in your <code>AnsibleAutomationPlatform</code> custom resource (a Kubernetes YAML file).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: aap.ansible.com/v1beta1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap
+spec:
+  mcp:
+    disabled: false
+    allow_write_operations: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set:
+* <code>disabled: false</code> → Enable the MCP server
+* <code>allow_write_operations: false</code> → Read-only (safe default for starting out)</p>
+</div>
+<div class="paragraph">
+<p>The Kubernetes Operator will then:
+1. Create a new Pod for the MCP server
+2. Expose it with a network route
+3. Handle certificates and networking</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_long_does_it_take"><a class="anchor" href="#_how_long_does_it_take"></a>How Long Does It Take?</h3>
+<div class="paragraph">
+<p>Usually <strong>5-15 minutes</strong> for the operator to reconcile and the MCP server to be ready.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_generate_an_api_token"><a class="anchor" href="#_step_2_generate_an_api_token"></a>Step 2: Generate an API Token</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_whats_an_api_token"><a class="anchor" href="#_whats_an_api_token"></a>What&#8217;s an API Token?</h3>
+<div class="paragraph">
+<p>An <strong>API token</strong> is like a password, but:
+* ✓ Safer — it can&#8217;t see your actual password
+* ✓ Restricted — you can give it only certain permissions
+* ✓ Temporary — you can delete it without changing your password
+* ✓ Auditable — you can see which token did what</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_do_you_create_one"><a class="anchor" href="#_how_do_you_create_one"></a>How Do You Create One?</h3>
+<div class="paragraph">
+<p>In Ansible Automation Platform:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to the AAP web UI</p>
+</li>
+<li>
+<p>Go to <strong>Access Management</strong> → <strong>API Tokens</strong></p>
+</li>
+<li>
+<p>Click <strong>Create Token</strong></p>
+</li>
+<li>
+<p>Enter:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Name</strong>: Something descriptive like <code>mcp-token</code> or <code>claude-integration</code></p>
+</li>
+<li>
+<p><strong>Scope</strong>: Usually <strong>Read</strong> to start (safer), or <strong>Read + Write</strong> if you need to launch jobs</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>Create</strong> and copy the token immediately</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>⚠️ <strong>Important</strong>: The token is only displayed once. If you don&#8217;t copy it now, you&#8217;ll have to delete it and create a new one.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_token"><a class="anchor" href="#_example_token"></a>Example Token</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is what you&#8217;ll provide to your AI tool later.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_permissions_should_it_have"><a class="anchor" href="#_what_permissions_should_it_have"></a>What Permissions Should It Have?</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scope</th>
+<th class="tableblock halign-left valign-top">When to Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Read Only</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You want the AI to query information but not change anything. Great for learning and demos.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Read + Write</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You want the AI to launch jobs, create users, etc. Use carefully with proper RBAC.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Recommendation</strong>: Start with <strong>Read Only</strong>. Upgrade to <strong>Read + Write</strong> once you&#8217;re comfortable with the workflow.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_3_configure_your_ai_tool"><a class="anchor" href="#_step_3_configure_your_ai_tool"></a>Step 3: Configure Your AI Tool</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_what_are_you_telling_it"><a class="anchor" href="#_what_are_you_telling_it"></a>What Are You Telling It?</h3>
+<div class="paragraph">
+<p>You&#8217;re giving your AI tool three pieces of information:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Where is the MCP server?</strong> (The URL)</p>
+</li>
+<li>
+<p><strong>Who am I?</strong> (Your API token)</p>
+</li>
+<li>
+<p><strong>What can I access?</strong> (The 6 toolsets)</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_do_you_configure_it"><a class="anchor" href="#_how_do_you_configure_it"></a>How Do You Configure It?</h3>
+<div class="paragraph">
+<p>This depends on which AI tool you&#8217;re using:</p>
+</div>
+<div class="sect3">
+<h4 id="_option_a_cursor_ide"><a class="anchor" href="#_option_a_cursor_ide"></a>Option A: Cursor IDE</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># 1. Set environment variables
+export AAP_SERVER="https://aap.example.com:8448"
+export MY_SERVICE_TOKEN="your-api-token"
+
+# 2. Open Cursor Settings → Tools &amp; MCP
+# 3. Paste the MCP configuration (includes all 6 toolsets)
+# 4. Click Save and restart Cursor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_option_b_claude_desktop"><a class="anchor" href="#_option_b_claude_desktop"></a>Option B: Claude Desktop</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># 1. Create a config file at:
+# ~/.claude/claude.json
+
+# 2. Add MCP server configuration with your AAP URL and token
+
+# 3. Restart Claude</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_option_c_librechat_web_based"><a class="anchor" href="#_option_c_librechat_web_based"></a>Option C: LibreChat (Web-Based)</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># 1. Open LibreChat web interface
+# 2. Go to Settings
+# 3. Add MCP Server:
+#    Name: aap
+#    URL: https://aap.example.com:8448/mcp
+#    Token: your-api-token
+# 4. Click Connect</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_configuration_json_format"><a class="anchor" href="#_example_configuration_json_format"></a>Example Configuration (JSON Format)</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "mcpServers": {
+    "aap-job-mgmt": {
+      "type": "http",
+      "url": "https://aap.example.com:8448/job_management/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    },
+    "aap-inventory": {
+      "type": "http",
+      "url": "https://aap.example.com:8448/inventory_management/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    },
+    // ... (4 more toolsets)
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verification_is_everything_connected"><a class="anchor" href="#_verification_is_everything_connected"></a>Verification: Is Everything Connected?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After configuration, test the connection:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># In your AI tool, type:
+"What MCP tools are available?"
+
+# The AI should respond:
+"You have access to 6 AAP MCP toolsets with approximately
+85 tools total:
+- Job Management (15 tools)
+- Inventory Management (12 tools)
+- System Monitoring (18 tools)
+- User Management (10 tools)
+- Security &amp; Compliance (14 tools)
+- Platform Configuration (16 tools)"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you see this, <strong>congratulations!</strong> Everything is working.</p>
+</div>
+<div class="paragraph">
+<p>If not, check:
+* ✓ MCP server is running (check Kubernetes/OCP)
+* ✓ AAP URL is correct (no typos, correct port)
+* ✓ API token is valid (hasn&#8217;t expired or been deleted)
+* ✓ Firewall allows connection to AAP</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_end_to_end_scenario"><a class="anchor" href="#_example_end_to_end_scenario"></a>Example End-to-End Scenario</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here&#8217;s what a real workflow looks like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Monday 9:00 AM
+You: "How many jobs failed this weekend?"
+
+AI queries AAP → Returns 5 failed jobs
+
+You: "Show me the details of job #456"
+
+AI queries AAP → Returns error logs
+
+You: "What was the failure?"
+
+AI: "Host 'prod-web-02' was unreachable."
+
+You: "Can I restart that host?"
+
+AI: "Your token has read-only permission.
+    You'd need to create a new token with write access
+    or log into AAP directly to restart the host."
+
+You: "Never mind. List all production hosts."
+
+AI queries AAP → Returns 24 production hosts
+
+You: "Are they all healthy?"
+
+AI: "I'll check the monitoring data...
+    23 are healthy, but 'prod-db-03' has high CPU (87%)"
+
+You: "Alert the team about the high CPU."
+
+AI: "I've logged this. Here's the information to share:
+    Host: prod-db-03
+    CPU: 87%
+    Memory: 45%
+    Alert time: 9:15 AM"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This all happened <strong>without logging into AAP directly</strong> or writing any code.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_key_takeaways"><a class="anchor" href="#_key_takeaways"></a>Key Takeaways</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>3 simple steps</strong>: Deploy → Authenticate → Configure</p>
+</li>
+<li>
+<p><strong>Deployment</strong> takes 5-15 minutes on Kubernetes/OCP</p>
+</li>
+<li>
+<p><strong>Tokens</strong> give controlled access to your infrastructure</p>
+</li>
+<li>
+<p><strong>Configuration</strong> is just telling your AI tool where to find MCP</p>
+</li>
+<li>
+<p><strong>Verification</strong> is asking the AI what tools it has access to</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s Next?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You now understand:
+* ✓ What MCP is
+* ✓ How the architecture works
+* ✓ What AAP provides
+* ✓ The communication flow
+* ✓ The deployment workflow</p>
+</div>
+<div class="paragraph">
+<p><strong>Chapter 2 is hands-on labs</strong> where you&#8217;ll actually do these three steps yourself.</p>
+</div>
+<div class="paragraph">
+<p>Ready? Let&#8217;s get started with the labs!</p>
+</div>
+<div class="paragraph">
+<p>→ <strong>Continue to Chapter 2: Hands-On Labs</strong></p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section4.html">Section 4: Communication Workflow</a></span>
+  <span class="next"><a href="#pages/index.adoc">Chapter 2: Hands-On Labs</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
