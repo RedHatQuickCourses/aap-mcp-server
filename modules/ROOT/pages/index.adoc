@@ -1,30 +1,34 @@
-= An Example Quick Course
+= Model Context Protocol (MCP) for Ansible Automation Platform
 :navtitle: Home
 
 == Introduction
 
-Course Title: Course title FIXME
+Welcome to the learning section of this course. In this chapter, you will understand what the Model Context Protocol is, how it works, and how Ansible Automation Platform uses it to connect with AI tools.
 
-Description:
-Course description FIXME
+We'll break this down into bite-sized sections that follow a simple pattern: **What is it? → Why is it needed? → How does it work?**
 
-Duration: pass:[<span class="course-total-duration" aria-live="polite">…</span>]
+== What You'll Learn
 
-== Objectives
+By the end of this chapter, you will be able to:
 
-On completing this course, you should be able to:
-
-* Observable, measurable objective...
-* Observable, measurable objective...
-* Observable, measurable objective...
+* Define the Model Context Protocol and understand its role in the AI ecosystem
+* Understand the architecture of MCP and how different components interact
+* Explain Ansible Automation Platform's MCP server and its capabilities
+* Describe the complete communication workflow from user to AI to AAP
+* Identify and describe the 6 AAP MCP toolsets
+* Understand the end-to-end workflow for deploying and using MCP
 
 == Prerequisites
 
 This course assumes that you have the following prior experience:
 
-* Course or experience...
-* Course or experience...
-* Course or experience...
+* Ansible Automation Platform fundamentals:
+* What is AI and how to Prompt to an AI tool. 
 
-NOTE: **Use of Artificial Intelligence:**
-This publication contains content or media that is generated or assisted by AI tools. All the Training deliverables have primarily human authorship, and all content was reviewed by a human domain expert.
+== Contributors
+
+The PTL team acknowledges the valuable contributions of the following Red Hat associates:
+
+ - Andrew Block (Subject Matter Expert)
+ - Amrinder Singh (Content Architect)
+ - Anna Swicegood (Learning Product Manager)
