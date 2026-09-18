@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Chapter 1: Understanding MCP &amp; AAP Integration :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <title>Model Context Protocol (MCP) for Ansible Automation Platform :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
     <link rel="prev" href="../LABENV/index.html">
     <link rel="next" href="section1.html">
     <meta name="generator" content="Antora 3.2.0-alpha.12">
@@ -64,7 +64,7 @@
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+    <a class="nav-link" href="index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section1.html">What is MCP?</a>
@@ -151,8 +151,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
-    <li><a href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a></li>
+    <li><a href="index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
   </ul>
 </nav>
 </div>
@@ -161,7 +160,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Chapter 1: Understanding MCP &amp; AAP Integration</h1>
+<h1 class="page">Model Context Protocol (MCP) for Ansible Automation Platform</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -205,16 +204,16 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Launch the <a href="{openshift_cluster_console_url}" target="_blank" rel="noopener">OpenShift Web Console</a></p>
+<p>Launch the <a href="{openshift_cluster_console_url}" target="_blank" rel="noopener">OpenShift console</a> and login using the credentials provided in the RHDP login page.</p>
 </li>
 <li>
 <p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a> page to login to the OpenShift console</p>
 </li>
 <li>
 <p>Use the 9-block icon in the upper right to launch <em>Red Hat OpenShift Dev Spaces</em> directly from the OpenShift console header.</p>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<a class="image" href="11-platform-dev-spaces/intro-dev_spaces_shortcut.png" target="blank"><img src="11-platform-dev-spaces/intro-dev_spaces_shortcut.png" alt="OpenShift console header showing the 9-block application launcher icon for quick access to Dev Spaces"></a>
+<a class="image" href="_images/intro-dev_spaces_shortcut.png" target="blank"><img src="_images/intro-dev_spaces_shortcut.png" alt="intro dev spaces shortcut"></a>
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -253,9 +252,9 @@ Alternatively, the direct URL is <a href="https://devspaces.{openshift_cluster_i
 </li>
 <li>
 <p>Scroll down and select the workspace sample titled <strong>Ansible Dev Space</strong></p>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<a class="image" href="11-platform-dev-spaces/intro3.png" target="blank"><img src="11-platform-dev-spaces/intro3.png" alt="Dev Spaces workspace selection page showing available workspaces including Ansible Dev Space"></a>
+<a class="image" href="_images/intro3.png" target="blank"><img src="_images/intro3.png" alt="intro3"></a>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -270,9 +269,9 @@ It will take a few minutes for the Dev Spaces instance to initialize. When it ha
 </tr>
 </table>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<a class="image" href="11-platform-dev-spaces/intro4.png" target="blank"><img src="11-platform-dev-spaces/intro4.png" alt="Dev Spaces workspace loading screen showing VS Code interface initialization"></a>
+<a class="image" href="_images/intro4.png" target="blank"><img src="_images/intro4.png" alt="intro4"></a>
 </div>
 </div>
 </li>
@@ -284,9 +283,9 @@ It will take a few minutes for the Dev Spaces instance to initialize. When it ha
 </li>
 <li>
 <p>Wait a few minutes until the additional extension icons appear for Ansible and OpenShift on the left side.</p>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<a class="image" href="11-platform-dev-spaces/intro5.png" target="blank"><img src="11-platform-dev-spaces/intro5.png" alt="VS Code interface in Dev Spaces showing Ansible and OpenShift extension icons in the left sidebar"></a>
+<a class="image" href="_images/intro5.png" target="blank"><img src="_images/intro5.png" alt="intro5"></a>
 </div>
 </div>
 </li>
@@ -305,9 +304,9 @@ It will take a few minutes for the Dev Spaces instance to initialize. When it ha
 <ol class="arabic">
 <li>
 <p>Click on the <strong>Ansible</strong> extension icon to access the Ansible Development Tools extension (covered in a subsequent lab)</p>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<a class="image" href="11-platform-dev-spaces/intro6.png" target="blank"><img src="11-platform-dev-spaces/intro6.png" alt="Ansible extension interface in VS Code showing available Ansible development tools"></a>
+<a class="image" href="_images/intro6.png" target="blank"><img src="_images/intro6.png" alt="intro6"></a>
 </div>
 </div>
 </li>
@@ -325,9 +324,9 @@ It will take a few minutes for the Dev Spaces instance to initialize. When it ha
 <ol class="arabic">
 <li>
 <p>Open a new terminal by selecting the VS Code menu starting with the hamburger (3 horizontal lines) in the top left, then selecting <strong>Terminal</strong> &#8594; <strong>New Terminal</strong></p>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<a class="image" href="11-platform-dev-spaces/intro7.png" target="blank"><img src="11-platform-dev-spaces/intro7.png" alt="VS Code terminal interface showing basic command line operations in the Dev Spaces environment"></a>
+<a class="image" href="_images/intro7.png" target="blank"><img src="_images/intro7.png" alt="intro7"></a>
 </div>
 </div>
 </li>
