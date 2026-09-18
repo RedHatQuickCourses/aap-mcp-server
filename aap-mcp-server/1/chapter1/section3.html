@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Section 3: AAP Integration &amp; Toolsets :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <title>AAP Integration &amp; Toolsets :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
     <link rel="prev" href="section2.html">
     <link rel="next" href="section4.html">
     <meta name="generator" content="Antora 3.2.0-alpha.12">
@@ -67,19 +67,22 @@
     <a class="nav-link" href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section1.html">Section 1: What is MCP?</a>
+    <a class="nav-link" href="section1.html">What is MCP?</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Section 2: MCP Architecture</a>
+    <a class="nav-link" href="section2.html">MCP Architecture</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section3.html">Section 3: AAP Integration &amp; Toolsets</a>
+    <a class="nav-link" href="section3.html">AAP Integration &amp; Toolsets</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section4.html">Section 4: Communication Workflow</a>
+    <a class="nav-link" href="section4.html">Communication Workflow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section5.html">Section 5: End-to-End Workflow</a>
+    <a class="nav-link" href="section5.html">End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section6.html">section6.adoc</a>
   </li>
 </ul>
   </li>
@@ -150,7 +153,7 @@
   <ul>
     <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
     <li><a href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a></li>
-    <li><a href="section3.html">Section 3: AAP Integration &amp; Toolsets</a></li>
+    <li><a href="section3.html">AAP Integration &amp; Toolsets</a></li>
   </ul>
 </nav>
 </div>
@@ -159,7 +162,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Section 3: AAP Integration &amp; Toolsets</h1>
+<h1 class="page">AAP Integration &amp; Toolsets</h1>
 <div class="sect1">
 <h2 id="_what_is_the_ansible_mcp_server"><a class="anchor" href="#_what_is_the_ansible_mcp_server"></a>What is the Ansible MCP Server?</h2>
 <div class="sectionbody">
@@ -178,18 +181,42 @@
 <h2 id="_why_aap_needs_an_mcp_server"><a class="anchor" href="#_why_aap_needs_an_mcp_server"></a>Why AAP Needs an MCP Server</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AAP manages:
-* <strong>Thousands of servers and devices</strong>
-* <strong>Complex automation workflows and job executions</strong>
-* <strong>Sensitive credentials and access control</strong>
-* <strong>User teams and role-based permissions</strong>
-* <strong>Audit logs and compliance data</strong></p>
+<p>AAP manages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Thousands of servers and devices</strong></p>
+</li>
+<li>
+<p><strong>Complex automation workflows and job executions</strong></p>
+</li>
+<li>
+<p><strong>Sensitive credentials and access control</strong></p>
+</li>
+<li>
+<p><strong>User teams and role-based permissions</strong></p>
+</li>
+<li>
+<p><strong>Audit logs and compliance data</strong></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Before MCP, the only way to query this was:
-1. Log into the web UI manually
-2. Click through menus
-3. Run API commands with <code>curl</code> or write custom scripts</p>
+<p>Before MCP, the only way to query this was:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log into the web UI manually</p>
+</li>
+<li>
+<p>Click through menus</p>
+</li>
+<li>
+<p>Run API commands with <code>curl</code> or write custom scripts</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>MCP enables</strong>: Ask the AI in natural language, get instant answers.</p>
@@ -208,12 +235,26 @@
 <p><strong>What it does</strong>: Execute and monitor automation jobs.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tools you can call</strong>:
-* List job templates
-* Start a job run
-* Check job status
-* View job output/logs
-* List recent jobs</p>
+<p><strong>Tools you can call</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>List job templates</p>
+</li>
+<li>
+<p>Start a job run</p>
+</li>
+<li>
+<p>Check job status</p>
+</li>
+<li>
+<p>View job output/logs</p>
+</li>
+<li>
+<p>List recent jobs</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Example queries</strong>:</p>
@@ -232,12 +273,26 @@
 <p><strong>What it does</strong>: Manage hosts, groups, and inventories.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tools you can call</strong>:
-* List inventories
-* Get hosts in a group
-* List inventory groups
-* Get host details and variables
-* Filter hosts by properties</p>
+<p><strong>Tools you can call</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>List inventories</p>
+</li>
+<li>
+<p>Get hosts in a group</p>
+</li>
+<li>
+<p>List inventory groups</p>
+</li>
+<li>
+<p>Get host details and variables</p>
+</li>
+<li>
+<p>Filter hosts by properties</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Example queries</strong>:</p>
@@ -256,12 +311,26 @@
 <p><strong>What it does</strong>: Monitor platform health and performance metrics.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tools you can call</strong>:
-* Check AAP health status
-* Get execution node metrics
-* View job execution statistics
-* Monitor capacity and usage
-* Get system performance data</p>
+<p><strong>Tools you can call</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Check AAP health status</p>
+</li>
+<li>
+<p>Get execution node metrics</p>
+</li>
+<li>
+<p>View job execution statistics</p>
+</li>
+<li>
+<p>Monitor capacity and usage</p>
+</li>
+<li>
+<p>Get system performance data</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Example queries</strong>:</p>
@@ -280,12 +349,26 @@
 <p><strong>What it does</strong>: Manage users, teams, and organizations.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tools you can call</strong>:
-* List users and teams
-* Get team memberships
-* View organization details
-* Check user roles and permissions
-* Manage RBAC assignments</p>
+<p><strong>Tools you can call</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>List users and teams</p>
+</li>
+<li>
+<p>Get team memberships</p>
+</li>
+<li>
+<p>View organization details</p>
+</li>
+<li>
+<p>Check user roles and permissions</p>
+</li>
+<li>
+<p>Manage RBAC assignments</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Example queries</strong>:</p>
@@ -304,12 +387,26 @@
 <p><strong>What it does</strong>: Access security policies, credentials, and audit logs.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tools you can call</strong>:
-* View audit logs
-* List credentials
-* Check security settings
-* Review compliance data
-* Monitor access and changes</p>
+<p><strong>Tools you can call</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>View audit logs</p>
+</li>
+<li>
+<p>List credentials</p>
+</li>
+<li>
+<p>Check security settings</p>
+</li>
+<li>
+<p>Review compliance data</p>
+</li>
+<li>
+<p>Monitor access and changes</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Example queries</strong>:</p>
@@ -328,12 +425,26 @@
 <p><strong>What it does</strong>: Configure platform settings and resources.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tools you can call</strong>:
-* List projects and their status
-* View execution environments
-* Get platform settings
-* Manage integrations
-* Configure system properties</p>
+<p><strong>Tools you can call</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>List projects and their status</p>
+</li>
+<li>
+<p>View execution environments</p>
+</li>
+<li>
+<p>Get platform settings</p>
+</li>
+<li>
+<p>Manage integrations</p>
+</li>
+<li>
+<p>Configure system properties</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Example queries</strong>:</p>
@@ -422,33 +533,21 @@ Denied:
 </div>
 </div>
 <div class="paragraph">
-<p>This means:
-* <strong>Admins</strong> can use the AI to do anything they could do manually
-* <strong>Read-only users</strong> can only query information
-* <strong>Team members</strong> respect team-level permissions
-* <strong>Audit logs</strong> track all AI-driven actions</p>
+<p>This means:</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_key_takeaways"><a class="anchor" href="#_key_takeaways"></a>Key Takeaways</h2>
-<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Ansible MCP Server</strong> brings AI access to your AAP environment</p>
+<p><strong>Admins</strong> can use the AI to do anything they could do manually</p>
 </li>
 <li>
-<p><strong>6 toolsets</strong> cover: jobs, inventory, monitoring, users, security, and configuration</p>
+<p><strong>Read-only users</strong> can only query information</p>
 </li>
 <li>
-<p><strong>1 server, 6 endpoints</strong> — all can be connected at once</p>
+<p><strong>Team members</strong> respect team-level permissions</p>
 </li>
 <li>
-<p><strong>RBAC is enforced</strong> — permissions from AAP flow through to MCP</p>
-</li>
-<li>
-<p><strong>Natural language</strong> replaces manual web UI clicks and API calls</p>
+<p><strong>Audit logs</strong> track all AI-driven actions</p>
 </li>
 </ul>
 </div>
@@ -466,8 +565,8 @@ Denied:
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section2.html">Section 2: MCP Architecture</a></span>
-  <span class="next"><a href="section4.html">Section 4: Communication Workflow</a></span>
+  <span class="prev"><a href="section2.html">MCP Architecture</a></span>
+  <span class="next"><a href="section4.html">Communication Workflow</a></span>
 </nav>
 </article>
   </div>

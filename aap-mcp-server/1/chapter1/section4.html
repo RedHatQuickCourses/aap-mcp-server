@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Section 4: Communication Workflow :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <title>Communication Workflow :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
     <link rel="prev" href="section3.html">
     <link rel="next" href="section5.html">
     <meta name="generator" content="Antora 3.2.0-alpha.12">
@@ -67,19 +67,22 @@
     <a class="nav-link" href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section1.html">Section 1: What is MCP?</a>
+    <a class="nav-link" href="section1.html">What is MCP?</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Section 2: MCP Architecture</a>
+    <a class="nav-link" href="section2.html">MCP Architecture</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section3.html">Section 3: AAP Integration &amp; Toolsets</a>
+    <a class="nav-link" href="section3.html">AAP Integration &amp; Toolsets</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section4.html">Section 4: Communication Workflow</a>
+    <a class="nav-link" href="section4.html">Communication Workflow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section5.html">Section 5: End-to-End Workflow</a>
+    <a class="nav-link" href="section5.html">End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section6.html">section6.adoc</a>
   </li>
 </ul>
   </li>
@@ -150,7 +153,7 @@
   <ul>
     <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
     <li><a href="index.html">Chapter 1: Understanding MCP &amp; AAP Integration</a></li>
-    <li><a href="section4.html">Section 4: Communication Workflow</a></li>
+    <li><a href="section4.html">Communication Workflow</a></li>
   </ul>
 </nav>
 </div>
@@ -159,7 +162,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Section 4: Communication Workflow</h1>
+<h1 class="page">Communication Workflow</h1>
 <div class="sect1">
 <h2 id="_the_full_journey_from_user_to_aap"><a class="anchor" href="#_the_full_journey_from_user_to_aap"></a>The Full Journey: From User to AAP</h2>
 <div class="sectionbody">
@@ -182,9 +185,17 @@
 <p>This is a natural language request sent to your AI tool (Claude, Cursor, ChatGPT, etc).</p>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* The AI client receives your message
-* It sends it to the AI model for interpretation</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The AI client receives your message</p>
+</li>
+<li>
+<p>It sends it to the AI model for interpretation</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -204,10 +215,20 @@ I need to call the job_list tool with:
 </div>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* The AI model understands your intent
-* It maps your request to available MCP tools
-* It prepares the structured request with parameters</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The AI model understands your intent</p>
+</li>
+<li>
+<p>It maps your request to available MCP tools</p>
+</li>
+<li>
+<p>It prepares the structured request with parameters</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -228,10 +249,20 @@ I need to call the job_list tool with:
 </div>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* The MCP server receives a structured tool call
-* It validates the request format
-* It checks that the tool exists</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The MCP server receives a structured tool call</p>
+</li>
+<li>
+<p>It validates the request format</p>
+</li>
+<li>
+<p>It checks that the tool exists</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -247,10 +278,20 @@ Status: AUTHENTICATED</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* The MCP server extracts your API token from the request headers
-* It verifies the token with AAP
-* It loads your user&#8217;s permissions and RBAC settings</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The MCP server extracts your API token from the request headers</p>
+</li>
+<li>
+<p>It verifies the token with AAP</p>
+</li>
+<li>
+<p>It loads your user&#8217;s permissions and RBAC settings</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -266,10 +307,20 @@ Headers:
 </div>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* The MCP server converts the tool call into an AAP API request
-* It uses your API token to authenticate with AAP
-* It applies any RBAC restrictions from your user account</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The MCP server converts the tool call into an AAP API request</p>
+</li>
+<li>
+<p>It uses your API token to authenticate with AAP</p>
+</li>
+<li>
+<p>It applies any RBAC restrictions from your user account</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -282,11 +333,23 @@ RESULT: 3 failed jobs found</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* AAP queries its database
-* It applies your user&#8217;s permission restrictions
-* It only returns jobs you&#8217;re allowed to see
-* It returns the results as JSON</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AAP queries its database</p>
+</li>
+<li>
+<p>It applies your user&#8217;s permission restrictions</p>
+</li>
+<li>
+<p>It only returns jobs you&#8217;re allowed to see</p>
+</li>
+<li>
+<p>It returns the results as JSON</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -326,11 +389,23 @@ MCP Server Standardizes:
 </div>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* The MCP server receives raw AAP data
-* It extracts only relevant fields
-* It formats data in a way the AI can easily understand
-* It simplifies complex structures</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The MCP server receives raw AAP data</p>
+</li>
+<li>
+<p>It extracts only relevant fields</p>
+</li>
+<li>
+<p>It formats data in a way the AI can easily understand</p>
+</li>
+<li>
+<p>It simplifies complex structures</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -344,10 +419,20 @@ in a clear, readable format"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* The AI receives the structured data
-* It reads and understands the job details
-* It composes a human-readable summary</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The AI receives the structured data</p>
+</li>
+<li>
+<p>It reads and understands the job details</p>
+</li>
+<li>
+<p>It composes a human-readable summary</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -379,10 +464,20 @@ in a clear, readable format"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>What&#8217;s happening</strong>:
-* The AI client displays the formatted response
-* You read the summary
-* You can now ask follow-up questions</p>
+<p><strong>What&#8217;s happening</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The AI client displays the formatted response</p>
+</li>
+<li>
+<p>You read the summary</p>
+</li>
+<li>
+<p>You can now ask follow-up questions</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -463,18 +558,36 @@ in a clear, readable format"</code></pre>
 <div class="sect2">
 <h3 id="_security_checkpoints"><a class="anchor" href="#_security_checkpoints"></a>Security Checkpoints</h3>
 <div class="paragraph">
-<p>The workflow has <strong>multiple security checkpoints</strong>:
-1. ✓ Token validation (is the request from a valid user?)
-2. ✓ RBAC check (does the user have permission for this action?)
-3. ✓ Data filtering (only show data the user is allowed to see)</p>
+<p>The workflow has <strong>multiple security checkpoints</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>✓ Token validation (is the request from a valid user?)</p>
+</li>
+<li>
+<p>✓ RBAC check (does the user have permission for this action?)</p>
+</li>
+<li>
+<p>✓ Data filtering (only show data the user is allowed to see)</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_data_flow"><a class="anchor" href="#_data_flow"></a>Data Flow</h3>
 <div class="paragraph">
-<p>Data flows in <strong>two directions</strong>:
-1. <strong>Request direction</strong>: Natural language → Structured tool call → API call → Database query
-2. <strong>Response direction</strong>: Database result → Formatted response → Natural language summary → Display</p>
+<p>Data flows in <strong>two directions</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Request direction</strong>: Natural language → Structured tool call → API call → Database query</p>
+</li>
+<li>
+<p><strong>Response direction</strong>: Database result → Formatted response → Natural language summary → Display</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -483,36 +596,24 @@ in a clear, readable format"</code></pre>
 <p><strong>Important</strong>: The AI model never talks directly to AAP.</p>
 </div>
 <div class="paragraph">
-<p>The MCP server is always in the middle:
-* ✓ The AI cannot bypass authentication
-* ✓ The AI cannot exceed user permissions
-* ✓ All requests are logged and auditable
-* ✓ All data is standardized and validated</p>
+<p>The MCP server is always in the middle:</p>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_key_takeaways"><a class="anchor" href="#_key_takeaways"></a>Key Takeaways</h2>
-<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><strong>9 steps</strong> happen in seconds when you ask a question</p>
+<p>✓ The AI cannot bypass authentication</p>
 </li>
 <li>
-<p><strong>MCP Server is the gatekeeper</strong> at every step</p>
+<p>✓ The AI cannot exceed user permissions</p>
 </li>
 <li>
-<p><strong>RBAC is enforced</strong> — you can only see/do what your AAP user allows</p>
+<p>✓ All requests are logged and auditable</p>
 </li>
 <li>
-<p><strong>Data is standardized</strong> — complex AAP data is simplified for the AI</p>
-</li>
-<li>
-<p><strong>Security first</strong> — tokens, permissions, and audit logs protect everything</p>
+<p>✓ All data is standardized and validated</p>
 </li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -528,8 +629,8 @@ in a clear, readable format"</code></pre>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section3.html">Section 3: AAP Integration &amp; Toolsets</a></span>
-  <span class="next"><a href="section5.html">Section 5: End-to-End Workflow</a></span>
+  <span class="prev"><a href="section3.html">AAP Integration &amp; Toolsets</a></span>
+  <span class="next"><a href="section5.html">End-to-End Workflow</a></span>
 </nav>
 </article>
   </div>
