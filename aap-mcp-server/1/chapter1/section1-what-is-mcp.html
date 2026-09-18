@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Section 1: What is MCP? :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section1-what-is-mcp.adoc">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section2-mcp-architecture.adoc">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section3-aap-integration.adoc">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section4-communication-workflow.adoc">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section5-end-to-end.adoc">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="section1-what-is-mcp.html">Section 1: What is MCP?</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Section 1: What is MCP?</h1>
+<div class="sect1">
+<h2 id="_what_is_the_model_context_protocol"><a class="anchor" href="#_what_is_the_model_context_protocol"></a>What is the Model Context Protocol?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <strong>Model Context Protocol (MCP)</strong> is an open-source standard that provides a universal way for AI models to interact with external data and tools.</p>
+</div>
+<div class="paragraph">
+<p>Think of it as <strong>"USB-C for the AI ecosystem"</strong> — just like USB-C works with many different devices without custom adapters, MCP works with many different AI models and tools without requiring custom integrations.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="mcp-concept.png" alt="MCP as USB-C for AI" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p>Instead of building a unique integration every time you want an AI model to interact with a new system, MCP provides a standardized method. This means:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ AI models can connect to different data sources without model-specific code</p>
+</li>
+<li>
+<p>✅ You can swap AI providers without rewriting integrations</p>
+</li>
+<li>
+<p>✅ Security and permissions are handled consistently</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_is_mcp_needed"><a class="anchor" href="#_why_is_mcp_needed"></a>Why is MCP Needed?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Imagine you want to use ChatGPT to query your servers, while a colleague uses Claude to do the same thing. Without a standard protocol:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ChatGPT integration team writes custom code to connect ChatGPT to your servers</p>
+</li>
+<li>
+<p>Claude integration team writes completely different code to do the same thing</p>
+</li>
+<li>
+<p>You have duplicated code, duplicated bugs, and duplicated maintenance</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>With MCP</strong>, both ChatGPT and Claude connect to the same MCP server. No duplication. No redundancy.</p>
+</div>
+<div class="sect2">
+<h3 id="_the_real_problem_mcp_solves"><a class="anchor" href="#_the_real_problem_mcp_solves"></a>The Real Problem MCP Solves</h3>
+<div class="paragraph">
+<p>AI models like Claude or ChatGPT are trained on data <strong>frozen at a point in time</strong>. They don&#8217;t know:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>What jobs ran in your Ansible Automation Platform <strong>yesterday</strong></p>
+</li>
+<li>
+<p>Which servers are currently online in your inventory</p>
+</li>
+<li>
+<p>What security events happened <strong>today</strong></p>
+</li>
+<li>
+<p>Real-time metrics or current status</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>MCP solves this by giving AI models <strong>real-time access</strong> to your live systems. They can ask questions and get current answers, not guesses based on training data.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_does_it_work_simple_version"><a class="anchor" href="#_how_does_it_work_simple_version"></a>How Does It Work? (Simple Version)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>MCP works in three simple steps:</p>
+</div>
+<div class="olist arabic">
+<div class="title">MCP Flow</div>
+<ol class="arabic">
+<li>
+<p><strong>You ask</strong> → You send a natural language request to your AI tool</p>
+</li>
+<li>
+<p><strong>AI translates</strong> → The AI understands your intent and calls the appropriate MCP tool</p>
+</li>
+<li>
+<p><strong>MCP delivers</strong> → The MCP server fetches real data and returns it to the AI</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">Example</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "List my recent Ansible jobs"
+   ↓
+AI: "I need to call the job_list tool with recent=true"
+   ↓
+MCP Server: Queries AAP and returns the list of jobs
+   ↓
+AI: "Here are your last 5 jobs: ..."</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_key_takeaways"><a class="anchor" href="#_key_takeaways"></a>Key Takeaways</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>MCP is a standard</strong> for connecting AI models to external systems</p>
+</li>
+<li>
+<p><strong>It&#8217;s like USB-C</strong> — one standard that works with many AI tools</p>
+</li>
+<li>
+<p><strong>It solves a real problem</strong> — giving AI real-time access to live data</p>
+</li>
+<li>
+<p><strong>It reduces duplication</strong> — one integration instead of many</p>
+</li>
+<li>
+<p><strong>It&#8217;s secure</strong> — authentication and permissions are baked in</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_next_steps"><a class="anchor" href="#_next_steps"></a>Next Steps</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You understand <strong>what</strong> MCP is. Now let&#8217;s understand <strong>how</strong> it&#8217;s built — the architecture and components.</p>
+</div>
+<div class="paragraph">
+<p>→ <strong>Continue to Section 2: MCP Architecture</strong></p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

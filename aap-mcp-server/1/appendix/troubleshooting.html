@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Troubleshooting Guide :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section1-what-is-mcp.adoc">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section2-mcp-architecture.adoc">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section3-aap-integration.adoc">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section4-communication-workflow.adoc">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section5-end-to-end.adoc">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="troubleshooting.html">Troubleshooting Guide</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Troubleshooting Guide</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>When things don&#8217;t work as expected, use this guide to diagnose and fix issues.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting_strategy"><a class="anchor" href="#_troubleshooting_strategy"></a>Troubleshooting Strategy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>The Key:</strong> Start simple, then get more specific.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Is the basic connection working?</p>
+</li>
+<li>
+<p>Is authentication working?</p>
+</li>
+<li>
+<p>Is the configuration correct?</p>
+</li>
+<li>
+<p>Are there permission issues?</p>
+</li>
+<li>
+<p>Is the issue in the AI tool or the MCP setup?</p>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deployment_issues_lab_1"><a class="anchor" href="#_deployment_issues_lab_1"></a>Deployment Issues (Lab 1)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_mcp_deployment_stuck_at_01_ready"><a class="anchor" href="#_mcp_deployment_stuck_at_01_ready"></a>MCP Deployment Stuck at 0/1 Ready</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">MCP pod shows: 0/1 Ready
+Status: Pending or CrashLoopBackOff</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check pod status
+oc get pods -n aap | grep mcp
+
+# Check logs
+oc logs -n aap &lt;pod-name&gt;
+
+# Check events
+oc describe pod -n aap &lt;pod-name&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Common Causes &amp; Fixes:</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Cause</th>
+<th class="tableblock halign-left valign-top">Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PVC (storage) not available</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check: <code>oc get pvc -n aap</code>
+  Create PVC or check storage class</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image pull failed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check image registry access
+  Verify pull secrets configured</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resource limits exceeded</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check node resources: <code>oc top nodes</code>
+  Increase pod resource requests</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network policies blocking</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check: <code>oc get networkpolicies -n aap</code>
+  Allow traffic to MCP pod</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node selector constraints</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check pod nodeSelector
+  Verify nodes match labels</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>If Still Stuck:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Get detailed pod information
+oc describe pod -n aap &lt;mcp-pod-name&gt; -o yaml
+
+# Check operator logs
+oc logs -n operators -l app=aap-operator-controller-manager
+
+# Check events in namespace
+oc get events -n aap --sort-by='.lastTimestamp'</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_route_shows_no_location_no_url"><a class="anchor" href="#_route_shows_no_location_no_url"></a>Route Shows No Location (No URL)</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Route created but Location field is empty</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check route status
+oc describe route -n aap aap-mcp
+
+# Check ingress controller
+oc get ingresscontroller -n openshift-ingress-operator</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fixes:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Ingress controller not ready:</strong>
+```bash
+# Check if OpenShift Ingress Operator is running
+oc get operator ingress</p>
+<div class="literalblock">
+<div class="content">
+<pre># If not installed:
+oc adm must-gather --image=quay.io/openshift/origin-must-gather:latest
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Wait for reconciliation:</strong>
+<code><code>bash
+# Sometimes it takes time
+oc get route -n aap aap-mcp --watch
+# Wait a few minutes, Ctrl+C when Location appears
+</code></code></p>
+</li>
+<li>
+<p><strong>Recreate route:</strong>
+<code><code>bash
+# Delete and recreate
+oc delete route -n aap aap-mcp
+# Route should be recreated by operator
+oc get route -n aap --watch
+</code></code></p>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_yaml_edit_wont_save_validation_error"><a class="anchor" href="#_yaml_edit_wont_save_validation_error"></a>YAML Edit Won&#8217;t Save (Validation Error)</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Error: spec.mcp is invalid</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check YAML indentation (2 spaces, not tabs)</p>
+</li>
+<li>
+<p>Check for duplicate keys</p>
+</li>
+<li>
+<p>Validate syntax</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Example Bad YAML:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  mcp:
+    disabled: false
+  mcp:              # ERROR: duplicate key!
+    allow_write_operations: false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example Good YAML:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  mcp:
+    disabled: false
+    allow_write_operations: false
+  # other spec settings...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fixes:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copy-paste the config carefully</p>
+</li>
+<li>
+<p>Use OC CLI for validation:
+```bash
+# Edit via CLI
+oc edit aap aap -n aap</p>
+<div class="literalblock">
+<div class="content">
+<pre># Or apply a file
+oc apply -f config.yaml
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check for trailing spaces or hidden characters</p>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_issues_lab_2"><a class="anchor" href="#_configuration_issues_lab_2"></a>Configuration Issues (Lab 2)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_environment_variables_not_loading"><a class="anchor" href="#_environment_variables_not_loading"></a>Environment Variables Not Loading</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ echo $MY_SERVICE_TOKEN
+(empty output)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis &amp; Fix:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># 1. Verify variables are set
+echo "AAP_MCP_URL: $AAP_MCP_URL"
+echo "MY_SERVICE_TOKEN: $MY_SERVICE_TOKEN"
+# Should show values, not empty
+
+# 2. Check if added to shell profile
+cat ~/.zshrc | grep AAP_MCP_URL
+
+# 3. Reload shell if they exist but aren't loaded
+source ~/.zshrc
+# or
+source ~/.bashrc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>If Still Empty:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Check which shell you&#8217;re using:</strong>
+<code><code>bash
+echo $SHELL
+# Usually /bin/zsh or /bin/bash
+</code></code></p>
+</li>
+<li>
+<p><strong>Add variables to correct file:</strong>
+```bash
+# For zsh
+echo 'export AAP_MCP_URL="https://&#8230;&#8203;"' &gt;&gt; ~/.zshrc</p>
+<div class="literalblock">
+<div class="content">
+<pre># For bash
+echo 'export AAP_MCP_URL="https://..."' &gt;&gt; ~/.bashrc
+```</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Reload:</strong>
+<code><code>bash
+exec $SHELL
+# or
+source ~/.zshrc
+</code></code></p>
+</li>
+<li>
+<p><strong>Verify again:</strong>
+<code><code>bash
+echo $AAP_MCP_URL
+</code></code></p>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_api_token_wont_copy_not_displayed"><a class="anchor" href="#_api_token_wont_copy_not_displayed"></a>API Token Won&#8217;t Copy (Not Displayed)</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Token is created but the dialog closes before I could copy it</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Solution:</strong></p>
+</div>
+<div class="paragraph">
+<p>You must create a new token. The old one is lost.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># In AAP Web UI:
+1. Access Management → API Tokens
+2. Click the old token (probably shows as "mcp")
+3. Click Delete
+4. Click Create API Token
+5. Fill form
+6. IMMEDIATELY click Create
+7. Copy token BEFORE clicking anything else</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Prevent This:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Copy-paste instead of select/copy (more reliable)</p>
+</li>
+<li>
+<p>Have notepad open before creating</p>
+</li>
+<li>
+<p>Screenshot the token as backup (risky, but works)</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_ai_tool_cant_find_mcp_server_url"><a class="anchor" href="#_ai_tool_cant_find_mcp_server_url"></a>AI Tool Can&#8217;t Find MCP Server URL</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Error: Cannot reach aap-mcp.apps.example.com</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Test connectivity
+curl -k https://your-mcp-url
+# Should return 400/401, not "connection refused"
+
+# Check route actually exists
+oc get routes -n aap
+# Should list aap-mcp with a Location URL
+
+# Test DNS resolution
+nslookup aap-mcp.apps.example.com
+# Should resolve to an IP
+
+# Test network
+ping aap-mcp.apps.example.com
+# Should respond (may be blocked by firewall)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Common Causes:</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Cause</th>
+<th class="tableblock halign-left valign-top">Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrong URL format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift: <code>aap-mcp.apps.example.com</code> (no port)
+  RHEL: <code>hostname.com:8448</code> (with port)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Typo in URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Double-check every character
+  Copy from OpenShift Route exactly</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Route not created</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check Lab 1: MCP deployment running?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network blocked</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check firewall rules
+  Test from terminal first</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DNS not resolving</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check cluster DNS
+  Use IP address as workaround</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>If Terminal Tests Fail:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Check cluster network:</strong>
+<code><code>bash
+# Can you reach other cluster services?
+kubectl get svc -n aap
+# Try one that works
+</code></code></p>
+</li>
+<li>
+<p><strong>Check ingress:</strong>
+<code><code>bash
+oc get ingresscontroller -n openshift-ingress-operator
+# Should show "Available=True"
+</code></code></p>
+</li>
+<li>
+<p><strong>Use IP address instead:</strong>
+<code><code>bash
+# Get IP from route
+oc get route -n aap aap-mcp -o wide
+# Use in configuration if DNS fails
+</code></code></p>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_invalid_token_error_in_configuration"><a class="anchor" href="#_invalid_token_error_in_configuration"></a>Invalid Token Error in Configuration</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Error when trying to validate token</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Test token directly
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://your-mcp-url
+# Should not return 401
+
+# Verify token is in environment
+echo $MY_SERVICE_TOKEN
+# Should show 40+ character string</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fixes:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Token has typo:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Carefully copy token again from AAP</p>
+</li>
+<li>
+<p>Check for spaces at beginning/end</p>
+</li>
+<li>
+<p>Use copy-paste, not retyping</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Token was deleted:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create new token in AAP</p>
+</li>
+<li>
+<p>Update configuration</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Token expired:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Some tokens have expiration dates</p>
+</li>
+<li>
+<p>Create new token if expired</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Bearer prefix missing:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Config should have: <code>Authorization: Bearer TOKEN</code></p>
+</li>
+<li>
+<p>NOT just: <code>Authorization: TOKEN</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_connection_issues_lab_2_3"><a class="anchor" href="#_connection_issues_lab_2_3"></a>Connection Issues (Lab 2 &amp; 3)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_connection_refused"><a class="anchor" href="#_connection_refused"></a>Connection Refused</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Connection refused: aap-mcp.apps.example.com</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Step-by-Step Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Step 1: Can you reach the URL?
+curl -k https://aap-mcp.apps.example.com
+# Expected: 400/401 error, not "connection refused"
+
+# Step 2: Is DNS resolving?
+nslookup aap-mcp.apps.example.com
+# Expected: Should resolve to IP address
+
+# Step 3: Is the port responding?
+nc -zv aap-mcp.apps.example.com 443
+# Expected: Connection successful
+
+# Step 4: Is MCP pod actually running?
+oc get pods -n aap | grep mcp
+# Expected: Should show pod with "Running" status and "1/1" ready
+
+# Step 5: Check pod logs
+oc logs -n aap &lt;mcp-pod-name&gt;
+# Expected: Should show "listening" or "started" messages</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Common Causes &amp; Fixes:</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Cause</th>
+<th class="tableblock halign-left valign-top">How to Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP pod not running</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oc get pods -n aap</code> - check for mcp pod
+  If not found, Lab 1 wasn&#8217;t complete
+  If found but not ready, check logs with <code>oc logs</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL format wrong</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift routes: NO port number
+  RHEL: INCLUDE port (usually 8448)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Firewall blocking</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check internal firewall rules
+  Can you <code>curl</code> from another pod in cluster?
+  Contact network team if external connection needed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service not exposed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check route exists: <code>oc get routes -n aap</code>
+  Check service: <code>oc get svc -n aap</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DNS not working</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Try IP address instead of hostname
+  Get IP: <code>oc get routes -n aap -o wide</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SSL certificate issue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If using self-signed: set <code>NODE_TLS_REJECT_UNAUTHORIZED=0</code>
+  Get proper cert for production</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>If Still Can&#8217;t Connect:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Try from inside cluster
+oc rsh -n aap &lt;aap-pod-name&gt; bash
+curl https://aap-mcp:8448/job_management/mcp
+# If this works but external doesn't, firewall issue
+
+# Check if route is available
+oc get routes -n aap aap-mcp
+
+# Try using service DNS (internal only)
+curl https://aap-mcp.aap.svc.cluster.local:8448/job_management/mcp</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_unauthorized_401_error"><a class="anchor" href="#_unauthorized_401_error"></a>Unauthorized / 401 Error</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Unauthorized: Invalid or expired token</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Test token with curl
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://aap-mcp.apps.example.com/job_management/mcp
+# If 401, token is invalid
+
+# Verify token variable is set
+echo $MY_SERVICE_TOKEN
+# Should print 40+ character string
+
+# Check AAP token still exists
+# Go to AAP Web UI → Access Management → API Tokens
+# Look for "mcp" token</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fixes:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Token was deleted:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create new token in AAP</p>
+</li>
+<li>
+<p>Copy it to configuration</p>
+</li>
+<li>
+<p>Restart AI tool</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Token expired:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check token expiration in AAP UI</p>
+</li>
+<li>
+<p>Create new token if expired</p>
+</li>
+<li>
+<p>Update configuration</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Wrong token:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure you copied correct token</p>
+</li>
+<li>
+<p>You might have created multiple tokens</p>
+</li>
+<li>
+<p>Use the right one</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Token not in environment:</strong>
+<code><code>bash
+# Make sure variable is set before starting tool
+source ~/.zshrc
+echo $MY_SERVICE_TOKEN  # verify it&#8217;s set
+# Then start AI tool
+</code></code></p>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_ssl_certificate_errors"><a class="anchor" href="#_ssl_certificate_errors"></a>SSL Certificate Errors</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Error: net::ERR_CERT_AUTHORITY_INVALID
+Error: certificate verify failed</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For Development/Demo (Not Production!):</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Add to shell profile
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+# Reload
+source ~/.zshrc
+
+# Launch from terminal to ensure env is loaded
+open -a Cursor
+# or
+open -a Claude</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>For Production (Proper Certificates):</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Install proper SSL certificate on AAP/OpenShift:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Let&#8217;s Encrypt (free, recommended)</p>
+</li>
+<li>
+<p>Your organization&#8217;s CA</p>
+</li>
+<li>
+<p>Valid certificate from commercial vendor</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Update OpenShift ingress controller:</strong>
+<code><code>bash
+oc create secret tls aap-mcp-tls \
+  --cert=path/to/cert.crt \
+  --key=path/to/key.key \
+  -n aap
+</code></code></p>
+</li>
+<li>
+<p><strong>Update route to use certificate:</strong>
+<code><code>bash
+oc patch route aap-mcp -n aap -p \
+  '{"spec":{"tls":{"termination":"edge","certificate":"&#8230;&#8203;","key":"&#8230;&#8203;"}}}'
+</code></code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Never use <code>NODE_TLS_REJECT_UNAUTHORIZED=0</code> in production!</strong></p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_authentication_permission_issues_lab_3"><a class="anchor" href="#_authentication_permission_issues_lab_3"></a>Authentication &amp; Permission Issues (Lab 3)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_permission_denied_forbidden"><a class="anchor" href="#_permission_denied_forbidden"></a>Permission Denied / Forbidden</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Error: You don't have permission to perform this action</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="paragraph">
+<p>This means your AAP user doesn&#8217;t have permission for that action.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Check token scope
+# Go to AAP → Access Management → API Tokens
+# Look at the token's Scope field
+# Read = view only
+# Write = can make changes
+
+# Check user permissions in AAP
+# Admin menu → Access Management → Users
+# Click your user → Check roles and teams</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fixes:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Token is read-only but you need write:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create new token with "Write" scope</p>
+</li>
+<li>
+<p>Update configuration</p>
+</li>
+<li>
+<p>Restart AI tool</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>User doesn&#8217;t have permission:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ask AAP admin to grant permission</p>
+</li>
+<li>
+<p>Or use different user with needed access</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Team membership restriction:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check if resource is in team your user is in</p>
+</li>
+<li>
+<p>Ask team admin to add you</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Token Scope: Read
+Request: Launch job
+Result: Permission Denied ✓ (expected)
+
+Solution: Create new token with Write scope</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_tool_not_found_not_available"><a class="anchor" href="#_tool_not_found_not_available"></a>Tool Not Found / Not Available</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">MCP tools not available
+AI says: "No tools found"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Ask AI: "What tools are available?"
+# Should list 85+ tools from 6 toolsets
+
+# If no tools listed, tools didn't load</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fixes:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Not all 6 toolsets configured:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check you added all 6 MCP servers</p>
+</li>
+<li>
+<p>Should have: job, inventory, monitoring, user, security, config</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>AI tool not restarted after config:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Fully close the tool (not just refresh)</p>
+</li>
+<li>
+<p>Reopen the tool</p>
+</li>
+<li>
+<p>Tools will load on startup</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Configuration syntax error:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check JSON/config is valid</p>
+</li>
+<li>
+<p>No missing commas</p>
+</li>
+<li>
+<p>No duplicate keys</p>
+</li>
+<li>
+<p>Check URLs use <code>/mcp</code> suffix</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Tool names too long:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cursor has 60-character name limit</p>
+</li>
+<li>
+<p>Try shorter names: <code>aap-job</code>, <code>aap-inv</code> instead of full names</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_timeout_slow_responses"><a class="anchor" href="#_timeout_slow_responses"></a>Timeout / Slow Responses</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Waiting... [spinning for 60+ seconds]
+No response</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Is AAP responding?
+curl https://your-aap-url/api/v2/ping/
+
+# Check MCP pod logs
+oc logs -n aap &lt;mcp-pod-name&gt;
+
+# Check AAP status
+# Log into AAP web UI, see if it's responsive</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fixes:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>AAP is slow:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wait longer (complex queries can take 30-60 seconds)</p>
+</li>
+<li>
+<p>Check if AAP has lot of data (slow database queries)</p>
+</li>
+<li>
+<p>Try simpler queries first</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Network latency:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check network connectivity</p>
+</li>
+<li>
+<p>Try from different location</p>
+</li>
+<li>
+<p>Contact network team if consistently slow</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>MCP pod is crashing:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check pod logs: <code>oc logs -n aap &lt;pod-name&gt;</code></p>
+</li>
+<li>
+<p>Check pod status: <code>oc get pods -n aap</code></p>
+</li>
+<li>
+<p>If CrashLoopBackOff, see Lab 1 troubleshooting</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Query too broad:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Don&#8217;t ask for "all jobs ever"</p>
+</li>
+<li>
+<p>Narrow it down: "failed jobs from last 7 days"</p>
+</li>
+<li>
+<p>Use specific filters</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Workaround:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># If timeout is 60 seconds, try increasing in AI tool settings
+# (varies by tool)</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_query_response_issues_lab_3"><a class="anchor" href="#_query_response_issues_lab_3"></a>Query &amp; Response Issues (Lab 3)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_query_returns_no_data"><a class="anchor" href="#_query_returns_no_data"></a>Query Returns No Data</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "List my hosts"
+AI: "I couldn't find any results"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Diagnosis:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Ask about tools being called
+# You: "What tool would you use to list hosts?"
+# AI should say: "inventory_list" or similar
+
+# Ask simpler question
+# You: "How many hosts do I have?"
+# See if any data returns</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fixes:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Your environment is actually empty:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Check in AAP web UI if data exists</p>
+</li>
+<li>
+<p>Create some test data if needed</p>
+</li>
+<li>
+<p>Ask for different data</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Query is too specific:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ask: "Show me all hosts" (broad)</p>
+</li>
+<li>
+<p>Then narrow: "Show Windows hosts"</p>
+</li>
+<li>
+<p>Too specific from start might find nothing</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>MCP tool not being called:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>The AI answered from training data instead of live data</p>
+</li>
+<li>
+<p>Rephrase question to be more specific</p>
+</li>
+<li>
+<p>Ask explicitly: "Use MCP tools to list&#8230;&#8203;"</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>User permissions restrict data:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>You might only see data your user has access to</p>
+</li>
+<li>
+<p>Check RBAC settings</p>
+</li>
+<li>
+<p>Try different user/organization</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_incorrect_or_incomplete_results"><a class="anchor" href="#_incorrect_or_incomplete_results"></a>Incorrect or Incomplete Results</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Results are incomplete or wrong</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Causes:</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Cause</th>
+<th class="tableblock halign-left valign-top">Example &amp; Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AI selected wrong tool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You: "List jobs"
+  AI calls: projects_list (wrong!)
+  AI should call: job_list
+  Rephrase: "Show me job executions"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AI filtered incorrectly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You: "Failed jobs from 7 days"
+  AI only returns 3 days of data
+  Check query again, ask specifically</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RBAC restricting results</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">You see 5 jobs, but database has 10
+  Some filtered by permissions
+  Check AAP user permissions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool limitation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Some tools have page limits (100 items)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Debugging:</strong></p>
+</div>
+<div class="paragraph">
+<p>Ask the AI to show what tool it called and parameters:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "What tool did you use to answer that?"
+AI: "I called job_list with parameters: limit=30, status=failed"
+
+If parameters look wrong, ask again differently.</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_ai_hallucinates_data"><a class="anchor" href="#_ai_hallucinates_data"></a>AI Hallucinates Data</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "List my execution nodes"
+AI: "You have nodes: node-1, node-2, node-3"
+(But you only have node-1 and node-2)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Cause:</strong></p>
+</div>
+<div class="paragraph">
+<p>The AI sometimes makes up data when it doesn&#8217;t have real data.</p>
+</div>
+<div class="paragraph">
+<p><strong>Fix:</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Ask for source:</strong>
+<code>`
+You: "How do you know about node-3?"
+AI: "You&#8217;re right, I don&#8217;t see it in the actual data"
+</code>`</p>
+</li>
+<li>
+<p><strong>Verify with follow-up:</strong>
+<code>`
+You: "List execution nodes"
+You: "How many execution nodes are there?"
+(Compare the count with list)
+</code>`</p>
+</li>
+<li>
+<p><strong>Check raw data:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ask AI to show JSON response</p>
+</li>
+<li>
+<p>Verify against AAP web UI directly</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_data_format_understanding_issues"><a class="anchor" href="#_data_format_understanding_issues"></a>Data Format &amp; Understanding Issues</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_response_is_too_technical"><a class="anchor" href="#_response_is_too_technical"></a>Response is Too Technical</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">AI: "The response contains JSON with key 'created'
+with value '2024-09-15T14:32:00.000Z' in ISO 8601..."</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fix:</strong></p>
+</div>
+<div class="paragraph">
+<p>Ask the AI to simplify:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "Can you explain that in simpler terms?"
+You: "Show me just the names and dates, not all the details"
+You: "Summarize the key information"</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_cant_understand_the_format"><a class="anchor" href="#_cant_understand_the_format"></a>Can&#8217;t Understand the Format</h3>
+<div class="paragraph">
+<p><strong>Symptom:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">AI returns a table, but you wanted a list
+Or returns JSON, but you wanted summary</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Fix:</strong></p>
+</div>
+<div class="paragraph">
+<p>Tell the AI how you want it formatted:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "List the names of jobs, one per line"
+You: "Create a summary table with columns: Name, Status, Date"
+You: "Just tell me how many, don't list them all"</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_if_all_else_fails"><a class="anchor" href="#_if_all_else_fails"></a>If All Else Fails</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_complete_restart_procedure"><a class="anchor" href="#_complete_restart_procedure"></a>Complete Restart Procedure</h3>
+<div class="paragraph">
+<p>If you&#8217;ve tried everything, start fresh:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># 1. Stop the AI tool
+# Fully close Cursor/Claude (not just minimize)
+
+# 2. Delete old configuration
+# Cursor: Settings → Tools &amp; MCP → Remove all servers
+# Claude: Delete ~/.claude/claude.json
+
+# 3. Verify environment variables
+rm ~/.aap-credentials
+# Create new from Lab 2
+
+# 4. Verify MCP is running
+oc get pods -n aap | grep mcp
+# Should show "Running" and "1/1 Ready"
+
+# 5. Test connectivity manually
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://aap-mcp.apps.example.com/job_management/mcp
+# Should return 200 or 400, not "refused"
+
+# 6. Create fresh token
+# Go to AAP, delete old token
+# Create new token
+# Copy immediately
+
+# 7. Reconfigure tool
+# Start with just 1 toolset
+# Test that works
+# Add other 5 toolsets
+
+# 8. Restart tool
+# Fully close
+# Open from terminal to ensure env vars loaded
+open -a Cursor
+
+# 9. Ask simple question
+# "What tools are available?"
+# Should work now</code></pre>
+</div>
+</div>
+<hr>
+</div>
+<div class="sect2">
+<h3 id="_when_to_escalate"><a class="anchor" href="#_when_to_escalate"></a>When to Escalate</h3>
+<div class="paragraph">
+<p>Get help from your team if:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MCP pod won&#8217;t start and logs show infrastructure issues</p>
+</li>
+<li>
+<p>Firewall is blocking access (network team)</p>
+</li>
+<li>
+<p>AAP permissions issues (AAP admin)</p>
+</li>
+<li>
+<p>You can&#8217;t get token to work (AAP admin)</p>
+</li>
+<li>
+<p>OpenShift cluster issues (cluster admin)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Escalation Info:</strong></p>
+</div>
+<div class="paragraph">
+<p>When asking for help, provide:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Gather diagnostic info
+oc describe pod -n aap &lt;mcp-pod-name&gt; &gt; /tmp/mcp-pod.txt
+oc logs -n aap &lt;mcp-pod-name&gt; &gt; /tmp/mcp-logs.txt
+echo $MY_SERVICE_TOKEN &gt; /tmp/token.txt
+echo $AAP_MCP_URL &gt; /tmp/url.txt
+curl -k https://$AAP_MCP_URL/job_management/mcp -v &gt; /tmp/curl.txt 2&gt;&amp;1
+
+# Share these files with support (be careful with token!)</code></pre>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_reference_diagnostic_commands"><a class="anchor" href="#_quick_reference_diagnostic_commands"></a>Quick Reference: Diagnostic Commands</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Save these commands for fast debugging:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># ===== TEST CONNECTIVITY =====
+# Test MCP URL
+curl -k https://aap-mcp.apps.example.com/job_management/mcp
+
+# Test with token
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://aap-mcp.apps.example.com/job_management/mcp
+
+# Test DNS
+nslookup aap-mcp.apps.example.com
+
+# ===== CHECK KUBERNETES =====
+# List MCP pod
+oc get pods -n aap | grep mcp
+
+# Get pod status
+oc describe pod -n aap &lt;mcp-pod-name&gt;
+
+# View logs
+oc logs -n aap &lt;mcp-pod-name&gt;
+
+# Get route
+oc get routes -n aap | grep mcp
+
+# ===== CHECK ENVIRONMENT =====
+# Show variables
+env | grep AAP
+
+# Show token
+echo $MY_SERVICE_TOKEN
+
+# Show URL
+echo $AAP_MCP_URL
+
+# ===== RESTART THINGS =====
+# Restart MCP pod
+oc delete pod -n aap -l app=aap-mcp
+
+# Reload shell
+source ~/.zshrc
+
+# Restart AI tool
+# (Fully close and reopen)
+
+# ===== TEST AAP =====
+# AAP is responsive?
+curl https://your-aap-url/api/v2/ping/
+
+# Token valid in AAP?
+curl -k https://your-aap-url/api/v2/users/ \
+  -H "Authorization: Token $MY_SERVICE_TOKEN"</code></pre>
+</div>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Remember:</strong> When troubleshooting, go step-by-step. Test each layer independently (network → authentication → configuration → tools).</p>
+</div>
+<div class="paragraph">
+<p>Most issues fall into a few categories. This guide covers 95% of them. If you get stuck, review the appropriate section and follow the diagnostic steps.</p>
+</div>
+<div class="paragraph">
+<p>Good luck!</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

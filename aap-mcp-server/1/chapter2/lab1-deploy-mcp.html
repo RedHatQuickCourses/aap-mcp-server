@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Lab 1: Deploy MCP on OpenShift Container Platform :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section1-what-is-mcp.adoc">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section2-mcp-architecture.adoc">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section3-aap-integration.adoc">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section4-communication-workflow.adoc">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section5-end-to-end.adoc">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="lab1-deploy-mcp.html">Lab 1: Deploy MCP on OpenShift Container Platform</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Lab 1: Deploy MCP on OpenShift Container Platform</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock sidebar">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Lab Type:</strong> Self-contained (can skip if MCP is already deployed)</p>
+</li>
+<li>
+<p><strong>Estimated Time:</strong> 5-15 minutes</p>
+</li>
+<li>
+<p><strong>Skill Level:</strong> Intermediate (requires OpenShift familiarity)</p>
+</li>
+<li>
+<p><strong>Prerequisites:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift access</p>
+</li>
+<li>
+<p>AAP installed</p>
+</li>
+<li>
+<p>Admin permissions</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_overview"><a class="anchor" href="#_lab_overview"></a>Lab Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this lab, you will:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Access the OpenShift console</p>
+</li>
+<li>
+<p>Enable the MCP capability in the AAP custom resource</p>
+</li>
+<li>
+<p>Verify the MCP server is running</p>
+</li>
+<li>
+<p>Get the MCP server URL</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>By the end of this lab, the Ansible MCP Server will be deployed and ready for configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You&#8217;ll Learn</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>How to enable MCP through the AnsibleAutomationPlatform custom resource</p>
+</li>
+<li>
+<p>Where to find the MCP server route in OpenShift</p>
+</li>
+<li>
+<p>How to verify the deployment is successful</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ OpenShift console access (web UI or <code>oc</code> CLI)</p>
+</li>
+<li>
+<p>✅ Access to the <code>aap</code> namespace/project</p>
+</li>
+<li>
+<p>✅ Admin or operator permissions</p>
+</li>
+<li>
+<p>✅ Ansible Automation Platform already installed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>If AAP is not installed</strong>, this lab is not for you. Contact your cluster administrator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_access_openshift_console"><a class="anchor" href="#_step_1_access_openshift_console"></a>Step 1: Access OpenShift Console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Open your OpenShift web console in a browser.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Or use the oc CLI if you prefer
+oc login https://your-openshift-cluster.com</code></pre>
+</div>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="openshift-login.png" alt="OpenShift Login" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Log in with your credentials (likely <code>htpasswd_provider</code> or your organization&#8217;s identity provider).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_navigate_to_the_aap_project"><a class="anchor" href="#_step_2_navigate_to_the_aap_project"></a>Step 2: Navigate to the AAP Project</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once logged in:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <strong>Projects</strong> (left sidebar, or the grid icon in top navigation)</p>
+</li>
+<li>
+<p>Look for the <strong>aap</strong> project</p>
+</li>
+<li>
+<p>Click on <strong>aap</strong> to open it</p>
+</li>
+</ol>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="openshift-projects.png" alt="OpenShift Projects" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>You should see a list of resources (pods, services, routes, etc.) in the aap project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_3_find_the_ansibleautomationplatform_custom_resource"><a class="anchor" href="#_step_3_find_the_ansibleautomationplatform_custom_resource"></a>Step 3: Find the AnsibleAutomationPlatform Custom Resource</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the left sidebar, click <strong>Operators</strong> → <strong>Installed Operators</strong></p>
+</li>
+<li>
+<p>Ensure you&#8217;re in the <strong>aap</strong> project (dropdown at top)</p>
+</li>
+<li>
+<p>Click on <strong>Ansible Automation Platform Operator</strong></p>
+</li>
+<li>
+<p>In the <strong>Provided APIs</strong> section, find <strong>AnsibleAutomationPlatform</strong></p>
+</li>
+<li>
+<p>Click <strong>AnsibleAutomationPlatform</strong></p>
+</li>
+</ol>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="operators-aap.png" alt="AAP Operator" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>This will show you instances of AAP running in your cluster. You should see at least one (usually named <code>aap</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_4_edit_the_yaml_to_enable_mcp"><a class="anchor" href="#_step_4_edit_the_yaml_to_enable_mcp"></a>Step 4: Edit the YAML to Enable MCP</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Click on the AAP instance (usually named <code>aap</code>) to open its details page.</p>
+</div>
+<div class="paragraph">
+<p>At the top, click the <strong>YAML</strong> tab to edit the resource definition.</p>
+</div>
+<div class="paragraph">
+<p>Look for the <code>spec</code> section. You need to add the MCP configuration.</p>
+</div>
+<div class="sect2">
+<h3 id="_finding_the_right_place"><a class="anchor" href="#_finding_the_right_place"></a>Finding the Right Place</h3>
+<div class="paragraph">
+<p>The YAML structure looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: aap.ansible.com/v1beta1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap
+  namespace: aap
+spec:
+  image:
+    name: quay.io/ansible-automation-platform/aap-operator
+  ...  (other spec settings)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll add the MCP section under <code>spec</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_the_mcp_configuration"><a class="anchor" href="#_add_the_mcp_configuration"></a>Add the MCP Configuration</h3>
+<div class="paragraph">
+<p>Find a good place in the <code>spec</code> section (alphabetically between other settings) and add:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
+  mcp:
+    disabled: false
+    allow_write_operations: false
+  ...rest of spec...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s what each setting means:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Setting</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>disabled: false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enable the MCP server (required)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>allow_write_operations: false</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read-only mode (safer for starting)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>IMPORTANT</strong>: Setting <code>allow_write_operations</code> to <code>false</code> restricts the MCP server to <strong>read-only operations</strong> only. This means:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ The AI can query information</p>
+</li>
+<li>
+<p>✅ The AI can list jobs, hosts, users</p>
+</li>
+<li>
+<p>✅ The AI can view logs and status</p>
+</li>
+<li>
+<p>❌ The AI cannot launch jobs</p>
+</li>
+<li>
+<p>❌ The AI cannot create/delete users</p>
+</li>
+<li>
+<p>❌ The AI cannot modify settings</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is the <strong>safe default</strong> for learning. You can change it to <code>true</code> later once you&#8217;re comfortable.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_save_the_changes"><a class="anchor" href="#_save_the_changes"></a>Save the Changes</h3>
+<div class="paragraph">
+<p>Once you&#8217;ve added the MCP section:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <strong>Save</strong> at the bottom of the screen</p>
+</li>
+<li>
+<p>The operator will begin to reconcile the changes</p>
+</li>
+<li>
+<p>You should see a notification "Resource updated"</p>
+</li>
+</ol>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="yaml-save.png" alt="Save YAML" width="400">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_5_verify_mcp_server_is_deploying"><a class="anchor" href="#_step_5_verify_mcp_server_is_deploying"></a>Step 5: Verify MCP Server is Deploying</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you save, the operator will create a new deployment for the MCP server.</p>
+</div>
+<div class="paragraph">
+<p>Go to <strong>Workloads</strong> → <strong>Deployments</strong> in the left sidebar.</p>
+</div>
+<div class="paragraph">
+<p>Filter by project <strong>aap</strong> and look for a deployment with <strong>mcp</strong> in the name:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Expected name pattern: &lt;your-aap-instance-name&gt;-mcp
+
+Example: aap-mcp</code></pre>
+</div>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="deployments-mcp.png" alt="MCP Deployment" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Click on the deployment and check the status:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ <strong>1/1 pods ready</strong> = Success!</p>
+</li>
+<li>
+<p>⏳ <strong>0/1 pods ready</strong> = Still deploying (wait a few minutes)</p>
+</li>
+<li>
+<p>❌ <strong>Error</strong> = Something went wrong (see troubleshooting)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_6_get_the_mcp_server_url"><a class="anchor" href="#_step_6_get_the_mcp_server_url"></a>Step 6: Get the MCP Server URL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the deployment is ready, you need the URL to connect your AI tool.</p>
+</div>
+<div class="paragraph">
+<p>Go to <strong>Networking</strong> → <strong>Routes</strong> in the left sidebar.</p>
+</div>
+<div class="paragraph">
+<p>Look for a route with <strong>mcp</strong> in the name:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Expected name pattern: &lt;your-aap-instance-name&gt;-mcp
+
+Example: aap-mcp</code></pre>
+</div>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="routes-mcp.png" alt="MCP Route" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Click on the route and copy the <strong>Location</strong> field:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Example: https://aap-mcp.apps.cluster.example.com</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Save this URL</strong> — you&#8217;ll need it in Lab 2.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verification_checklist"><a class="anchor" href="#_verification_checklist"></a>Verification Checklist</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before moving to Lab 2, verify:</p>
+</div>
+<div class="paragraph">
+<p>✅ MCP deployment is <strong>1/1 Ready</strong>
+✅ MCP route exists and shows a <strong>Location URL</strong>
+✅ You have the MCP server URL copied
+✅ You can access the URL in a browser (though it won&#8217;t display a web page, it proves connectivity)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Test connectivity (should return a 200 or 401, not "connection refused")
+curl -k https://your-mcp-url</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you see <code>Connection refused</code> or <code>Name does not resolve</code>, check:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>✓ Cluster network connectivity</p>
+</li>
+<li>
+<p>✓ Route is actually created and ready</p>
+</li>
+<li>
+<p>✓ Firewall rules allow outbound HTTPS</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ve successfully:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ Enabled the MCP capability in AAP</p>
+</li>
+<li>
+<p>✅ Deployed the MCP server on OCP</p>
+</li>
+<li>
+<p>✅ Verified it&#8217;s running</p>
+</li>
+<li>
+<p>✅ Captured the server URL</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Next Step</strong>: Go to <strong>Lab 2: Configure Your AI Tool</strong> to connect Cursor, Claude, or LibreChat to your MCP server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting"><a class="anchor" href="#_troubleshooting"></a>Troubleshooting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deployment_stuck_at_01_ready"><a class="anchor" href="#_deployment_stuck_at_01_ready"></a>Deployment stuck at 0/1 Ready</h3>
+<div class="paragraph">
+<p><strong>Problem</strong>: The MCP pod won&#8217;t start.</p>
+</div>
+<div class="paragraph">
+<p><strong>Solution</strong>:
+1. Check pod logs: <code>oc logs -n aap &lt;pod-name&gt;</code>
+2. Look for error messages
+3. Common issues:
+   - ✓ Storage not available (PVC)
+   - ✓ Image pull errors (registry access)
+   - ✓ Resource limits exceeded</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_route_shows_no_location"><a class="anchor" href="#_route_shows_no_location"></a>Route shows no Location</h3>
+<div class="paragraph">
+<p><strong>Problem</strong>: Route is created but has no URL.</p>
+</div>
+<div class="paragraph">
+<p><strong>Solution</strong>:
+1. Check if ingress controller is running
+2. Verify OpenShift Ingress Operator is deployed
+3. Check route status: <code>oc describe route &lt;route-name&gt; -n aap</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_yaml_edit_wont_save"><a class="anchor" href="#_yaml_edit_wont_save"></a>YAML edit won&#8217;t save</h3>
+<div class="paragraph">
+<p><strong>Problem</strong>: Validation error when saving YAML.</p>
+</div>
+<div class="paragraph">
+<p><strong>Solution</strong>:
+1. Check YAML syntax (spacing, indentation)
+2. Make sure <code>mcp:</code> is under <code>spec:</code>
+3. Verify no duplicate keys
+4. Try using the OC CLI instead: <code>oc edit aap aap -n aap</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mcp_deployment_fails_immediately"><a class="anchor" href="#_mcp_deployment_fails_immediately"></a>MCP deployment fails immediately</h3>
+<div class="paragraph">
+<p><strong>Problem</strong>: Deployment starts but pod crashes.</p>
+</div>
+<div class="paragraph">
+<p><strong>Solution</strong>:
+1. Get logs: <code>oc logs -n aap &lt;pod-name&gt;</code>
+2. Check if AAP is fully running
+3. Verify storage is available
+4. Check CPU/memory requests vs available</p>
+</div>
+<div class="paragraph">
+<p><strong>Still stuck?</strong> See the full troubleshooting section at the end of this chapter.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

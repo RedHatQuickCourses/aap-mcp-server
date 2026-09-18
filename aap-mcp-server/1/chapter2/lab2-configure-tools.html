@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Lab 2: Generate API Token and Configure Your AI Tool :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section1-what-is-mcp.adoc">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section2-mcp-architecture.adoc">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section3-aap-integration.adoc">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section4-communication-workflow.adoc">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section5-end-to-end.adoc">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="lab2-configure-tools.html">Lab 2: Generate API Token and Configure Your AI Tool</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Lab 2: Generate API Token and Configure Your AI Tool</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="sidebarblock sidebar">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Lab Type:</strong> Required (everyone must complete this)</p>
+</li>
+<li>
+<p><strong>Estimated Time:</strong> 15-25 minutes</p>
+</li>
+<li>
+<p><strong>Skill Level:</strong> Beginner (mostly clicking and copying)</p>
+</li>
+<li>
+<p><strong>Prerequisites:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>AAP access</p>
+</li>
+<li>
+<p>One AI tool installed (Cursor, Claude Desktop, or LibreChat)</p>
+</li>
+<li>
+<p>MCP server URL from Lab 1</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_overview"><a class="anchor" href="#_lab_overview"></a>Lab Overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this lab, you will:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create an API token in Ansible Automation Platform</p>
+</li>
+<li>
+<p>Configure your AI tool to connect to the MCP server</p>
+</li>
+<li>
+<p>Verify the connection works</p>
+</li>
+<li>
+<p>Test that you can see available tools</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>By the end of this lab, your AI tool will be connected and ready to query AAP.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_1_generate_an_api_token"><a class="anchor" href="#_part_1_generate_an_api_token"></a>Part 1: Generate an API Token</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>An <strong>API token</strong> is your authentication credential. It proves to AAP that the AI tool is authorized to make requests on your behalf.</p>
+</div>
+<div class="sect2">
+<h3 id="_step_1_access_ansible_automation_platform"><a class="anchor" href="#_step_1_access_ansible_automation_platform"></a>Step 1: Access Ansible Automation Platform</h3>
+<div class="paragraph">
+<p>Open AAP in your browser:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">https://your-aap-instance.com</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Log in with your AAP username and password.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="aap-login.png" alt="AAP Login" width="400">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_navigate_to_api_tokens"><a class="anchor" href="#_step_2_navigate_to_api_tokens"></a>Step 2: Navigate to API Tokens</h3>
+<div class="paragraph">
+<p>In the left sidebar, expand <strong>Access Management</strong> and click <strong>API Tokens</strong>.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="aap-api-tokens-menu.png" alt="API Tokens Menu" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>This page shows any tokens you&#8217;ve created before. They&#8217;re usually empty if this is your first time.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_create_a_new_token"><a class="anchor" href="#_step_3_create_a_new_token"></a>Step 3: Create a New Token</h3>
+<div class="paragraph">
+<p>Click the <strong>Create API Token</strong> button.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="aap-create-token-button.png" alt="Create Token Button" width="400">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_configure_the_token"><a class="anchor" href="#_step_4_configure_the_token"></a>Step 4: Configure the Token</h3>
+<div class="paragraph">
+<p>You&#8217;ll see a form with several fields:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">What to Enter</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Description</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>mcp-token</code> or <code>claude-integration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any descriptive name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Application</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(Leave blank)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Blank = Personal Access Token (PAT)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scope</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Read</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start with read-only for safety</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Here&#8217;s what the form looks like:</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="aap-token-form.png" alt="Token Form" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>Fill in:
+* <strong>Description</strong>: A name like <code>mcp-token</code> (so you remember what it&#8217;s for)
+* <strong>OAuth Application</strong>: Leave blank (creates a Personal Access Token)
+* <strong>Scope</strong>: Select <strong>Read</strong> to restrict to read-only operations</p>
+</div>
+<div class="paragraph">
+<p>Explanation of scopes:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scope</th>
+<th class="tableblock halign-left valign-top">Permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Read</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can query information but cannot make changes (safe)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Write</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can query AND make changes (use carefully)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Read + Write</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full access (admin use only)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>For this lab, use Read.</strong> You can always delete this token and create a new one with Write access later if you need to launch jobs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_5_click_create"><a class="anchor" href="#_step_5_click_create"></a>Step 5: Click Create</h3>
+<div class="paragraph">
+<p>Click the <strong>Create token</strong> button to generate your token.</p>
+</div>
+<div class="paragraph">
+<p>A dialog will pop up showing your token. It looks something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>IMPORTANT</strong>: Copy this token immediately! It will <strong>not be displayed again</strong>. If you don&#8217;t copy it now, you&#8217;ll have to delete it and create a new one.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="aap-token-created.png" alt="Token Created Dialog" width="400">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_6_save_your_token_securely"><a class="anchor" href="#_step_6_save_your_token_securely"></a>Step 6: Save Your Token Securely</h3>
+<div class="paragraph">
+<p>Save this token somewhere safe, <strong>but not in Git or public places</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Suggested safe locations:
+* ✅ <strong>Password manager</strong> (LastPass, 1Password, Bitwarden)
+* ✅ <strong>Local file with restricted permissions</strong> (<code>chmod 600</code>)
+* ✅ <strong>Environment variable</strong> (in your shell profile, not committed)
+* ❌ NOT in code repositories
+* ❌ NOT in shared documents
+* ❌ NOT in Slack or email</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_2_configure_your_ai_tool"><a class="anchor" href="#_part_2_configure_your_ai_tool"></a>Part 2: Configure Your AI Tool</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now you have:
+* <strong>MCP Server URL</strong> from Lab 1 (e.g., <code><a href="https://aap-mcp.apps.cluster.example.com" class="bare">https://aap-mcp.apps.cluster.example.com</a></code>)
+* <strong>API Token</strong> from Part 1</p>
+</div>
+<div class="paragraph">
+<p>Choose your tool below:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_option_a_configure_cursor_ide"><a class="anchor" href="#_option_a_configure_cursor_ide"></a>Option A: Configure Cursor IDE</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_step_1_set_environment_variables"><a class="anchor" href="#_step_1_set_environment_variables"></a>Step 1: Set Environment Variables</h3>
+<div class="paragraph">
+<p>Open your shell profile (<code>~/.zshrc</code>, <code>~/.bashrc</code>, or <code>~/.bash_profile</code>) and add:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># AAP MCP Server URL (no trailing slash)
+export AAP_MCP_URL="https://aap-mcp.apps.cluster.example.com"
+
+# Your API Token
+export MY_SERVICE_TOKEN="your-api-token-here"
+
+# For demo environments with self-signed certs only!
+# Remove this in production
+export NODE_TLS_REJECT_UNAUTHORIZED=0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Save the file and reload your shell:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source ~/.zshrc  # or ~/.bashrc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verify the variables are set:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">echo $AAP_MCP_URL
+echo $MY_SERVICE_TOKEN</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Both should print your values.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_configure_mcp_in_cursor"><a class="anchor" href="#_step_2_configure_mcp_in_cursor"></a>Step 2: Configure MCP in Cursor</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open <strong>Cursor</strong> → <strong>Settings</strong> (or Cmd+Comma)</p>
+</li>
+<li>
+<p>Go to <strong>Cursor Settings</strong> → <strong>Tools &amp; MCP</strong></p>
+</li>
+<li>
+<p>Click <strong>+ Add MCP Server</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For each MCP toolset, add a server with this format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "type": "streamable-http",
+  "url": "${env:AAP_MCP_URL}/job_management/mcp",
+  "headers": {
+    "Authorization": "Bearer ${env:MY_SERVICE_TOKEN}"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add all 6 toolsets:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>aap-job-mgmt</strong> → <code>/job_management/mcp</code></p>
+</li>
+<li>
+<p><strong>aap-inventory</strong> → <code>/inventory_management/mcp</code></p>
+</li>
+<li>
+<p><strong>aap-monitoring</strong> → <code>/system_monitoring/mcp</code></p>
+</li>
+<li>
+<p><strong>aap-user-mgmt</strong> → <code>/user_management/mcp</code></p>
+</li>
+<li>
+<p><strong>aap-security</strong> → <code>/security_compliance/mcp</code></p>
+</li>
+<li>
+<p><strong>aap-config</strong> → <code>/platform_configuration/mcp</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each one has the same format, just with a different path.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_restart_cursor"><a class="anchor" href="#_step_3_restart_cursor"></a>Step 3: Restart Cursor</h3>
+<div class="paragraph">
+<p>Close and reopen Cursor. The MCP servers will load when the app starts.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="cursor-mcp-settings.png" alt="Cursor MCP Settings" width="500">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_option_b_configure_claude_desktop"><a class="anchor" href="#_option_b_configure_claude_desktop"></a>Option B: Configure Claude Desktop</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_step_1_set_environment_variables_2"><a class="anchor" href="#_step_1_set_environment_variables_2"></a>Step 1: Set Environment Variables</h3>
+<div class="paragraph">
+<p>Add to your shell profile:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export AAP_SERVER="https://aap-mcp.apps.cluster.example.com"
+export AAP_SERVICE_TOKEN="your-api-token-here"
+export NODE_TLS_REJECT_UNAUTHORIZED=0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reload shell:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source ~/.zshrc</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_create_claude_config_file"><a class="anchor" href="#_step_2_create_claude_config_file"></a>Step 2: Create Claude Config File</h3>
+<div class="paragraph">
+<p>Create or edit <code>~/.claude/claude.json</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+  "mcpServers": {
+    "aap-job-mgmt": {
+      "type": "http",
+      "url": "${env:AAP_SERVER}/job_management/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:AAP_SERVICE_TOKEN}"
+      }
+    },
+    "aap-inventory": {
+      "type": "http",
+      "url": "${env:AAP_SERVER}/inventory_management/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:AAP_SERVICE_TOKEN}"
+      }
+    },
+    "aap-monitoring": {
+      "type": "http",
+      "url": "${env:AAP_SERVER}/system_monitoring/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:AAP_SERVICE_TOKEN}"
+      }
+    },
+    "aap-user-mgmt": {
+      "type": "http",
+      "url": "${env:AAP_SERVER}/user_management/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:AAP_SERVICE_TOKEN}"
+      }
+    },
+    "aap-security": {
+      "type": "http",
+      "url": "${env:AAP_SERVER}/security_compliance/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:AAP_SERVICE_TOKEN}"
+      }
+    },
+    "aap-config": {
+      "type": "http",
+      "url": "${env:AAP_SERVER}/platform_configuration/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:AAP_SERVICE_TOKEN}"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_restart_claude"><a class="anchor" href="#_step_3_restart_claude"></a>Step 3: Restart Claude</h3>
+<div class="paragraph">
+<p>Close and reopen Claude Desktop.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_option_c_configure_librechat_web_based"><a class="anchor" href="#_option_c_configure_librechat_web_based"></a>Option C: Configure LibreChat (Web-Based)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>LibreChat is the simplest option if you prefer a web interface.</p>
+</div>
+<div class="sect2">
+<h3 id="_step_1_access_librechat"><a class="anchor" href="#_step_1_access_librechat"></a>Step 1: Access LibreChat</h3>
+<div class="paragraph">
+<p>Open LibreChat in your browser:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">https://librechat.example.com</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(Ask your administrator for the URL if you don&#8217;t have it)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_log_in"><a class="anchor" href="#_step_2_log_in"></a>Step 2: Log In</h3>
+<div class="paragraph">
+<p>Log in with your credentials.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="librechat-login.png" alt="LibreChat Login" width="400">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_add_mcp_server"><a class="anchor" href="#_step_3_add_mcp_server"></a>Step 3: Add MCP Server</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <strong>Settings</strong> (user icon in top right)</p>
+</li>
+<li>
+<p>Go to <strong>MCP Servers</strong></p>
+</li>
+<li>
+<p>Click <strong>+ Add Server</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Fill in:
+* <strong>Name</strong>: <code>aap</code>
+* <strong>URL</strong>: <code><a href="https://aap-mcp.apps.cluster.example.com" class="bare">https://aap-mcp.apps.cluster.example.com</a></code>
+* <strong>Token</strong>: Your API token from Part 1
+* <strong>Type</strong>: <code>http</code></p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="librechat-add-mcp.png" alt="LibreChat Add MCP" width="400">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_test_connection"><a class="anchor" href="#_step_4_test_connection"></a>Step 4: Test Connection</h3>
+<div class="paragraph">
+<p>A checkmark should appear next to the server name if it connects successfully.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="librechat-mcp-connected.png" alt="LibreChat MCP Connected" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>If you see an error, check:
+* ✓ URL is correct
+* ✓ Token is valid
+* ✓ Network connectivity to MCP server</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_3_verify_connection"><a class="anchor" href="#_part_3_verify_connection"></a>Part 3: Verify Connection</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that everything is configured, let&#8217;s verify it works.</p>
+</div>
+<div class="sect2">
+<h3 id="_test_in_cursor"><a class="anchor" href="#_test_in_cursor"></a>Test in Cursor</h3>
+<div class="paragraph">
+<p>In Cursor&#8217;s chat, type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">What MCP tools are available for my Ansible Automation Platform?</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see a list of tools from all 6 toolsets.</p>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="cursor-tools-list.png" alt="Cursor Tools List" width="500">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_test_in_claude_desktop"><a class="anchor" href="#_test_in_claude_desktop"></a>Test in Claude Desktop</h3>
+<div class="paragraph">
+<p>Ask Claude:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Show me what MCP servers I have connected</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Claude should list all 6 AAP MCP servers.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_test_in_librechat"><a class="anchor" href="#_test_in_librechat"></a>Test in LibreChat</h3>
+<div class="paragraph">
+<p>In the chat window, type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">What can I do with the MCP servers you're connected to?</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>LibreChat should describe the available capabilities.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_verification_checklist"><a class="anchor" href="#_verification_checklist"></a>Verification Checklist</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before moving to Lab 3, verify:</p>
+</div>
+<div class="paragraph">
+<p>✅ API token created and saved securely
+✅ Environment variables set (if using Cursor or Claude Desktop)
+✅ MCP servers configured in your tool
+✅ AI tool restarted
+✅ You can ask "What tools are available?" and get a response with all 6 toolsets</p>
+</div>
+<div class="paragraph">
+<p>If you see an error about "tools not found" or "connection refused", check:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>✓ MCP_URL is correct (copy from Lab 1 again)</p>
+</li>
+<li>
+<p>✓ API token is correct (no typos)</p>
+</li>
+<li>
+<p>✓ Network can reach the MCP server (test with <code>curl</code>)</p>
+</li>
+<li>
+<p>✓ AI tool was restarted after configuration</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ve successfully:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ Created an API token in AAP</p>
+</li>
+<li>
+<p>✅ Configured your AI tool with the token and MCP URL</p>
+</li>
+<li>
+<p>✅ Verified the connection works</p>
+</li>
+<li>
+<p>✅ Confirmed MCP tools are available</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Next Step</strong>: Go to <strong>Lab 3: Run Queries &amp; Troubleshoot</strong> to actually use MCP and practice queries.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting"><a class="anchor" href="#_troubleshooting"></a>Troubleshooting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_connection_refused_error"><a class="anchor" href="#_connection_refused_error"></a>"Connection refused" error</h3>
+<div class="paragraph">
+<p>The AI tool can&#8217;t reach the MCP server.</p>
+</div>
+<div class="paragraph">
+<p><strong>Check</strong>:
+1. Is the URL correct? Copy it from Lab 1 again
+2. Can you <code>curl</code> the URL? <code>curl -k <a href="https://your-mcp-url" class="bare">https://your-mcp-url</a></code> (should not give "refused")
+3. Is the MCP deployment running? Check Lab 1 again
+4. Is your network blocking HTTPS? Check firewall rules</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unauthorized_or_401_error"><a class="anchor" href="#_unauthorized_or_401_error"></a>"Unauthorized" or "401" error</h3>
+<div class="paragraph">
+<p>The token is invalid.</p>
+</div>
+<div class="paragraph">
+<p><strong>Check</strong>:
+1. Did you copy the token correctly (no spaces)?
+2. Has the token expired? (Create a new one)
+3. Did you include the <code>Bearer</code> prefix? (Format: <code>Bearer token123</code>)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tools_still_not_showing"><a class="anchor" href="#_tools_still_not_showing"></a>Tools still not showing</h3>
+<div class="paragraph">
+<p>The connection works but tools aren&#8217;t available.</p>
+</div>
+<div class="paragraph">
+<p><strong>Check</strong>:
+1. Did you add all 6 toolsets? (Job, Inventory, Monitoring, User, Security, Config)
+2. Did you restart the AI tool? (Fully close and reopen)
+3. Are you using the <code>/mcp</code> endpoint suffix? (URL should end with <code>/job_management/mcp</code>)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_token_not_recognized_in_aap"><a class="anchor" href="#_token_not_recognized_in_aap"></a>"Token not recognized" in AAP</h3>
+<div class="paragraph">
+<p>The token was deleted or revoked.</p>
+</div>
+<div class="paragraph">
+<p><strong>Solution</strong>:
+1. Go back to AAP
+2. Create a new token
+3. Update your configuration</p>
+</div>
+<div class="paragraph">
+<p><strong>Still stuck?</strong> Go to Lab 3&#8217;s troubleshooting section.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

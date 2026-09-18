@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Knowledge Check &amp; Quiz :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section1-what-is-mcp.adoc">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section2-mcp-architecture.adoc">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section3-aap-integration.adoc">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section4-communication-workflow.adoc">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section5-end-to-end.adoc">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="knowledge-check.html">Knowledge Check &amp; Quiz</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Knowledge Check &amp; Quiz</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Test your understanding of MCP and its integration with Ansible Automation Platform.</p>
+</div>
+<div class="paragraph">
+<p>This is a self-assessment quiz. Answer the questions honestly to see what you&#8217;ve learned and what areas need review.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_1_mcp_fundamentals_5_questions"><a class="anchor" href="#_part_1_mcp_fundamentals_5_questions"></a>Part 1: MCP Fundamentals (5 Questions)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_question_1_what_is_mcp"><a class="anchor" href="#_question_1_what_is_mcp"></a>Question 1: What is MCP?</h3>
+<div class="paragraph">
+<p>Which best describes the Model Context Protocol?</p>
+</div>
+<div class="paragraph">
+<p>a) A method for encrypting API tokens
+b) A standard for connecting AI models to external systems  ✓
+c) A replacement for Ansible playbooks
+d) A database technology</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> MCP (Model Context Protocol) is an open-source standard that provides a universal way for AI models to interact with external data and tools. It&#8217;s like "USB-C for the AI ecosystem."</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_2_why_does_mcp_matter_for_aap"><a class="anchor" href="#_question_2_why_does_mcp_matter_for_aap"></a>Question 2: Why Does MCP Matter for AAP?</h3>
+<div class="paragraph">
+<p>What problem does MCP solve for Ansible users?</p>
+</div>
+<div class="paragraph">
+<p>a) Makes playbooks run faster
+b) Reduces the cost of AAP licenses
+c) Gives AI real-time access to live AAP data  ✓
+d) Eliminates the need for SSH</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> AI models are trained on frozen historical data. MCP solves this by giving them access to <strong>real-time</strong> data from your AAP environment—what jobs ran today, current host status, live inventory data, etc.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_3_how_many_components_are_in_mcp_architecture"><a class="anchor" href="#_question_3_how_many_components_are_in_mcp_architecture"></a>Question 3: How Many Components Are in MCP Architecture?</h3>
+<div class="paragraph">
+<p>Which of these is NOT a core MCP component?</p>
+</div>
+<div class="paragraph">
+<p>a) AI Client (where you interact)
+b) AI Model (the LLM)
+c) MCP Server (the gatekeeper)
+d) Load Balancer  ✓</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> D</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The four core components are: AI Client, AI Model, MCP Server, and Your System (AAP). A load balancer is infrastructure, not part of the core MCP architecture.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_4_whats_the_mcp_servers_main_job"><a class="anchor" href="#_question_4_whats_the_mcp_servers_main_job"></a>Question 4: What&#8217;s the MCP Server&#8217;s Main Job?</h3>
+<div class="paragraph">
+<p>What does the MCP Server do?</p>
+</div>
+<div class="paragraph">
+<p>a) Trains AI models
+b) Validates requests and enforces security  ✓
+c) Stores your AAP data
+d) Runs your Ansible playbooks</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The MCP Server is the "gatekeeper." It authenticates requests using your API token, validates that the request is allowed based on RBAC, translates the request to an AAP API call, and standardizes the response.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_5_why_is_authentication_important_in_mcp"><a class="anchor" href="#_question_5_why_is_authentication_important_in_mcp"></a>Question 5: Why is Authentication Important in MCP?</h3>
+<div class="paragraph">
+<p>What would happen if MCP didn&#8217;t enforce authentication?</p>
+</div>
+<div class="paragraph">
+<p>a) It would be faster but less secure  ✓
+b) Nothing different
+c) Playbooks would execute automatically
+d) It would require you to log in twice</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> A</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> Without authentication, anyone could use your MCP server, which would be a severe security risk. Authentication ensures only authorized users can access your infrastructure through MCP.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_2_aap_toolsets_6_questions"><a class="anchor" href="#_part_2_aap_toolsets_6_questions"></a>Part 2: AAP Toolsets (6 Questions)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_question_6_how_many_aap_mcp_toolsets_are_there"><a class="anchor" href="#_question_6_how_many_aap_mcp_toolsets_are_there"></a>Question 6: How Many AAP MCP Toolsets Are There?</h3>
+<div class="paragraph">
+<p>How many separate toolsets does the Ansible MCP Server expose?</p>
+</div>
+<div class="paragraph">
+<p>a) 3
+b) 4
+c) 6  ✓
+d) 12</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The 6 AAP MCP toolsets are: Job Management, Inventory Management, System Monitoring, User Management, Security &amp; Compliance, and Platform Configuration.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_7_which_toolset_would_you_use_to_find_offline_hosts"><a class="anchor" href="#_question_7_which_toolset_would_you_use_to_find_offline_hosts"></a>Question 7: Which Toolset Would You Use to Find Offline Hosts?</h3>
+<div class="paragraph">
+<p>If you want to find which hosts haven&#8217;t checked in recently, which toolset would you use?</p>
+</div>
+<div class="paragraph">
+<p>a) Job Management
+b) Inventory Management  ✓
+c) System Monitoring
+d) Security &amp; Compliance</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The Inventory Management toolset handles hosts, groups, and inventory queries. It would allow you to query which hosts are in your inventory and their status.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_8_what_does_the_security_compliance_toolset_provide"><a class="anchor" href="#_question_8_what_does_the_security_compliance_toolset_provide"></a>Question 8: What Does the Security &amp; Compliance Toolset Provide?</h3>
+<div class="paragraph">
+<p>Which of these is NOT a capability of the Security &amp; Compliance toolset?</p>
+</div>
+<div class="paragraph">
+<p>a) View audit logs
+b) List credentials
+c) Launch job templates  ✓
+d) Review access history</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> Launching job templates is handled by the Job Management toolset. Security &amp; Compliance provides access to audit logs, credentials, security policies, and access history.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_9_can_you_use_all_6_toolsets_with_one_mcp_server"><a class="anchor" href="#_question_9_can_you_use_all_6_toolsets_with_one_mcp_server"></a>Question 9: Can You Use All 6 Toolsets with One MCP Server?</h3>
+<div class="paragraph">
+<p>Can you connect to multiple toolsets simultaneously?</p>
+</div>
+<div class="paragraph">
+<p>a) No, you can only use one at a time
+b) Yes, but only if you have admin permissions
+c) Yes, all 6 can be configured together  ✓
+d) No, you need separate MCP servers for each</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> You configure all 6 toolsets when setting up your AI tool. The single MCP server has 6 endpoints, and you connect to all of them. The AI model can call any tool needed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_10_which_toolset_gives_system_health_status"><a class="anchor" href="#_question_10_which_toolset_gives_system_health_status"></a>Question 10: Which Toolset Gives System Health Status?</h3>
+<div class="paragraph">
+<p>If you want to check "Is my AAP platform healthy?", which toolset would you ask?</p>
+</div>
+<div class="paragraph">
+<p>a) User Management
+b) System Monitoring  ✓
+c) Platform Configuration
+d) Security &amp; Compliance</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> System Monitoring provides health status, capacity metrics, and performance data about your AAP instance and execution nodes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_11_whats_the_difference_between_job_management_and_inventory_management"><a class="anchor" href="#_question_11_whats_the_difference_between_job_management_and_inventory_management"></a>Question 11: What&#8217;s the Difference Between Job Management and Inventory Management?</h3>
+<div class="paragraph">
+<p>What does Job Management handle that Inventory Management doesn&#8217;t?</p>
+</div>
+<div class="paragraph">
+<p>a) Both handle hosts
+b) Job Management is for playbooks, Inventory is for servers
+c) Job Management handles job execution, workflows, and templates; Inventory handles hosts and groups  ✓
+d) They&#8217;re the same, just different names</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> Job Management deals with automation workflows—running jobs, checking status, accessing job templates. Inventory Management deals with infrastructure—hosts, groups, variables.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_3_practical_workflow_5_questions"><a class="anchor" href="#_part_3_practical_workflow_5_questions"></a>Part 3: Practical Workflow (5 Questions)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_question_12_what_three_steps_deploy_and_use_mcp"><a class="anchor" href="#_question_12_what_three_steps_deploy_and_use_mcp"></a>Question 12: What Three Steps Deploy and Use MCP?</h3>
+<div class="paragraph">
+<p>What are the three main steps to get MCP working?</p>
+</div>
+<div class="paragraph">
+<p>a) Download, Install, Verify
+b) Deploy MCP server, Generate token, Configure tool  ✓
+c) Login, Setup, Run
+d) Cluster, Pod, Service</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The workflow is: (1) Deploy the MCP server on your infrastructure, (2) Generate an API token in AAP, (3) Configure your AI tool with the token and MCP URL.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_13_where_does_the_api_token_come_from"><a class="anchor" href="#_question_13_where_does_the_api_token_come_from"></a>Question 13: Where Does the API Token Come From?</h3>
+<div class="paragraph">
+<p>Where do you create an API token?</p>
+</div>
+<div class="paragraph">
+<p>a) In Cursor IDE settings
+b) In the Claude configuration file
+c) In Ansible Automation Platform (AAP)  ✓
+d) In OpenShift console</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> API tokens are created in AAP under Access Management → API Tokens. You then use that token to configure your AI tool.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_14_what_information_do_you_need_to_configure_an_ai_tool"><a class="anchor" href="#_question_14_what_information_do_you_need_to_configure_an_ai_tool"></a>Question 14: What Information Do You Need to Configure an AI Tool?</h3>
+<div class="paragraph">
+<p>When configuring Cursor or Claude for MCP, what two pieces of information are essential?</p>
+</div>
+<div class="paragraph">
+<p>a) Username and password
+b) AAP hostname and cluster name
+c) MCP Server URL and API Token  ✓
+d) Playbook path and inventory file</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> You need to tell the AI tool: (1) Where is the MCP server? (the URL), (2) Who am I? (the API token). The tool uses these to authenticate and connect.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_15_what_happens_if_your_api_token_expires"><a class="anchor" href="#_question_15_what_happens_if_your_api_token_expires"></a>Question 15: What Happens if Your API Token Expires?</h3>
+<div class="paragraph">
+<p>If your API token expires, what do you need to do?</p>
+</div>
+<div class="paragraph">
+<p>a) Reinstall AAP
+b) Recreate the token and update your tool configuration  ✓
+c) Wait for it to auto-renew
+d) Upgrade Cursor or Claude</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> Tokens can expire or be revoked. When this happens, you create a new token in AAP and update your AI tool configuration with the new token, then restart the tool.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_16_whats_the_difference_between_read_and_write_token_scope"><a class="anchor" href="#_question_16_whats_the_difference_between_read_and_write_token_scope"></a>Question 16: What&#8217;s the Difference Between Read and Write Token Scope?</h3>
+<div class="paragraph">
+<p>What&#8217;s the key difference in what you can do with each scope?</p>
+</div>
+<div class="paragraph">
+<p>a) Read is slower, Write is faster
+b) Read is for Cursor, Write is for Claude
+c) Read allows querying but not making changes; Write allows both  ✓
+d) There&#8217;s no difference</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> A "Read" scoped token can only query information (view jobs, list hosts, check status). A "Write" scoped token can also make changes (launch jobs, create users, modify settings). Start with Read for safety.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_4_security_architecture_4_questions"><a class="anchor" href="#_part_4_security_architecture_4_questions"></a>Part 4: Security &amp; Architecture (4 Questions)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_question_17_where_does_security_get_enforced"><a class="anchor" href="#_question_17_where_does_security_get_enforced"></a>Question 17: Where Does Security Get Enforced?</h3>
+<div class="paragraph">
+<p>At what point does MCP enforce your AAP permissions?</p>
+</div>
+<div class="paragraph">
+<p>a) Only in your AI tool
+b) Only in the MCP Server  ✓
+c) Only in AAP
+d) The AI model enforces it</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The MCP Server is the security checkpoint. It validates your token, checks your RBAC permissions, and only allows actions your user account has access to. The AI model doesn&#8217;t have direct access to AAP.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_18_can_the_ai_model_bypass_your_permissions"><a class="anchor" href="#_question_18_can_the_ai_model_bypass_your_permissions"></a>Question 18: Can the AI Model Bypass Your Permissions?</h3>
+<div class="paragraph">
+<p>If your token is read-only, can an AI tool still launch jobs?</p>
+</div>
+<div class="paragraph">
+<p>a) Yes, if the AI is smart enough
+b) Yes, but only with admin help
+c) No, the MCP Server will reject the request  ✓
+d) Only if you ask it politely</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The MCP Server enforces permissions at the security checkpoint. No matter how the AI requests it, if the token doesn&#8217;t have write access, the request is denied.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_19_what_gets_sent_between_components"><a class="anchor" href="#_question_19_what_gets_sent_between_components"></a>Question 19: What Gets Sent Between Components?</h3>
+<div class="paragraph">
+<p>What information flows from the AI to the MCP Server?</p>
+</div>
+<div class="paragraph">
+<p>a) Your AAP password
+b) Structured tool calls with parameters  ✓
+c) Ansible playbooks
+d) SSH private keys</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The AI sends structured tool calls ("call job_list with limit_days=7"), not raw requests or credentials. The MCP Server then translates these to API calls with your token.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_20_if_you_delete_your_api_token_what_happens"><a class="anchor" href="#_question_20_if_you_delete_your_api_token_what_happens"></a>Question 20: If You Delete Your API Token, What Happens?</h3>
+<div class="paragraph">
+<p>What happens to existing MCP connections if you delete the token?</p>
+</div>
+<div class="paragraph">
+<p>a) They keep working (tokens can&#8217;t be deleted)
+b) They fail immediately  ✓
+c) They keep working for 24 hours then fail
+d) Nothing, tokens don&#8217;t affect connections</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> When you delete a token in AAP, all connections using that token are immediately invalidated. You&#8217;ll get "Unauthorized" errors until you create a new token and reconfigure your tool.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_5_real_world_scenarios_5_questions"><a class="anchor" href="#_part_5_real_world_scenarios_5_questions"></a>Part 5: Real-World Scenarios (5 Questions)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_question_21_scenario_your_first_query"><a class="anchor" href="#_question_21_scenario_your_first_query"></a>Question 21: Scenario - Your First Query</h3>
+<div class="paragraph">
+<p>You&#8217;ve configured Cursor with MCP. You ask: "Show me failed jobs from this week."</p>
+</div>
+<div class="paragraph">
+<p>What happens?</p>
+</div>
+<div class="paragraph">
+<p>a) Cursor searches the internet
+b) Cursor asks the AI model, which calls MCP tools, which queries AAP  ✓
+c) Cursor runs a local command
+d) Nothing—you need to manually query AAP first</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The full workflow: You ask → Cursor sends to AI → AI interprets and calls MCP tools → MCP Server queries AAP → Data comes back → AI summarizes for you.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_22_scenario_permission_error"><a class="anchor" href="#_question_22_scenario_permission_error"></a>Question 22: Scenario - Permission Error</h3>
+<div class="paragraph">
+<p>You have a read-only token and try to ask: "Launch the deploy job."</p>
+</div>
+<div class="paragraph">
+<p>What happens?</p>
+</div>
+<div class="paragraph">
+<p>a) It launches the job
+b) The MCP Server returns a permission denied error  ✓
+c) The job launches but is marked as "read-only"
+d) It asks you for a password</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> The MCP Server checks your token scope. Read-only tokens cannot launch jobs. The request is rejected at the security checkpoint.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_23_scenario_connection_troubleshooting"><a class="anchor" href="#_question_23_scenario_connection_troubleshooting"></a>Question 23: Scenario - Connection Troubleshooting</h3>
+<div class="paragraph">
+<p>Cursor can&#8217;t connect to MCP. You&#8217;ve verified the URL and token are correct. What&#8217;s a likely cause?</p>
+</div>
+<div class="paragraph">
+<p>a) You need to upgrade Cursor
+b) The MCP deployment pod isn&#8217;t running  ✓
+c) You configured too many toolsets
+d) The API token is the wrong color</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> If the URL and token are correct but connection is refused, the MCP server itself is probably not running. Check that the MCP deployment is actually deployed and the pod is ready.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_24_scenario_best_practice"><a class="anchor" href="#_question_24_scenario_best_practice"></a>Question 24: Scenario - Best Practice</h3>
+<div class="paragraph">
+<p>For production use with a team, what&#8217;s the recommended approach for API tokens?</p>
+</div>
+<div class="paragraph">
+<p>a) Share one token among all team members
+b) Create individual tokens for each team member  ✓
+c) Use the admin token for everything
+d) Rotate tokens weekly</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> B</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> Create individual tokens so you can track who did what (audit logs), revoke access independently, and follow the principle of least privilege. One shared token is a security risk.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_question_25_scenario_adding_another_tool"><a class="anchor" href="#_question_25_scenario_adding_another_tool"></a>Question 25: Scenario - Adding Another Tool</h3>
+<div class="paragraph">
+<p>You want to use both Cursor and Claude with the same AAP instance. What do you need?</p>
+</div>
+<div class="paragraph">
+<p>a) Two different AAP instances
+b) Two different MCP servers
+c) One token for each tool (or can share same token)  ✓
+d) Different AAP users for each tool</p>
+</div>
+<div class="paragraph">
+<p><strong>Answer:</strong> C</p>
+</div>
+<div class="paragraph">
+<p><strong>Explanation:</strong> You can use the same API token for multiple AI tools, or create separate tokens for each. Either works. Both tools connect to the same MCP server(s).</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_answer_key_scoring"><a class="anchor" href="#_answer_key_scoring"></a>Answer Key &amp; Scoring</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_scoring"><a class="anchor" href="#_scoring"></a>Scoring</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Score</th>
+<th class="tableblock halign-left valign-top">Assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">25/25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expert! You&#8217;ve mastered MCP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">22-24/25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Advanced. You understand the concepts deeply.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18-21/25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proficient. You&#8217;re ready for production use.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15-17/25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Intermediate. Review sections where you missed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12-14/25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Beginner. Take the course again focusing on weak areas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;12/25</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Review fundamentals. Go back to Chapter 1.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_by_topic"><a class="anchor" href="#_by_topic"></a>By Topic</h3>
+<div class="paragraph">
+<p><strong>MCP Fundamentals (Q1-5):</strong>
+- If you scored 5/5: Great understanding of what MCP is
+- If you scored &lt;4/5: Review Section 1-2 of Chapter 1</p>
+</div>
+<div class="paragraph">
+<p><strong>AAP Toolsets (Q6-11):</strong>
+- If you scored 6/6: Perfect knowledge of toolsets
+- If you scored &lt;5/6: Review Section 3 of Chapter 1</p>
+</div>
+<div class="paragraph">
+<p><strong>Practical Workflow (Q12-16):</strong>
+- If you scored 5/5: Ready for Labs
+- If you scored &lt;4/5: Review Section 5 of Chapter 1</p>
+</div>
+<div class="paragraph">
+<p><strong>Security &amp; Architecture (Q17-20):</strong>
+- If you scored 4/4: Security understanding is solid
+- If you scored &lt;3/4: Review Section 2 and 4 of Chapter 1</p>
+</div>
+<div class="paragraph">
+<p><strong>Real-World Scenarios (Q21-25):</strong>
+- If you scored 5/5: Apply knowledge confidently
+- If you scored &lt;4/5: Practice more before production</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_to_review_based_on_results"><a class="anchor" href="#_what_to_review_based_on_results"></a>What to Review Based on Results</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_if_you_struggled_with_fundamentals_q1_5"><a class="anchor" href="#_if_you_struggled_with_fundamentals_q1_5"></a>If You Struggled with Fundamentals (Q1-5)</h3>
+<div class="paragraph">
+<p>You might not fully understand what MCP is or why it matters. Review:
+* Section 1: What is MCP?
+* Section 2: MCP Architecture</p>
+</div>
+<div class="paragraph">
+<p>Focus on understanding:
+* MCP is a <strong>standard</strong>, not a tool
+* It gives AI <strong>real-time access</strong> to your systems
+* The MCP Server is the <strong>security checkpoint</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_if_you_struggled_with_toolsets_q6_11"><a class="anchor" href="#_if_you_struggled_with_toolsets_q6_11"></a>If You Struggled with Toolsets (Q6-11)</h3>
+<div class="paragraph">
+<p>You might not know which toolset to use for different tasks. Review:
+* Section 3: AAP Integration &amp; Toolsets</p>
+</div>
+<div class="paragraph">
+<p>Practice:
+* Map real tasks to toolsets (e.g., "find offline hosts" → Inventory Management)
+* Ask yourself "which toolset would handle this?" for different scenarios</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_if_you_struggled_with_practical_workflow_q12_16"><a class="anchor" href="#_if_you_struggled_with_practical_workflow_q12_16"></a>If You Struggled with Practical Workflow (Q12-16)</h3>
+<div class="paragraph">
+<p>You might not understand the deployment and configuration steps. Review:
+* Section 5: End-to-End Workflow
+* Lab 1, 2, 3 for hands-on practice</p>
+</div>
+<div class="paragraph">
+<p>Practice:
+* Run through the labs again
+* Focus on each step and understand <strong>why</strong> you&#8217;re doing it</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_if_you_struggled_with_security_q17_20"><a class="anchor" href="#_if_you_struggled_with_security_q17_20"></a>If You Struggled with Security (Q17-20)</h3>
+<div class="paragraph">
+<p>You might not understand how permissions and authentication work. Review:
+* Section 2: MCP Architecture (component roles)
+* Section 4: Communication Workflow (security checkpoints)</p>
+</div>
+<div class="paragraph">
+<p>Key concepts:
+* AI can&#8217;t access AAP directly; MCP Server is the gatekeeper
+* Tokens control what you can do
+* RBAC is enforced at the server, not the client</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_if_you_struggled_with_real_world_scenarios_q21_25"><a class="anchor" href="#_if_you_struggled_with_real_world_scenarios_q21_25"></a>If You Struggled with Real-World Scenarios (Q21-25)</h3>
+<div class="paragraph">
+<p>You might have trouble applying concepts to realistic situations. Review:
+* All previous sections (understand foundations first)
+* Lab 3: Run Queries and Troubleshoot</p>
+</div>
+<div class="paragraph">
+<p>Practice:
+* Set up MCP yourself and run queries
+* Troubleshoot real issues
+* Think through "what would happen if&#8230;&#8203;" scenarios</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tips_for_using_this_knowledge_check"><a class="anchor" href="#_tips_for_using_this_knowledge_check"></a>Tips for Using This Knowledge Check</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Take it honestly</strong> — This is for you, not graded</p>
+</li>
+<li>
+<p><strong>Review weaknesses</strong> — Use the scoring guide to focus study</p>
+</li>
+<li>
+<p><strong>Re-take it later</strong> — Test yourself again after time passes</p>
+</li>
+<li>
+<p><strong>Apply it</strong> — The real test is using MCP successfully</p>
+</li>
+<li>
+<p><strong>Help others</strong> — Teaching others deepens your understanding</p>
+</li>
+</ol>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_passing_the_course"><a class="anchor" href="#_passing_the_course"></a>Passing the Course</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To successfully complete this MCP course, you should be able to:</p>
+</div>
+<div class="paragraph">
+<p>✅ Define MCP and explain why it matters
+✅ Describe the 4 MCP components and how they interact
+✅ Name the 6 AAP toolsets and when to use each
+✅ Deploy MCP on OpenShift
+✅ Generate an API token securely
+✅ Configure a tool (Cursor, Claude, or LibreChat)
+✅ Run queries and understand the workflow
+✅ Troubleshoot common issues
+✅ Score 18+ on this knowledge check</p>
+</div>
+<div class="paragraph">
+<p>If you meet these criteria, <strong>congratulations!</strong> You&#8217;re ready to use MCP in your environment.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Next Steps:</strong>
+* Use the MCP Cheat Sheet for quick reference
+* Reference the Troubleshooting Guide when issues arise
+* Share what you&#8217;ve learned with your team
+* Set up MCP in your production environment with confidence</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

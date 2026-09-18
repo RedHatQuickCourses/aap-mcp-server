@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MCP Cheat Sheet :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 1: Understanding MCP &amp; AAP Integration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section1-what-is-mcp.adoc">Section 1: What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section2-mcp-architecture.adoc">Section 2: MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section3-aap-integration.adoc">Section 3: AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section4-communication-workflow.adoc">Section 4: Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/section5-end-to-end.adoc">Section 5: End-to-End Workflow</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="cheat-sheet.html">MCP Cheat Sheet</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">MCP Cheat Sheet</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>A quick reference for common tasks, queries, and configurations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_setup_commands"><a class="anchor" href="#_quick_setup_commands"></a>Quick Setup Commands</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_cursor_ide_one_time_setup"><a class="anchor" href="#_cursor_ide_one_time_setup"></a>Cursor IDE (One-Time Setup)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># 1. Add to ~/.zshrc or ~/.bashrc
+export AAP_MCP_URL="https://your-aap.com:8448"
+export MY_SERVICE_TOKEN="your-token-here"
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+# 2. Reload shell
+source ~/.zshrc
+
+# 3. Open Cursor Settings → Tools &amp; MCP
+# 4. Add 6 servers with this template:
+{
+  "type": "streamable-http",
+  "url": "${env:AAP_MCP_URL}/job_management/mcp",
+  "headers": {"Authorization": "Bearer ${env:MY_SERVICE_TOKEN}"}
+}
+# (Change "job_management" to: inventory_management, system_monitoring,
+#  user_management, security_compliance, platform_configuration)
+
+# 5. Restart Cursor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_claude_desktop_one_time_setup"><a class="anchor" href="#_claude_desktop_one_time_setup"></a>Claude Desktop (One-Time Setup)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># 1. Add to ~/.zshrc or ~/.bashrc
+export AAP_SERVER="https://your-aap.com:8448"
+export AAP_SERVICE_TOKEN="your-token-here"
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+# 2. Reload shell
+source ~/.zshrc
+
+# 3. Create/edit ~/.claude/claude.json with 6 servers
+# (See Lab 2 for full config)
+
+# 4. Restart Claude</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_test_configuration"><a class="anchor" href="#_test_configuration"></a>Test Configuration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Verify MCP server is accessible
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://your-aap.com:8448/job_management/mcp
+
+# Verify token is set
+echo $MY_SERVICE_TOKEN
+echo $AAP_MCP_URL
+
+# Verify environment is loaded
+env | grep AAP</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_queries"><a class="anchor" href="#_common_queries"></a>Common Queries</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_job_management_queries"><a class="anchor" href="#_job_management_queries"></a>Job Management Queries</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">What You Want</th>
+<th class="tableblock halign-left valign-top">What to Ask</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List all jobs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"List all job executions"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Recent failed jobs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me jobs that failed in the last 7 days"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Running jobs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What jobs are currently running?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job details</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me details for job #456"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job by name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Did the 'Deploy Web Servers' job succeed?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"How many jobs have run this month?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job templates</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"List all job templates available"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job output</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me the output from the last run of Job X"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_inventory_queries"><a class="anchor" href="#_inventory_queries"></a>Inventory Queries</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">What You Want</th>
+<th class="tableblock halign-left valign-top">What to Ask</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"How many hosts are in my inventory?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hosts by group</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Which hosts are in the production group?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Windows hosts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me all Windows servers"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux hosts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"List all Linux hosts"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Offline hosts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Are there any hosts that haven&#8217;t checked in?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Host variables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me variables for host web-01"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groups list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What inventory groups do I have?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specific inventory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me all hosts in the 'prod' inventory"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_monitoring_queries"><a class="anchor" href="#_monitoring_queries"></a>Monitoring Queries</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">What You Want</th>
+<th class="tableblock halign-left valign-top">What to Ask</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform health</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What&#8217;s the health status of my AAP instance?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution nodes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me my execution nodes and their status"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Capacity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What&#8217;s my AAP capacity utilization?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job metrics</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"How many jobs ran this week?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Failure rate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What&#8217;s my job failure percentage?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Which execution node has the best performance?"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_user_management_queries"><a class="anchor" href="#_user_management_queries"></a>User Management Queries</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">What You Want</th>
+<th class="tableblock halign-left valign-top">What to Ask</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All users</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"List all users in the system"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Teams</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What teams exist in AAP?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team members</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me the members of the ops team"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User roles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What roles does user alice have?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Organizations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"List all organizations"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"How many users are in my AAP?"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_security_compliance_queries"><a class="anchor" href="#_security_compliance_queries"></a>Security &amp; Compliance Queries</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">What You Want</th>
+<th class="tableblock halign-left valign-top">What to Ask</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Audit logs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me audit logs from the past 24 hours"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Credentials</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"List all credentials and their types"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Changes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What changed in the past week?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access events</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me login activity"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Failed attempts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Were there any failed authentication attempts?"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_configuration_queries"><a class="anchor" href="#_configuration_queries"></a>Configuration Queries</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">What You Want</th>
+<th class="tableblock halign-left valign-top">What to Ask</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Projects</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"List all projects and their status"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution environments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What execution environments are available?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Settings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me platform configuration"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Integrations</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What integrations are configured?"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Show me database settings"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_api_token_quick_reference"><a class="anchor" href="#_api_token_quick_reference"></a>API Token Quick Reference</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_create_token_aap_web_ui"><a class="anchor" href="#_create_token_aap_web_ui"></a>Create Token (AAP Web UI)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">1. Log in to AAP
+2. Access Management → API Tokens
+3. Create API Token
+4. Name: "mcp-token" (or any name)
+5. Application: Leave blank
+6. Scope: "Read" or "Read + Write"
+7. Click Create
+8. Copy token immediately (not shown again!)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_token_scopes"><a class="anchor" href="#_token_scopes"></a>Token Scopes</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scope</th>
+<th class="tableblock halign-left valign-top">Permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">View-only access (safe default)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Can make changes (use carefully)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read + Write</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full access (admin only)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_rotate_token_security_best_practice"><a class="anchor" href="#_rotate_token_security_best_practice"></a>Rotate Token (Security Best Practice)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">1. Create new token with same scope
+2. Update configuration in AI tool
+3. Restart AI tool
+4. Delete old token in AAP</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_url_reference"><a class="anchor" href="#_url_reference"></a>URL Reference</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_deployment_types"><a class="anchor" href="#_deployment_types"></a>Deployment Types</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Deployment</th>
+<th class="tableblock halign-left valign-top">URL Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://aap-mcp.apps.cluster.example.com" class="bare">https://aap-mcp.apps.cluster.example.com</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Containerized (RHEL)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://aap-hostname.com:8448" class="bare">https://aap-hostname.com:8448</a></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_mcp_endpoint_paths"><a class="anchor" href="#_mcp_endpoint_paths"></a>MCP Endpoint Paths</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Toolset</th>
+<th class="tableblock halign-left valign-top">Endpoint</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job Management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/job_management/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inventory Management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/inventory_management/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System Monitoring</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/system_monitoring/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User Management</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/user_management/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Security &amp; Compliance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/security_compliance/mcp</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Platform Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>/platform_configuration/mcp</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_full_mcp_urls"><a class="anchor" href="#_full_mcp_urls"></a>Full MCP URLs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs"># Example: OpenShift deployment
+https://aap-mcp.apps.example.com/job_management/mcp
+https://aap-mcp.apps.example.com/inventory_management/mcp
+https://aap-mcp.apps.example.com/system_monitoring/mcp
+https://aap-mcp.apps.example.com/user_management/mcp
+https://aap-mcp.apps.example.com/security_compliance/mcp
+https://aap-mcp.apps.example.com/platform_configuration/mcp
+
+# Example: Containerized deployment
+https://aap.example.com:8448/job_management/mcp
+https://aap.example.com:8448/inventory_management/mcp
+(etc...)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting_checklist"><a class="anchor" href="#_troubleshooting_checklist"></a>Troubleshooting Checklist</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_connection_issues"><a class="anchor" href="#_connection_issues"></a>Connection Issues</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Check</th>
+<th class="tableblock halign-left valign-top">How to Verify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL is correct</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Paste URL in browser, should not give "refused"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Token is valid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Try creating new token in AAP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network reaches MCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>curl -k <a href="https://your-mcp-url" class="bare">https://your-mcp-url</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP is deployed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check OCP: Deployments → mcp pod running?</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP is accessible</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Log in to AAP web UI successfully</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_configuration_issues"><a class="anchor" href="#_configuration_issues"></a>Configuration Issues</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Check</th>
+<th class="tableblock halign-left valign-top">How to Verify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment variables set</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>echo $MY_SERVICE_TOKEN</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All 6 toolsets added</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"What tools are available?" should list 85+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bearer prefix included</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Config should have <code>Bearer $token</code> not just <code>$token</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AI tool restarted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fully close and reopen (not refresh)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">YAML is valid</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Try different tool first to test setup</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_permission_issues"><a class="anchor" href="#_permission_issues"></a>Permission Issues</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Check</th>
+<th class="tableblock halign-left valign-top">How to Verify</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Token scope matches needs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read-only token can&#8217;t launch jobs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP user has permissions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check RBAC in AAP → Access Management</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Organization access</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User should be in organization to access</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team membership</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team-level resources require team access</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_debugging_steps"><a class="anchor" href="#_quick_debugging_steps"></a>Quick Debugging Steps</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_connection_refused"><a class="anchor" href="#_connection_refused"></a>"Connection Refused"</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Step 1: Test URL manually
+curl -k https://your-mcp-url
+# Should return 400/401, not "refused"
+
+# Step 2: Check deployment
+oc get deployments -n aap | grep mcp
+# Should show 1/1 Ready
+
+# Step 3: Check route
+oc get routes -n aap | grep mcp
+# Should show a URL in Location column
+
+# Step 4: Try different URL format
+# If using OCP, make sure NO port (aap-mcp.apps.com)
+# If using RHEL, make sure WITH port (hostname:8448)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unauthorized_401"><a class="anchor" href="#_unauthorized_401"></a>"Unauthorized" / "401"</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Step 1: Verify token
+echo $MY_SERVICE_TOKEN
+# Should show 40+ character string
+
+# Step 2: Test token
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://your-mcp-url
+# Should not return 401
+
+# Step 3: Create new token
+# Go to AAP → Access Management → API Tokens
+# Create new token
+# Update configuration
+
+# Step 4: Restart tool
+# Fully close and reopen AI tool</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tool_not_found"><a class="anchor" href="#_tool_not_found"></a>"Tool Not Found"</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Step 1: List available tools
+# In AI tool, ask: "What tools are available?"
+
+# Step 2: Verify all 6 toolsets configured
+# Check config for all 6 endpoints
+
+# Step 3: Check tool name spelling
+# Use exact names from "tools available" response
+
+# Step 4: Restart tool and retry</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_common_configuration_errors"><a class="anchor" href="#_common_configuration_errors"></a>Common Configuration Errors</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_missing_bearer_prefix"><a class="anchor" href="#_missing_bearer_prefix"></a>Missing Bearer Prefix</h3>
+<div class="paragraph">
+<p><strong>Wrong:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"Authorization": "${env:MY_SERVICE_TOKEN}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Correct:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">"Authorization": "Bearer ${env:MY_SERVICE_TOKEN}"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_wrong_url_format"><a class="anchor" href="#_wrong_url_format"></a>Wrong URL Format</h3>
+<div class="paragraph">
+<p><strong>Wrong (OpenShift):</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">https://aap-mcp.apps.example.com:8448/job_management/mcp
+(includes port)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Correct (OpenShift):</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">https://aap-mcp.apps.example.com/job_management/mcp
+(no port)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_missing_toolsets"><a class="anchor" href="#_missing_toolsets"></a>Missing Toolsets</h3>
+<div class="paragraph">
+<p><strong>Wrong (only 1 server):</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">{
+  "aap-job-mgmt": {...}
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Correct (all 6 servers):</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">{
+  "aap-job-mgmt": {...},
+  "aap-inventory": {...},
+  "aap-monitoring": {...},
+  "aap-user-mgmt": {...},
+  "aap-security": {...},
+  "aap-config": {...}
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_environment_variables"><a class="anchor" href="#_environment_variables"></a>Environment Variables</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 42.8571%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Variable</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP_MCP_URL or AAP_SERVER</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP server location</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://aap-mcp.apps.example.com" class="bare">https://aap-mcp.apps.example.com</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MY_SERVICE_TOKEN or AAP_SERVICE_TOKEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API authentication</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">abc123def456&#8230;&#8203;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NODE_TLS_REJECT_UNAUTHORIZED</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Skip SSL verification (demo only!)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NODE_DEBUG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debug mode (verbose logging)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Warning:</strong> Only use <code>NODE_TLS_REJECT_UNAUTHORIZED=0</code> in development! Use proper SSL certificates in production.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_useful_one_liners"><a class="anchor" href="#_useful_one_liners"></a>Useful One-Liners</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># Find MCP route URL
+oc get routes -n aap -o wide | grep mcp
+
+# Get MCP pod logs
+oc logs -n aap -l app=aap-mcp --tail=50
+
+# Check MCP pod status
+oc get pods -n aap | grep mcp
+
+# Restart MCP pod
+oc delete pod -n aap -l app=aap-mcp
+
+# Check AAP token validity
+curl -k -H "Authorization: Token $MY_SERVICE_TOKEN" \
+  https://your-aap-url/api/v2/ping/
+
+# Test MCP endpoint
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://your-mcp-url/job_management/mcp
+
+# Show environment variables
+env | grep -E "(AAP|TOKEN|MCP)"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_reference_table"><a class="anchor" href="#_quick_reference_table"></a>Quick Reference Table</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Component</th>
+<th class="tableblock halign-left valign-top">Where</th>
+<th class="tableblock halign-left valign-top">File/Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Course Content</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This site</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start at Welcome</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployments → aap-mcp pod</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP Server URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Networking → Routes → aap-mcp</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API Token</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP Web UI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access Management → API Tokens</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool Config (Cursor)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Computer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cursor Settings → Tools &amp; MCP</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool Config (Claude)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Computer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~/.claude/claude.json</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tool Config (LibreChat)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Web Interface</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Settings → MCP Servers</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment Variables</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Computer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~/.zshrc or ~/.bashrc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP User Permissions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP Web UI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access Management → Users</p></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div class="paragraph">
+<p><strong>Pro Tip:</strong> Bookmark this page for quick reference during labs and production use!</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
