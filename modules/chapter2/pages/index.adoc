@@ -1,7 +1,56 @@
-= Chapter 2
+= Chapter 2: Hands-On Labs
 
-In this section, we cover... FIXME
+## Welcome to Hands-On Learning
 
+Now that you understand MCP, it's time to **actually do it**. This chapter contains **3 progressive labs** that take you through the entire workflow.
 
-- Add or remove section entries in the `antora.yaml` file as needed.
-- Ensure you create or delete the corresponding directory for the chapter accordingly.
+**You will:**
+1. **Lab 1** - Deploy MCP on OpenShift (5-15 min)
+2. **Lab 2** - Configure an AI tool to connect (10-20 min)
+3. **Lab 3** - Run queries and troubleshoot (20-30 min)
+
+By the end, you'll have a working MCP integration with your AAP environment.
+
+## Prerequisites
+
+Before you start, you need:
+
+* ✅ Access to an **OpenShift Container Platform (OCP)** cluster
+* ✅ **Ansible Automation Platform (AAP)** running on that cluster
+* ✅ **Admin access** to both OCP and AAP (or someone who can help with deployments)
+* ✅ One of these **AI tools installed**:
+  - Cursor IDE
+  - Claude Desktop App
+  - LibreChat (web-based)
+  - Any MCP-compatible tool
+* ✅ A terminal/command line where you can run `oc` commands
+
+**If you don't have these**, ask your administrator or skip to the **MCP Cheat Sheet** section at the end to understand the commands without running them.
+
+## Lab Structure
+
+Each lab follows this pattern:
+
+1. **What you'll do** - Overview of the lab
+2. **Prerequisites** - What you need
+3. **Step-by-step instructions** - Copy-paste commands
+4. **Verification** - How to know it worked
+5. **Troubleshooting** - Common issues and fixes
+
+## Time Required
+
+* **Lab 1** - 5-15 minutes (depends on AAP/OCP readiness)
+* **Lab 2** - 10-20 minutes (configuration)
+* **Lab 3** - 20-30 minutes (testing and troubleshooting)
+
+**Total**: 35-65 minutes
+
+## Can I Skip Labs?
+
+* **Lab 1** - You can skip if MCP is already deployed
+* **Lab 2** - You cannot skip (you need to configure a tool)
+* **Lab 3** - You cannot skip (you need to verify it works)
+
+## Ready?
+
+Start with **Lab 1: Deploy MCP on OCP** if you need to deploy, or go to **Lab 2** if MCP is already running.

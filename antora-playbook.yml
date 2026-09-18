@@ -1,6 +1,6 @@
 site:
-  title: FIXME Course Title
-  start_page: REPLACEREPONAME::index.adoc
+  title: "Model Context Protocol (MCP) for Ansible Automation Platform"
+  start_page: aap-mcp-server::index.adoc
 
 antora:
   extensions:

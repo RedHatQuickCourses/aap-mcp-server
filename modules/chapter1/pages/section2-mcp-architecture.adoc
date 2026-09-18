@@ -1,0 +1,149 @@
+= Section 2: MCP Architecture
+
+== What are the Building Blocks?
+
+MCP is built from **four main components**. Let's break them down:
+
+=== Component 1: The AI Client (The Requester)
+
+This is where *you* interact with the AI. It could be:
+
+* **Claude Desktop** — A desktop application by Anthropic
+* **Cursor IDE** — A code editor with AI built in
+* **LibreChat** — A web-based chat interface
+* **ChatGPT** — OpenAI's chatbot
+* **Any MCP-compatible tool** you're using
+
+*Role*: You enter natural language requests here. "Show me failed jobs from yesterday." The client sends your request to the AI model.
+
+=== Component 2: The AI Model (The Translator)
+
+This is the **large language model (LLM)** — the brain of the operation.
+
+Examples:
+* Claude (Anthropic)
+* GPT-4 (OpenAI)
+* Qwen (Alibaba)
+* Any LLM that supports MCP
+
+*Role*: It interprets your natural language request and figures out which MCP *tools* to call and with what parameters.
+
+.Example Interpretation
+[source]
+----
+Your Input: "How many Windows servers do I have?"
+
+AI Model Thinks: "The user wants server counts. I should:
+1. Call inventory_list to get hosts
+2. Filter for hosts with 'os_windows' group
+3. Count them"
+----
+
+=== Component 3: MCP Server (The Gatekeeper)
+
+The **MCP Server** is the bridge between the AI and your infrastructure.
+
+*Role*:
+* Receives structured requests from the AI model
+* Validates the request using your API token
+* Executes the request against your system (AAP, in this case)
+* Standardizes the response and sends it back to the AI
+
+The MCP server **never trusts the AI directly**. It requires authentication and applies your system's security policies.
+
+=== Component 4: Your System (The Executor)
+
+In this course, it's **Ansible Automation Platform (AAP)**, but it could be:
+
+* Your cloud platform (AWS, Azure, GCP)
+* Your internal database
+* Your monitoring system
+* Any system with an API
+
+*Role*: Executes the actual action or returns the requested data.
+
+== How They Connect
+
+Here's the complete architecture:
+
+[source]
+----
+┌──────────────┐
+│   You        │  Enter natural language
+└──────┬───────┘
+       │
+┌──────▼─────────────────────────────┐
+│  AI Client                          │  (Claude, Cursor, etc)
+│ "List my jobs"                      │
+└──────┬─────────────────────────────┘
+       │ Sends to LLM
+┌──────▼─────────────────────────────┐
+│  AI Model (LLM)                     │  Interprets intent
+│ "I need to call job_list tool"     │
+└──────┬─────────────────────────────┘
+       │ Calls MCP tool
+┌──────▼─────────────────────────────┐
+│  MCP Server                         │  Validates & translates
+│ Authenticates with token            │
+│ Translates to AAP API call          │
+└──────┬─────────────────────────────┘
+       │ Makes API call
+┌──────▼─────────────────────────────┐
+│  Ansible Automation Platform        │  Executes
+│ Queries job database                │
+│ Returns list of jobs                │
+└──────┬─────────────────────────────┘
+       │ Returns raw data
+┌──────▼─────────────────────────────┐
+│  MCP Server (cont'd)                │  Standardizes
+│ Formats response                    │
+│ Sends to AI Model                   │
+└──────┬─────────────────────────────┘
+       │ Returns formatted data
+┌──────▼─────────────────────────────┐
+│  AI Model (LLM) (cont'd)            │  Explains to user
+│ Reads job list                      │
+│ Composes natural language response  │
+└──────┬─────────────────────────────┘
+       │ Displays response
+┌──────▼──────────────┐
+│  You                 │
+│ Reads job summary    │
+└─────────────────────┘
+----
+
+== What About Security?
+
+The MCP Server is the **security checkpoint**:
+
+1. **Authentication**: Uses your AAP API token to verify requests
+2. **Authorization**: Only allows actions your user account has permission to perform
+3. **Standardization**: Ensures all requests follow the same format
+4. **Validation**: Checks that parameters are valid before sending to AAP
+
+.Security Example
+[source]
+----
+AI asks: "Delete all hosts"
+
+MCP Server checks:
+✓ Is the API token valid? YES
+✓ Does the user have delete permission? NO
+✗ DENIED - Permission rejected
+
+Response to AI: "You don't have permission to delete hosts"
+----
+
+== Key Takeaways
+
+* **Four components** work together: Client, AI Model, MCP Server, Your System
+* **MCP Server is the gatekeeper** — it validates and secures all requests
+* **Tokens provide authentication** — proving who you are
+* **RBAC is enforced** — you can only do what your user account allows
+* **Response is standardized** — the AI gets consistent, predictable data
+
+== Next Steps
+
+You understand the components. Now let's see how *Ansible Automation Platform* uses MCP.
+
+→ **Continue to Section 3: AAP Integration & Toolsets**

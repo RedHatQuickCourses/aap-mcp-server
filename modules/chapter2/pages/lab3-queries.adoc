@@ -1,0 +1,474 @@
+= Lab 3: Run Queries and Troubleshoot
+
+[.sidebar]
+****
+* **Lab Type:** Required (everyone must complete this)
+* **Estimated Time:** 20-30 minutes
+* **Skill Level:** Beginner (just ask questions!)
+* **Prerequisites:**
+  - Completed Lab 2 (AI tool configured)
+  - MCP connection working
+****
+
+== Lab Overview
+
+In this lab, you will:
+
+1. Run natural language queries against your AAP environment
+2. See MCP tools being called in real-time
+3. Understand how the AI translates your request
+4. Learn what to do when something goes wrong
+5. Practice different types of queries
+
+By the end, you'll be comfortable asking MCP questions and understand the workflow.
+
+== Part 1: Run Your First Query
+
+=== The Query
+
+In your AI tool, ask:
+
+[source]
+----
+List the names of all jobs that ran in the past 7 days
+----
+
+This is a simple query that asks for historical job data.
+
+=== What You'll See
+
+The AI will:
+1. Interpret your request
+2. Call the `job_list` tool from the MCP server
+3. Get a list of jobs from AAP
+4. Format the response for you
+
+You'll see something like:
+
+[source]
+----
+I'll retrieve the jobs that ran in the past 7 days for you.
+
+(Calling MCP tool: job_list)
+
+Here are the jobs from the past 7 days:
+
+1. Deploy Web Servers - Created: Sept 10, Status: Successful
+2. Database Migration - Created: Sept 11, Status: Failed
+3. Backup Daily - Created: Sept 12, Status: Successful
+4. Config Update - Created: Sept 13, Status: Successful
+----
+
+=== What's Happening Behind the Scenes
+
+[source]
+----
+Your Input:
+  "List jobs from past 7 days"
+        ↓
+AI Interprets:
+  "User wants recent jobs. I'll call job_list with a date filter"
+        ↓
+MCP Translates:
+  "Call /job_management/mcp with parameters: limit_days=7"
+        ↓
+AAP Responds:
+  "Here are 4 jobs matching that criteria..."
+        ↓
+AI Formats:
+  "Here are the jobs from the past 7 days:"
+        ↓
+You See:
+  A nice list with job names, dates, and statuses
+----
+
+== Part 2: Try Different Query Types
+
+Now let's explore the different types of queries you can ask. Remember: each toolset gives you different capabilities.
+
+=== Job Management Queries
+
+Try asking about jobs:
+
+[source]
+----
+"Show me failed jobs from the last 24 hours"
+"What jobs are currently running?"
+"List the 5 most recently executed job templates"
+"Did the 'Deploy Web Servers' job succeed?"
+----
+
+=== Inventory Queries
+
+Try asking about your infrastructure:
+
+[source]
+----
+"How many servers do I have in the production inventory?"
+"Which hosts are in the webservers group?"
+"Show me all Windows hosts"
+"Are there any offline hosts?"
+----
+
+=== Monitoring Queries
+
+Try asking about system health:
+
+[source]
+----
+"What's the health status of my AAP instance?"
+"Show me execution node performance"
+"How many jobs have failed this week?"
+----
+
+=== User Management Queries
+
+Try asking about access control:
+
+[source]
+----
+"List all users in the system"
+"Who are the members of the ops team?"
+"What organizations exist in AAP?"
+----
+
+=== Security & Compliance Queries
+
+Try asking about security:
+
+[source]
+----
+"Show me audit logs from today"
+"What credentials are stored?"
+"Has anything been deleted recently?"
+----
+
+=== Configuration Queries
+
+Try asking about your setup:
+
+[source]
+----
+"What projects do I have?"
+"List execution environments"
+"Show me platform settings"
+----
+
+== Part 3: Follow-Up Conversations
+
+One of the benefits of AI is that you can have a conversation. Try:
+
+[source]
+----
+You: "How many failed jobs do I have?"
+AI: "You have 3 failed jobs in the past 7 days"
+
+You: "Show me more details about the first one"
+AI: [Shows error logs and failure details]
+
+You: "What was the failure reason?"
+AI: [Explains the error in plain English]
+
+You: "Can I run it again?"
+AI: "Your token has read-only permissions. You'd need to
+     create a new token with write access to launch jobs."
+----
+
+This conversation demonstrates how MCP bridges the gap between natural language and structured data.
+
+== Part 4: Understanding Tool Invocation
+
+=== Seeing Which Tools Are Called
+
+Most AI tools show you which MCP tools they're using. Look for indicators like:
+
+**In Cursor:**
+----
+[Calling tool: job_list]
+[Tool returned: {...}]
+----
+
+**In Claude:**
+----
+I'll use the job_management MCP server to check this...
+Tool: job_list
+Parameters: {"limit_days": 7}
+----
+
+**In LibreChat:**
+An expand button showing "Tool calls" with the tool name and parameters.
+
+=== What If No Tool Is Called?
+
+If you ask a question and no MCP tool is called, the AI is answering from its training data instead of from your live AAP.
+
+This usually means:
+
+1. The question is too vague (try being more specific)
+2. The AI doesn't understand the mapping to a tool
+3. The question is about something not exposed by MCP (like general knowledge)
+
+**Example:**
+
+[source]
+----
+Question: "What is Ansible?"
+Result: No tool called (AI answers from training data)
+
+Question: "List my job templates"
+Result: Tool called (AI queries AAP via MCP)
+----
+
+== Part 5: Troubleshooting Common Issues
+
+=== Issue 1: Tool Not Found Error
+
+[source]
+----
+Error: "The tool 'projects_list' is not found"
+----
+
+**Causes:**
+* Toolset not configured
+* Tool name is spelled wrong
+* AAP doesn't have that capability
+
+**Solution:**
+1. Verify you configured all 6 toolsets in Lab 2
+2. Ask "What tools are available?" to see the full list
+3. Use the exact tool names from the list
+4. Restart your AI tool
+
+=== Issue 2: Connection Refused
+
+[source]
+----
+Error: "Connection refused: aap-mcp.apps.cluster.example.com:443"
+----
+
+**Causes:**
+* MCP server is down
+* URL is wrong
+* Network can't reach the server
+
+**Solution:**
+1. Test the URL manually: `curl -k https://your-mcp-url`
+2. Check Lab 1: Is the MCP deployment still running?
+3. Check Lab 2: Is the URL exactly right?
+4. Check network: Can you ping the cluster? Firewall rules?
+
+=== Issue 3: Unauthorized (401) Error
+
+[source]
+----
+Error: "Unauthorized: Invalid or expired token"
+----
+
+**Causes:**
+* API token is wrong
+* Token was deleted
+* Token expired
+
+**Solution:**
+1. Create a new token in AAP (Lab 2, Part 1)
+2. Update your tool configuration with the new token
+3. Restart the AI tool
+
+=== Issue 4: Permission Denied
+
+[source]
+----
+Error: "You don't have permission to perform this action"
+----
+
+**Causes:**
+* Your AAP user doesn't have permission
+* Token scope is too limited
+
+**Solution:**
+1. If you only have read-only access, you can't launch jobs
+2. Create a new token with "Write" scope if you need to make changes
+3. Check your AAP user permissions
+
+=== Issue 5: No Response / Timeout
+
+[source]
+----
+No response after 60 seconds...
+----
+
+**Causes:**
+* MCP server is slow
+* Network latency
+* Large query is taking long
+
+**Solution:**
+1. Try a simpler query first
+2. Give it more time (sometimes 30-60 seconds is normal)
+3. Check MCP server health: Are the pods running?
+4. Check AAP: Is it responsive?
+
+== Part 6: Hands-On Exercises
+
+Try these exercises to practice:
+
+=== Exercise 1: Simple Query
+
+[source]
+----
+Goal: Get a count of total jobs
+Question: "How many jobs exist in my AAP?"
+Expected: A number with job details
+Learns: Basic job querying
+----
+
+=== Exercise 2: Filtered Query
+
+[source]
+----
+Goal: Find specific jobs by status
+Question: "Show me only successful jobs from the past week"
+Expected: Filtered list of successful jobs
+Learns: Query with conditions
+----
+
+=== Exercise 3: Multi-Step Query
+
+[source]
+----
+Goal: Get multiple types of information
+Question: "How many jobs failed this week and what were their error messages?"
+Expected: List of failed jobs with error details
+Learns: MCP can do multi-step queries
+----
+
+=== Exercise 4: Inventory Query
+
+[source]
+----
+Goal: Understand your infrastructure
+Question: "Show me all hosts grouped by operating system"
+Expected: Breakdown of hosts by OS (Windows, Linux, etc)
+Learns: Inventory management queries
+----
+
+=== Exercise 5: Follow-Up Conversation
+
+[source]
+----
+Goal: Have a multi-turn conversation
+Exchange:
+  You: "List my execution nodes"
+  AI: [Returns list of nodes]
+  You: "Which one has the most capacity?"
+  AI: [Analyzes and compares]
+  You: "What's the health status of that node?"
+  AI: [Queries monitoring data]
+Learns: Contextual conversation
+----
+
+== Part 7: Advanced Tips
+
+=== Tip 1: Be Specific
+
+**Instead of:**
+[source]
+----
+"Show me jobs"
+----
+
+**Say:**
+[source]
+----
+"Show me jobs that failed in the past 7 days with error details"
+----
+
+Specific queries get better answers.
+
+=== Tip 2: Ask Follow-Up Questions
+
+[source]
+----
+You: "What's the status of my platform?"
+AI: [Gives health status]
+You: "Which execution node is having issues?"
+AI: [Digs deeper based on context]
+----
+
+The AI remembers context in the conversation.
+
+=== Tip 3: Combine Information
+
+[source]
+----
+You: "I have failed jobs and offline hosts. Are they related?"
+AI: [Analyzes both, shows correlation]
+----
+
+The AI can synthesize information from multiple queries.
+
+=== Tip 4: Use Natural Language
+
+MCP isn't a CLI. You don't need exact syntax. Just ask naturally:
+
+[source]
+----
+"How's my system doing?"
+"Are my servers healthy?"
+"What's been happening lately?"
+"Do I have any problems?"
+----
+
+The AI will interpret and call the right tools.
+
+== Part 8: When to Use MCP vs Other Methods
+
+=== Use MCP for:
+* ✅ **Quick information** - "How many hosts do I have?"
+* ✅ **Status checks** - "Is my platform healthy?"
+* ✅ **Trend analysis** - "Have failures increased?"
+* ✅ **Natural language** - Questions, not commands
+* ✅ **Exploration** - "Show me everything about..."
+
+=== Use AAP Web UI for:
+* ✅ **Detailed editing** - Configuring large projects
+* ✅ **Visual dashboards** - Seeing graphs and charts
+* ✅ **Bulk operations** - Multi-host changes
+* ✅ **Training new users** - Learning the UI
+
+=== Use AAP API for:
+* ✅ **Automation** - Scripts and playbooks
+* ✅ **Integration** - Custom tools
+* ✅ **Exact control** - Precise parameter passing
+* ✅ **Batch operations** - 1000s of changes
+
+**MCP is best for interactive queries and exploration.**
+
+== Summary Checklist
+
+By now, you should have:
+
+✅ Run your first successful query against AAP
+✅ Seen MCP tools being invoked
+✅ Tried queries from multiple toolsets
+✅ Had multi-turn conversations
+✅ Encountered and solved at least one issue
+✅ Understood what tools are available
+✅ Known how to troubleshoot problems
+
+## Congratulations!
+
+You've completed all three labs:
+1. ✅ Deployed MCP on OCP
+2. ✅ Configured your AI tool
+3. ✅ Ran queries and practiced troubleshooting
+
+**You now have a working MCP setup!**
+
+== Next: Additional Resources
+
+* **MCP Cheat Sheet** - Quick reference for common queries
+* **Deep Dive Troubleshooting** - Detailed solutions for complex issues
+* **Advanced Patterns** - Using MCP in production scenarios
+
+For next steps, see the final sections of this course.

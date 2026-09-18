@@ -1,0 +1,274 @@
+= Lab 1: Deploy MCP on OpenShift Container Platform
+
+[.sidebar]
+****
+* **Lab Type:** Self-contained (can skip if MCP is already deployed)
+* **Estimated Time:** 5-15 minutes
+* **Skill Level:** Intermediate (requires OpenShift familiarity)
+* **Prerequisites:**
+  - OpenShift access
+  - AAP installed
+  - Admin permissions
+****
+
+== Lab Overview
+
+In this lab, you will:
+
+1. Access the OpenShift console
+2. Enable the MCP capability in the AAP custom resource
+3. Verify the MCP server is running
+4. Get the MCP server URL
+
+By the end of this lab, the Ansible MCP Server will be deployed and ready for configuration.
+
+== What You'll Learn
+
+* How to enable MCP through the AnsibleAutomationPlatform custom resource
+* Where to find the MCP server route in OpenShift
+* How to verify the deployment is successful
+
+== Prerequisites
+
+You need:
+
+* ✅ OpenShift console access (web UI or `oc` CLI)
+* ✅ Access to the `aap` namespace/project
+* ✅ Admin or operator permissions
+* ✅ Ansible Automation Platform already installed
+
+**If AAP is not installed**, this lab is not for you. Contact your cluster administrator.
+
+== Step 1: Access OpenShift Console
+
+Open your OpenShift web console in a browser.
+
+[source,bash]
+----
+# Or use the oc CLI if you prefer
+oc login https://your-openshift-cluster.com
+----
+
+image::openshift-login.png[OpenShift Login,400]
+
+Log in with your credentials (likely `htpasswd_provider` or your organization's identity provider).
+
+== Step 2: Navigate to the AAP Project
+
+Once logged in:
+
+1. Click **Projects** (left sidebar, or the grid icon in top navigation)
+2. Look for the **aap** project
+3. Click on **aap** to open it
+
+image::openshift-projects.png[OpenShift Projects,400]
+
+You should see a list of resources (pods, services, routes, etc.) in the aap project.
+
+== Step 3: Find the AnsibleAutomationPlatform Custom Resource
+
+1. From the left sidebar, click **Operators** → **Installed Operators**
+2. Ensure you're in the **aap** project (dropdown at top)
+3. Click on **Ansible Automation Platform Operator**
+4. In the **Provided APIs** section, find **AnsibleAutomationPlatform**
+5. Click **AnsibleAutomationPlatform**
+
+image::operators-aap.png[AAP Operator,400]
+
+This will show you instances of AAP running in your cluster. You should see at least one (usually named `aap`).
+
+== Step 4: Edit the YAML to Enable MCP
+
+Click on the AAP instance (usually named `aap`) to open its details page.
+
+At the top, click the **YAML** tab to edit the resource definition.
+
+Look for the `spec` section. You need to add the MCP configuration.
+
+=== Finding the Right Place
+
+The YAML structure looks like this:
+
+[source,yaml]
+----
+apiVersion: aap.ansible.com/v1beta1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap
+  namespace: aap
+spec:
+  image:
+    name: quay.io/ansible-automation-platform/aap-operator
+  ...  (other spec settings)
+----
+
+You'll add the MCP section under `spec`.
+
+=== Add the MCP Configuration
+
+Find a good place in the `spec` section (alphabetically between other settings) and add:
+
+[source,yaml]
+----
+spec:
+  mcp:
+    disabled: false
+    allow_write_operations: false
+  ...rest of spec...
+----
+
+Here's what each setting means:
+
+[%header,cols="2,3"]
+|===
+| Setting | Meaning
+| `disabled: false` | Enable the MCP server (required)
+| `allow_write_operations: false` | Read-only mode (safer for starting)
+|===
+
+**IMPORTANT**: Setting `allow_write_operations` to `false` restricts the MCP server to **read-only operations** only. This means:
+
+* ✅ The AI can query information
+* ✅ The AI can list jobs, hosts, users
+* ✅ The AI can view logs and status
+* ❌ The AI cannot launch jobs
+* ❌ The AI cannot create/delete users
+* ❌ The AI cannot modify settings
+
+This is the **safe default** for learning. You can change it to `true` later once you're comfortable.
+
+=== Save the Changes
+
+Once you've added the MCP section:
+
+1. Click **Save** at the bottom of the screen
+2. The operator will begin to reconcile the changes
+3. You should see a notification "Resource updated"
+
+image::yaml-save.png[Save YAML,400]
+
+== Step 5: Verify MCP Server is Deploying
+
+After you save, the operator will create a new deployment for the MCP server.
+
+Go to **Workloads** → **Deployments** in the left sidebar.
+
+Filter by project **aap** and look for a deployment with **mcp** in the name:
+
+[source]
+----
+Expected name pattern: <your-aap-instance-name>-mcp
+
+Example: aap-mcp
+----
+
+image::deployments-mcp.png[MCP Deployment,400]
+
+Click on the deployment and check the status:
+
+* ✅ **1/1 pods ready** = Success!
+* ⏳ **0/1 pods ready** = Still deploying (wait a few minutes)
+* ❌ **Error** = Something went wrong (see troubleshooting)
+
+== Step 6: Get the MCP Server URL
+
+Once the deployment is ready, you need the URL to connect your AI tool.
+
+Go to **Networking** → **Routes** in the left sidebar.
+
+Look for a route with **mcp** in the name:
+
+[source]
+----
+Expected name pattern: <your-aap-instance-name>-mcp
+
+Example: aap-mcp
+----
+
+image::routes-mcp.png[MCP Route,400]
+
+Click on the route and copy the **Location** field:
+
+[source]
+----
+Example: https://aap-mcp.apps.cluster.example.com
+----
+
+**Save this URL** — you'll need it in Lab 2.
+
+== Verification Checklist
+
+Before moving to Lab 2, verify:
+
+✅ MCP deployment is **1/1 Ready**
+✅ MCP route exists and shows a **Location URL**
+✅ You have the MCP server URL copied
+✅ You can access the URL in a browser (though it won't display a web page, it proves connectivity)
+
+[source,bash]
+----
+# Test connectivity (should return a 200 or 401, not "connection refused")
+curl -k https://your-mcp-url
+----
+
+If you see `Connection refused` or `Name does not resolve`, check:
+
+1. ✓ Cluster network connectivity
+2. ✓ Route is actually created and ready
+3. ✓ Firewall rules allow outbound HTTPS
+
+== Summary
+
+You've successfully:
+
+* ✅ Enabled the MCP capability in AAP
+* ✅ Deployed the MCP server on OCP
+* ✅ Verified it's running
+* ✅ Captured the server URL
+
+**Next Step**: Go to **Lab 2: Configure Your AI Tool** to connect Cursor, Claude, or LibreChat to your MCP server.
+
+== Troubleshooting
+
+=== Deployment stuck at 0/1 Ready
+
+**Problem**: The MCP pod won't start.
+
+**Solution**:
+1. Check pod logs: `oc logs -n aap <pod-name>`
+2. Look for error messages
+3. Common issues:
+   - ✓ Storage not available (PVC)
+   - ✓ Image pull errors (registry access)
+   - ✓ Resource limits exceeded
+
+=== Route shows no Location
+
+**Problem**: Route is created but has no URL.
+
+**Solution**:
+1. Check if ingress controller is running
+2. Verify OpenShift Ingress Operator is deployed
+3. Check route status: `oc describe route <route-name> -n aap`
+
+=== YAML edit won't save
+
+**Problem**: Validation error when saving YAML.
+
+**Solution**:
+1. Check YAML syntax (spacing, indentation)
+2. Make sure `mcp:` is under `spec:`
+3. Verify no duplicate keys
+4. Try using the OC CLI instead: `oc edit aap aap -n aap`
+
+=== MCP deployment fails immediately
+
+**Problem**: Deployment starts but pod crashes.
+
+**Solution**:
+1. Get logs: `oc logs -n aap <pod-name>`
+2. Check if AAP is fully running
+3. Verify storage is available
+4. Check CPU/memory requests vs available
+
+**Still stuck?** See the full troubleshooting section at the end of this chapter.

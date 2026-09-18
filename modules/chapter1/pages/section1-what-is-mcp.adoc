@@ -1,0 +1,72 @@
+= Section 1: What is MCP?
+
+== What is the Model Context Protocol?
+
+The **Model Context Protocol (MCP)** is an open-source standard that provides a universal way for AI models to interact with external data and tools.
+
+Think of it as **"USB-C for the AI ecosystem"** — just like USB-C works with many different devices without custom adapters, MCP works with many different AI models and tools without requiring custom integrations.
+
+image::mcp-concept.png[MCP as USB-C for AI,500]
+
+Instead of building a unique integration every time you want an AI model to interact with a new system, MCP provides a standardized method. This means:
+
+* ✅ AI models can connect to different data sources without model-specific code
+* ✅ You can swap AI providers without rewriting integrations
+* ✅ Security and permissions are handled consistently
+
+== Why is MCP Needed?
+
+Imagine you want to use ChatGPT to query your servers, while a colleague uses Claude to do the same thing. Without a standard protocol:
+
+* ChatGPT integration team writes custom code to connect ChatGPT to your servers
+* Claude integration team writes completely different code to do the same thing
+* You have duplicated code, duplicated bugs, and duplicated maintenance
+
+**With MCP**, both ChatGPT and Claude connect to the same MCP server. No duplication. No redundancy.
+
+=== The Real Problem MCP Solves
+
+AI models like Claude or ChatGPT are trained on data **frozen at a point in time**. They don't know:
+
+* What jobs ran in your Ansible Automation Platform *yesterday*
+* Which servers are currently online in your inventory
+* What security events happened *today*
+* Real-time metrics or current status
+
+MCP solves this by giving AI models **real-time access** to your live systems. They can ask questions and get current answers, not guesses based on training data.
+
+== How Does It Work? (Simple Version)
+
+MCP works in three simple steps:
+
+.MCP Flow
+[%hardbreaks]
+1. **You ask** → You send a natural language request to your AI tool
+2. **AI translates** → The AI understands your intent and calls the appropriate MCP tool
+3. **MCP delivers** → The MCP server fetches real data and returns it to the AI
+
+.Example
+[source]
+----
+You: "List my recent Ansible jobs"
+   ↓
+AI: "I need to call the job_list tool with recent=true"
+   ↓
+MCP Server: Queries AAP and returns the list of jobs
+   ↓
+AI: "Here are your last 5 jobs: ..."
+----
+
+== Key Takeaways
+
+* **MCP is a standard** for connecting AI models to external systems
+* **It's like USB-C** — one standard that works with many AI tools
+* **It solves a real problem** — giving AI real-time access to live data
+* **It reduces duplication** — one integration instead of many
+* **It's secure** — authentication and permissions are baked in
+
+== Next Steps
+
+You understand *what* MCP is. Now let's understand *how* it's built — the architecture and components.
+
+→ **Continue to Section 2: MCP Architecture**

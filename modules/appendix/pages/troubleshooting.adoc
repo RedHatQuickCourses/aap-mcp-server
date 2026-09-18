@@ -1,0 +1,1030 @@
+= Troubleshooting Guide
+
+When things don't work as expected, use this guide to diagnose and fix issues.
+
+== Troubleshooting Strategy
+
+**The Key:** Start simple, then get more specific.
+
+1. Is the basic connection working?
+2. Is authentication working?
+3. Is the configuration correct?
+4. Are there permission issues?
+5. Is the issue in the AI tool or the MCP setup?
+
+---
+
+## Deployment Issues (Lab 1)
+
+=== MCP Deployment Stuck at 0/1 Ready
+
+**Symptom:**
+```
+MCP pod shows: 0/1 Ready
+Status: Pending or CrashLoopBackOff
+```
+
+**Diagnosis:**
+
+[source,bash]
+----
+# Check pod status
+oc get pods -n aap | grep mcp
+
+# Check logs
+oc logs -n aap <pod-name>
+
+# Check events
+oc describe pod -n aap <pod-name>
+----
+
+**Common Causes & Fixes:**
+
+[%header,cols="2,3"]
+|===
+| Cause | Fix
+
+| PVC (storage) not available
+| Check: `oc get pvc -n aap`
+  Create PVC or check storage class
+
+| Image pull failed
+| Check image registry access
+  Verify pull secrets configured
+
+| Resource limits exceeded
+| Check node resources: `oc top nodes`
+  Increase pod resource requests
+
+| Network policies blocking
+| Check: `oc get networkpolicies -n aap`
+  Allow traffic to MCP pod
+
+| Node selector constraints
+| Check pod nodeSelector
+  Verify nodes match labels
+|===
+
+**If Still Stuck:**
+[source,bash]
+----
+# Get detailed pod information
+oc describe pod -n aap <mcp-pod-name> -o yaml
+
+# Check operator logs
+oc logs -n operators -l app=aap-operator-controller-manager
+
+# Check events in namespace
+oc get events -n aap --sort-by='.lastTimestamp'
+----
+
+---
+
+=== Route Shows No Location (No URL)
+
+**Symptom:**
+```
+Route created but Location field is empty
+```
+
+**Diagnosis:**
+
+[source,bash]
+----
+# Check route status
+oc describe route -n aap aap-mcp
+
+# Check ingress controller
+oc get ingresscontroller -n openshift-ingress-operator
+----
+
+**Fixes:**
+
+1. **Ingress controller not ready:**
+   ```bash
+   # Check if OpenShift Ingress Operator is running
+   oc get operator ingress
+
+   # If not installed:
+   oc adm must-gather --image=quay.io/openshift/origin-must-gather:latest
+   ```
+
+2. **Wait for reconciliation:**
+   ```bash
+   # Sometimes it takes time
+   oc get route -n aap aap-mcp --watch
+   # Wait a few minutes, Ctrl+C when Location appears
+   ```
+
+3. **Recreate route:**
+   ```bash
+   # Delete and recreate
+   oc delete route -n aap aap-mcp
+   # Route should be recreated by operator
+   oc get route -n aap --watch
+   ```
+
+---
+
+=== YAML Edit Won't Save (Validation Error)
+
+**Symptom:**
+```
+Error: spec.mcp is invalid
+```
+
+**Diagnosis:**
+
+1. Check YAML indentation (2 spaces, not tabs)
+2. Check for duplicate keys
+3. Validate syntax
+
+**Example Bad YAML:**
+```yaml
+spec:
+  mcp:
+    disabled: false
+  mcp:              # ERROR: duplicate key!
+    allow_write_operations: false
+```
+
+**Example Good YAML:**
+```yaml
+spec:
+  mcp:
+    disabled: false
+    allow_write_operations: false
+  # other spec settings...
+```
+
+**Fixes:**
+
+1. Copy-paste the config carefully
+2. Use OC CLI for validation:
+   ```bash
+   # Edit via CLI
+   oc edit aap aap -n aap
+
+   # Or apply a file
+   oc apply -f config.yaml
+   ```
+
+3. Check for trailing spaces or hidden characters
+
+---
+
+## Configuration Issues (Lab 2)
+
+=== Environment Variables Not Loading
+
+**Symptom:**
+```
+$ echo $MY_SERVICE_TOKEN
+(empty output)
+```
+
+**Diagnosis & Fix:**
+
+[source,bash]
+----
+# 1. Verify variables are set
+echo "AAP_MCP_URL: $AAP_MCP_URL"
+echo "MY_SERVICE_TOKEN: $MY_SERVICE_TOKEN"
+# Should show values, not empty
+
+# 2. Check if added to shell profile
+cat ~/.zshrc | grep AAP_MCP_URL
+
+# 3. Reload shell if they exist but aren't loaded
+source ~/.zshrc
+# or
+source ~/.bashrc
+----
+
+**If Still Empty:**
+
+1. **Check which shell you're using:**
+   ```bash
+   echo $SHELL
+   # Usually /bin/zsh or /bin/bash
+   ```
+
+2. **Add variables to correct file:**
+   ```bash
+   # For zsh
+   echo 'export AAP_MCP_URL="https://..."' >> ~/.zshrc
+
+   # For bash
+   echo 'export AAP_MCP_URL="https://..."' >> ~/.bashrc
+   ```
+
+3. **Reload:**
+   ```bash
+   exec $SHELL
+   # or
+   source ~/.zshrc
+   ```
+
+4. **Verify again:**
+   ```bash
+   echo $AAP_MCP_URL
+   ```
+
+---
+
+=== API Token Won't Copy (Not Displayed)
+
+**Symptom:**
+```
+Token is created but the dialog closes before I could copy it
+```
+
+**Solution:**
+
+You must create a new token. The old one is lost.
+
+[source,bash]
+----
+# In AAP Web UI:
+1. Access Management → API Tokens
+2. Click the old token (probably shows as "mcp")
+3. Click Delete
+4. Click Create API Token
+5. Fill form
+6. IMMEDIATELY click Create
+7. Copy token BEFORE clicking anything else
+----
+
+**Prevent This:**
+
+- Copy-paste instead of select/copy (more reliable)
+- Have notepad open before creating
+- Screenshot the token as backup (risky, but works)
+
+---
+
+=== AI Tool Can't Find MCP Server URL
+
+**Symptom:**
+```
+Error: Cannot reach aap-mcp.apps.example.com
+```
+
+**Diagnosis:**
+
+[source,bash]
+----
+# Test connectivity
+curl -k https://your-mcp-url
+# Should return 400/401, not "connection refused"
+
+# Check route actually exists
+oc get routes -n aap
+# Should list aap-mcp with a Location URL
+
+# Test DNS resolution
+nslookup aap-mcp.apps.example.com
+# Should resolve to an IP
+
+# Test network
+ping aap-mcp.apps.example.com
+# Should respond (may be blocked by firewall)
+----
+
+**Common Causes:**
+
+[%header,cols="2,3"]
+|===
+| Cause | Fix
+
+| Wrong URL format
+| OpenShift: `aap-mcp.apps.example.com` (no port)
+  RHEL: `hostname.com:8448` (with port)
+
+| Typo in URL
+| Double-check every character
+  Copy from OpenShift Route exactly
+
+| Route not created
+| Check Lab 1: MCP deployment running?
+
+| Network blocked
+| Check firewall rules
+  Test from terminal first
+
+| DNS not resolving
+| Check cluster DNS
+  Use IP address as workaround
+|===
+
+**If Terminal Tests Fail:**
+
+1. **Check cluster network:**
+   ```bash
+   # Can you reach other cluster services?
+   kubectl get svc -n aap
+   # Try one that works
+   ```
+
+2. **Check ingress:**
+   ```bash
+   oc get ingresscontroller -n openshift-ingress-operator
+   # Should show "Available=True"
+   ```
+
+3. **Use IP address instead:**
+   ```bash
+   # Get IP from route
+   oc get route -n aap aap-mcp -o wide
+   # Use in configuration if DNS fails
+   ```
+
+---
+
+=== Invalid Token Error in Configuration
+
+**Symptom:**
+```
+Error when trying to validate token
+```
+
+**Diagnosis:**
+
+[source,bash]
+----
+# Test token directly
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://your-mcp-url
+# Should not return 401
+
+# Verify token is in environment
+echo $MY_SERVICE_TOKEN
+# Should show 40+ character string
+----
+
+**Fixes:**
+
+1. **Token has typo:**
+   - Carefully copy token again from AAP
+   - Check for spaces at beginning/end
+   - Use copy-paste, not retyping
+
+2. **Token was deleted:**
+   - Create new token in AAP
+   - Update configuration
+
+3. **Token expired:**
+   - Some tokens have expiration dates
+   - Create new token if expired
+
+4. **Bearer prefix missing:**
+   - Config should have: `Authorization: Bearer TOKEN`
+   - NOT just: `Authorization: TOKEN`
+
+---
+
+## Connection Issues (Lab 2 & 3)
+
+=== Connection Refused
+
+**Symptom:**
+```
+Connection refused: aap-mcp.apps.example.com
+```
+
+**Step-by-Step Diagnosis:**
+
+[source,bash]
+----
+# Step 1: Can you reach the URL?
+curl -k https://aap-mcp.apps.example.com
+# Expected: 400/401 error, not "connection refused"
+
+# Step 2: Is DNS resolving?
+nslookup aap-mcp.apps.example.com
+# Expected: Should resolve to IP address
+
+# Step 3: Is the port responding?
+nc -zv aap-mcp.apps.example.com 443
+# Expected: Connection successful
+
+# Step 4: Is MCP pod actually running?
+oc get pods -n aap | grep mcp
+# Expected: Should show pod with "Running" status and "1/1" ready
+
+# Step 5: Check pod logs
+oc logs -n aap <mcp-pod-name>
+# Expected: Should show "listening" or "started" messages
+----
+
+**Common Causes & Fixes:**
+
+[%header,cols="2,4"]
+|===
+| Cause | How to Fix
+
+| MCP pod not running
+| `oc get pods -n aap` - check for mcp pod
+  If not found, Lab 1 wasn't complete
+  If found but not ready, check logs with `oc logs`
+
+| URL format wrong
+| OpenShift routes: NO port number
+  RHEL: INCLUDE port (usually 8448)
+
+| Firewall blocking
+| Check internal firewall rules
+  Can you `curl` from another pod in cluster?
+  Contact network team if external connection needed
+
+| Service not exposed
+| Check route exists: `oc get routes -n aap`
+  Check service: `oc get svc -n aap`
+
+| DNS not working
+| Try IP address instead of hostname
+  Get IP: `oc get routes -n aap -o wide`
+
+| SSL certificate issue
+| If using self-signed: set `NODE_TLS_REJECT_UNAUTHORIZED=0`
+  Get proper cert for production
+|===
+
+**If Still Can't Connect:**
+
+[source,bash]
+----
+# Try from inside cluster
+oc rsh -n aap <aap-pod-name> bash
+curl https://aap-mcp:8448/job_management/mcp
+# If this works but external doesn't, firewall issue
+
+# Check if route is available
+oc get routes -n aap aap-mcp
+
+# Try using service DNS (internal only)
+curl https://aap-mcp.aap.svc.cluster.local:8448/job_management/mcp
+----
+
+---
+
+=== Unauthorized / 401 Error
+
+**Symptom:**
+```
+Unauthorized: Invalid or expired token
+```
+
+**Diagnosis:**
+
+[source,bash]
+----
+# Test token with curl
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://aap-mcp.apps.example.com/job_management/mcp
+# If 401, token is invalid
+
+# Verify token variable is set
+echo $MY_SERVICE_TOKEN
+# Should print 40+ character string
+
+# Check AAP token still exists
+# Go to AAP Web UI → Access Management → API Tokens
+# Look for "mcp" token
+----
+
+**Fixes:**
+
+1. **Token was deleted:**
+   - Create new token in AAP
+   - Copy it to configuration
+   - Restart AI tool
+
+2. **Token expired:**
+   - Check token expiration in AAP UI
+   - Create new token if expired
+   - Update configuration
+
+3. **Wrong token:**
+   - Make sure you copied correct token
+   - You might have created multiple tokens
+   - Use the right one
+
+4. **Token not in environment:**
+   ```bash
+   # Make sure variable is set before starting tool
+   source ~/.zshrc
+   echo $MY_SERVICE_TOKEN  # verify it's set
+   # Then start AI tool
+   ```
+
+---
+
+=== SSL Certificate Errors
+
+**Symptom:**
+```
+Error: net::ERR_CERT_AUTHORITY_INVALID
+Error: certificate verify failed
+```
+
+**For Development/Demo (Not Production!):**
+
+[source,bash]
+----
+# Add to shell profile
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+# Reload
+source ~/.zshrc
+
+# Launch from terminal to ensure env is loaded
+open -a Cursor
+# or
+open -a Claude
+----
+
+**For Production (Proper Certificates):**
+
+1. **Install proper SSL certificate on AAP/OpenShift:**
+   - Let's Encrypt (free, recommended)
+   - Your organization's CA
+   - Valid certificate from commercial vendor
+
+2. **Update OpenShift ingress controller:**
+   ```bash
+   oc create secret tls aap-mcp-tls \
+     --cert=path/to/cert.crt \
+     --key=path/to/key.key \
+     -n aap
+   ```
+
+3. **Update route to use certificate:**
+   ```bash
+   oc patch route aap-mcp -n aap -p \
+     '{"spec":{"tls":{"termination":"edge","certificate":"...","key":"..."}}}'
+   ```
+
+**Never use `NODE_TLS_REJECT_UNAUTHORIZED=0` in production!**
+
+---
+
+## Authentication & Permission Issues (Lab 3)
+
+=== Permission Denied / Forbidden
+
+**Symptom:**
+```
+Error: You don't have permission to perform this action
+```
+
+**Diagnosis:**
+
+This means your AAP user doesn't have permission for that action.
+
+[source,bash]
+----
+# Check token scope
+# Go to AAP → Access Management → API Tokens
+# Look at the token's Scope field
+# Read = view only
+# Write = can make changes
+
+# Check user permissions in AAP
+# Admin menu → Access Management → Users
+# Click your user → Check roles and teams
+----
+
+**Fixes:**
+
+1. **Token is read-only but you need write:**
+   - Create new token with "Write" scope
+   - Update configuration
+   - Restart AI tool
+
+2. **User doesn't have permission:**
+   - Ask AAP admin to grant permission
+   - Or use different user with needed access
+
+3. **Team membership restriction:**
+   - Check if resource is in team your user is in
+   - Ask team admin to add you
+
+**Example:**
+```
+Token Scope: Read
+Request: Launch job
+Result: Permission Denied ✓ (expected)
+
+Solution: Create new token with Write scope
+```
+
+---
+
+=== Tool Not Found / Not Available
+
+**Symptom:**
+```
+MCP tools not available
+AI says: "No tools found"
+```
+
+**Diagnosis:**
+
+[source,bash]
+----
+# Ask AI: "What tools are available?"
+# Should list 85+ tools from 6 toolsets
+
+# If no tools listed, tools didn't load
+----
+
+**Fixes:**
+
+1. **Not all 6 toolsets configured:**
+   - Check you added all 6 MCP servers
+   - Should have: job, inventory, monitoring, user, security, config
+
+2. **AI tool not restarted after config:**
+   - Fully close the tool (not just refresh)
+   - Reopen the tool
+   - Tools will load on startup
+
+3. **Configuration syntax error:**
+   - Check JSON/config is valid
+   - No missing commas
+   - No duplicate keys
+   - Check URLs use `/mcp` suffix
+
+4. **Tool names too long:**
+   - Cursor has 60-character name limit
+   - Try shorter names: `aap-job`, `aap-inv` instead of full names
+
+---
+
+=== Timeout / Slow Responses
+
+**Symptom:**
+```
+Waiting... [spinning for 60+ seconds]
+No response
+```
+
+**Diagnosis:**
+
+[source,bash]
+----
+# Is AAP responding?
+curl https://your-aap-url/api/v2/ping/
+
+# Check MCP pod logs
+oc logs -n aap <mcp-pod-name>
+
+# Check AAP status
+# Log into AAP web UI, see if it's responsive
+----
+
+**Fixes:**
+
+1. **AAP is slow:**
+   - Wait longer (complex queries can take 30-60 seconds)
+   - Check if AAP has lot of data (slow database queries)
+   - Try simpler queries first
+
+2. **Network latency:**
+   - Check network connectivity
+   - Try from different location
+   - Contact network team if consistently slow
+
+3. **MCP pod is crashing:**
+   - Check pod logs: `oc logs -n aap <pod-name>`
+   - Check pod status: `oc get pods -n aap`
+   - If CrashLoopBackOff, see Lab 1 troubleshooting
+
+4. **Query too broad:**
+   - Don't ask for "all jobs ever"
+   - Narrow it down: "failed jobs from last 7 days"
+   - Use specific filters
+
+**Workaround:**
+
+```bash
+# If timeout is 60 seconds, try increasing in AI tool settings
+# (varies by tool)
+```
+
+---
+
+## Query & Response Issues (Lab 3)
+
+=== Query Returns No Data
+
+**Symptom:**
+```
+You: "List my hosts"
+AI: "I couldn't find any results"
+```
+
+**Diagnosis:**
+
+[source,bash]
+----
+# Ask about tools being called
+# You: "What tool would you use to list hosts?"
+# AI should say: "inventory_list" or similar
+
+# Ask simpler question
+# You: "How many hosts do I have?"
+# See if any data returns
+----
+
+**Fixes:**
+
+1. **Your environment is actually empty:**
+   - Check in AAP web UI if data exists
+   - Create some test data if needed
+   - Ask for different data
+
+2. **Query is too specific:**
+   - Ask: "Show me all hosts" (broad)
+   - Then narrow: "Show Windows hosts"
+   - Too specific from start might find nothing
+
+3. **MCP tool not being called:**
+   - The AI answered from training data instead of live data
+   - Rephrase question to be more specific
+   - Ask explicitly: "Use MCP tools to list..."
+
+4. **User permissions restrict data:**
+   - You might only see data your user has access to
+   - Check RBAC settings
+   - Try different user/organization
+
+---
+
+=== Incorrect or Incomplete Results
+
+**Symptom:**
+```
+Results are incomplete or wrong
+```
+
+**Causes:**
+
+[%header,cols="2,3"]
+|===
+| Cause | Example & Fix
+
+| AI selected wrong tool
+| You: "List jobs"
+  AI calls: projects_list (wrong!)
+  AI should call: job_list
+  Rephrase: "Show me job executions"
+
+| AI filtered incorrectly
+| You: "Failed jobs from 7 days"
+  AI only returns 3 days of data
+  Check query again, ask specifically
+
+| RBAC restricting results
+| You see 5 jobs, but database has 10
+  Some filtered by permissions
+  Check AAP user permissions
+
+| Tool limitation
+| Some tools have page limits (100 items)
+| Ask for "first 20 failed jobs" instead of all
+|===
+
+**Debugging:**
+
+Ask the AI to show what tool it called and parameters:
+
+```
+You: "What tool did you use to answer that?"
+AI: "I called job_list with parameters: limit=30, status=failed"
+
+If parameters look wrong, ask again differently.
+```
+
+---
+
+=== AI Hallucinates Data
+
+**Symptom:**
+```
+You: "List my execution nodes"
+AI: "You have nodes: node-1, node-2, node-3"
+(But you only have node-1 and node-2)
+```
+
+**Cause:**
+
+The AI sometimes makes up data when it doesn't have real data.
+
+**Fix:**
+
+1. **Ask for source:**
+   ```
+   You: "How do you know about node-3?"
+   AI: "You're right, I don't see it in the actual data"
+   ```
+
+2. **Verify with follow-up:**
+   ```
+   You: "List execution nodes"
+   You: "How many execution nodes are there?"
+   (Compare the count with list)
+   ```
+
+3. **Check raw data:**
+   - Ask AI to show JSON response
+   - Verify against AAP web UI directly
+
+---
+
+## Data Format & Understanding Issues
+
+=== Response is Too Technical
+
+**Symptom:**
+```
+AI: "The response contains JSON with key 'created'
+with value '2024-09-15T14:32:00.000Z' in ISO 8601..."
+```
+
+**Fix:**
+
+Ask the AI to simplify:
+
+```
+You: "Can you explain that in simpler terms?"
+You: "Show me just the names and dates, not all the details"
+You: "Summarize the key information"
+```
+
+---
+
+=== Can't Understand the Format
+
+**Symptom:**
+```
+AI returns a table, but you wanted a list
+Or returns JSON, but you wanted summary
+```
+
+**Fix:**
+
+Tell the AI how you want it formatted:
+
+```
+You: "List the names of jobs, one per line"
+You: "Create a summary table with columns: Name, Status, Date"
+You: "Just tell me how many, don't list them all"
+```
+
+---
+
+## If All Else Fails
+
+=== Complete Restart Procedure
+
+If you've tried everything, start fresh:
+
+[source,bash]
+----
+# 1. Stop the AI tool
+# Fully close Cursor/Claude (not just minimize)
+
+# 2. Delete old configuration
+# Cursor: Settings → Tools & MCP → Remove all servers
+# Claude: Delete ~/.claude/claude.json
+
+# 3. Verify environment variables
+rm ~/.aap-credentials
+# Create new from Lab 2
+
+# 4. Verify MCP is running
+oc get pods -n aap | grep mcp
+# Should show "Running" and "1/1 Ready"
+
+# 5. Test connectivity manually
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://aap-mcp.apps.example.com/job_management/mcp
+# Should return 200 or 400, not "refused"
+
+# 6. Create fresh token
+# Go to AAP, delete old token
+# Create new token
+# Copy immediately
+
+# 7. Reconfigure tool
+# Start with just 1 toolset
+# Test that works
+# Add other 5 toolsets
+
+# 8. Restart tool
+# Fully close
+# Open from terminal to ensure env vars loaded
+open -a Cursor
+
+# 9. Ask simple question
+# "What tools are available?"
+# Should work now
+----
+
+---
+
+=== When to Escalate
+
+Get help from your team if:
+
+* MCP pod won't start and logs show infrastructure issues
+* Firewall is blocking access (network team)
+* AAP permissions issues (AAP admin)
+* You can't get token to work (AAP admin)
+* OpenShift cluster issues (cluster admin)
+
+**Escalation Info:**
+
+When asking for help, provide:
+
+```bash
+# Gather diagnostic info
+oc describe pod -n aap <mcp-pod-name> > /tmp/mcp-pod.txt
+oc logs -n aap <mcp-pod-name> > /tmp/mcp-logs.txt
+echo $MY_SERVICE_TOKEN > /tmp/token.txt
+echo $AAP_MCP_URL > /tmp/url.txt
+curl -k https://$AAP_MCP_URL/job_management/mcp -v > /tmp/curl.txt 2>&1
+
+# Share these files with support (be careful with token!)
+```
+
+---
+
+## Quick Reference: Diagnostic Commands
+
+Save these commands for fast debugging:
+
+[source,bash]
+----
+# ===== TEST CONNECTIVITY =====
+# Test MCP URL
+curl -k https://aap-mcp.apps.example.com/job_management/mcp
+
+# Test with token
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://aap-mcp.apps.example.com/job_management/mcp
+
+# Test DNS
+nslookup aap-mcp.apps.example.com
+
+# ===== CHECK KUBERNETES =====
+# List MCP pod
+oc get pods -n aap | grep mcp
+
+# Get pod status
+oc describe pod -n aap <mcp-pod-name>
+
+# View logs
+oc logs -n aap <mcp-pod-name>
+
+# Get route
+oc get routes -n aap | grep mcp
+
+# ===== CHECK ENVIRONMENT =====
+# Show variables
+env | grep AAP
+
+# Show token
+echo $MY_SERVICE_TOKEN
+
+# Show URL
+echo $AAP_MCP_URL
+
+# ===== RESTART THINGS =====
+# Restart MCP pod
+oc delete pod -n aap -l app=aap-mcp
+
+# Reload shell
+source ~/.zshrc
+
+# Restart AI tool
+# (Fully close and reopen)
+
+# ===== TEST AAP =====
+# AAP is responsive?
+curl https://your-aap-url/api/v2/ping/
+
+# Token valid in AAP?
+curl -k https://your-aap-url/api/v2/users/ \
+  -H "Authorization: Token $MY_SERVICE_TOKEN"
+----
+
+---
+
+**Remember:** When troubleshooting, go step-by-step. Test each layer independently (network → authentication → configuration → tools).
+
+Most issues fall into a few categories. This guide covers 95% of them. If you get stuck, review the appropriate section and follow the diagnostic steps.
+
+Good luck!

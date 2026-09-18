@@ -1,0 +1,196 @@
+= Section 3: AAP Integration & Toolsets
+
+== What is the Ansible MCP Server?
+
+The **Ansible MCP Server** is Ansible Automation Platform's implementation of the MCP standard.
+
+It enables connecting AAP with any preferred external AI tool (such as Claude, Cursor, or ChatGPT). The AI tools can access information about your AAP environment and perform tasks using natural language.
+
+Instead of logging into the AAP web UI manually, you can ask an AI: "Launch the 'Deploy Web Servers' job template" and it does it for you.
+
+== Why AAP Needs an MCP Server
+
+AAP manages:
+* **Thousands of servers and devices**
+* **Complex automation workflows and job executions**
+* **Sensitive credentials and access control**
+* **User teams and role-based permissions**
+* **Audit logs and compliance data**
+
+Before MCP, the only way to query this was:
+1. Log into the web UI manually
+2. Click through menus
+3. Run API commands with `curl` or write custom scripts
+
+**MCP enables**: Ask the AI in natural language, get instant answers.
+
+== The 6 AAP MCP Toolsets
+
+The Ansible MCP Server exposes **6 separate toolsets**, each focused on a different area of AAP:
+
+=== 1. Job Management
+*What it does*: Execute and monitor automation jobs.
+
+*Tools you can call*:
+* List job templates
+* Start a job run
+* Check job status
+* View job output/logs
+* List recent jobs
+
+*Example queries*:
+[source]
+----
+"Show me failed jobs from the last 24 hours"
+"Launch the 'Configure Servers' job template"
+"What jobs are currently running?"
+----
+
+=== 2. Inventory Management
+*What it does*: Manage hosts, groups, and inventories.
+
+*Tools you can call*:
+* List inventories
+* Get hosts in a group
+* List inventory groups
+* Get host details and variables
+* Filter hosts by properties
+
+*Example queries*:
+[source]
+----
+"Show me all Windows hosts"
+"Which hosts are in the 'production' group?"
+"List hosts that haven't checked in for 7 days"
+----
+
+=== 3. System Monitoring
+*What it does*: Monitor platform health and performance metrics.
+
+*Tools you can call*:
+* Check AAP health status
+* Get execution node metrics
+* View job execution statistics
+* Monitor capacity and usage
+* Get system performance data
+
+*Example queries*:
+[source]
+----
+"What's the health status of my AAP instance?"
+"Show me job execution metrics for the past week"
+"What's the capacity utilization?"
+----
+
+=== 4. User Management
+*What it does*: Manage users, teams, and organizations.
+
+*Tools you can call*:
+* List users and teams
+* Get team memberships
+* View organization details
+* Check user roles and permissions
+* Manage RBAC assignments
+
+*Example queries*:
+[source]
+----
+"List all users in my organization"
+"Who are the members of the ops team?"
+"What permissions does user 'alice' have?"
+----
+
+=== 5. Security & Compliance
+*What it does*: Access security policies, credentials, and audit logs.
+
+*Tools you can call*:
+* View audit logs
+* List credentials
+* Check security settings
+* Review compliance data
+* Monitor access and changes
+
+*Example queries*:
+[source]
+----
+"Show me audit logs from the past 24 hours"
+"What credentials are stored in AAP?"
+"List all security-related activity"
+----
+
+=== 6. Platform Configuration
+*What it does*: Configure platform settings and resources.
+
+*Tools you can call*:
+* List projects and their status
+* View execution environments
+* Get platform settings
+* Manage integrations
+* Configure system properties
+
+*Example queries*:
+[source]
+----
+"List all projects and their SCM status"
+"What execution environments are available?"
+"Show me platform configuration settings"
+----
+
+== One Server, Many Endpoints
+
+All 6 toolsets are served by **one MCP server** with **6 separate endpoints**:
+
+[%header,cols="2,3"]
+|===
+| Toolset | Endpoint Path
+| Job Management | `/job_management/mcp`
+| Inventory Management | `/inventory_management/mcp`
+| System Monitoring | `/system_monitoring/mcp`
+| User Management | `/user_management/mcp`
+| Security & Compliance | `/security_compliance/mcp`
+| Platform Configuration | `/platform_configuration/mcp`
+|===
+
+When you configure an AI tool, you connect it to **all 6 endpoints** so the AI has access to everything.
+
+== Role-Based Access Control (RBAC)
+
+The MCP server respects your AAP permissions. If you create an API token for a user with "read-only" permissions, the AI can only read data—it cannot launch jobs or make changes.
+
+.RBAC Example
+[source]
+----
+Token created with SCOPE: Read
+
+Allowed:
+✓ List jobs
+✓ View job output
+✓ List inventories
+✓ View hosts
+
+Denied:
+✗ Launch a job
+✗ Create users
+✗ Delete credentials
+✗ Modify settings
+----
+
+This means:
+* **Admins** can use the AI to do anything they could do manually
+* **Read-only users** can only query information
+* **Team members** respect team-level permissions
+* **Audit logs** track all AI-driven actions
+
+== Key Takeaways
+
+* **Ansible MCP Server** brings AI access to your AAP environment
+* **6 toolsets** cover: jobs, inventory, monitoring, users, security, and configuration
+* **1 server, 6 endpoints** — all can be connected at once
+* **RBAC is enforced** — permissions from AAP flow through to MCP
+* **Natural language** replaces manual web UI clicks and API calls
+
+== Next Steps
+
+You understand the toolsets. Now let's see the *complete communication workflow*—how a request flows from user to AI to AAP.
+
+→ **Continue to Section 4: Communication Workflow**

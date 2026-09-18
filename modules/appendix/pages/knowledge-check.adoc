@@ -1,0 +1,483 @@
+= Knowledge Check & Quiz
+
+Test your understanding of MCP and its integration with Ansible Automation Platform.
+
+This is a self-assessment quiz. Answer the questions honestly to see what you've learned and what areas need review.
+
+== Part 1: MCP Fundamentals (5 Questions)
+
+=== Question 1: What is MCP?
+
+Which best describes the Model Context Protocol?
+
+a) A method for encrypting API tokens
+b) A standard for connecting AI models to external systems  ✓
+c) A replacement for Ansible playbooks
+d) A database technology
+
+**Answer:** B
+
+**Explanation:** MCP (Model Context Protocol) is an open-source standard that provides a universal way for AI models to interact with external data and tools. It's like "USB-C for the AI ecosystem."
+
+=== Question 2: Why Does MCP Matter for AAP?
+
+What problem does MCP solve for Ansible users?
+
+a) Makes playbooks run faster
+b) Reduces the cost of AAP licenses
+c) Gives AI real-time access to live AAP data  ✓
+d) Eliminates the need for SSH
+
+**Answer:** C
+
+**Explanation:** AI models are trained on frozen historical data. MCP solves this by giving them access to *real-time* data from your AAP environment—what jobs ran today, current host status, live inventory data, etc.
+
+=== Question 3: How Many Components Are in MCP Architecture?
+
+Which of these is NOT a core MCP component?
+
+a) AI Client (where you interact)
+b) AI Model (the LLM)
+c) MCP Server (the gatekeeper)
+d) Load Balancer  ✓
+
+**Answer:** D
+
+**Explanation:** The four core components are: AI Client, AI Model, MCP Server, and Your System (AAP). A load balancer is infrastructure, not part of the core MCP architecture.
+
+=== Question 4: What's the MCP Server's Main Job?
+
+What does the MCP Server do?
+
+a) Trains AI models
+b) Validates requests and enforces security  ✓
+c) Stores your AAP data
+d) Runs your Ansible playbooks
+
+**Answer:** B
+
+**Explanation:** The MCP Server is the "gatekeeper." It authenticates requests using your API token, validates that the request is allowed based on RBAC, translates the request to an AAP API call, and standardizes the response.
+
+=== Question 5: Why is Authentication Important in MCP?
+
+What would happen if MCP didn't enforce authentication?
+
+a) It would be faster but less secure  ✓
+b) Nothing different
+c) Playbooks would execute automatically
+d) It would require you to log in twice
+
+**Answer:** A
+
+**Explanation:** Without authentication, anyone could use your MCP server, which would be a severe security risk. Authentication ensures only authorized users can access your infrastructure through MCP.
+
+---
+
+## Part 2: AAP Toolsets (6 Questions)
+
+=== Question 6: How Many AAP MCP Toolsets Are There?
+
+How many separate toolsets does the Ansible MCP Server expose?
+
+a) 3
+b) 4
+c) 6  ✓
+d) 12
+
+**Answer:** C
+
+**Explanation:** The 6 AAP MCP toolsets are: Job Management, Inventory Management, System Monitoring, User Management, Security & Compliance, and Platform Configuration.
+
+=== Question 7: Which Toolset Would You Use to Find Offline Hosts?
+
+If you want to find which hosts haven't checked in recently, which toolset would you use?
+
+a) Job Management
+b) Inventory Management  ✓
+c) System Monitoring
+d) Security & Compliance
+
+**Answer:** B
+
+**Explanation:** The Inventory Management toolset handles hosts, groups, and inventory queries. It would allow you to query which hosts are in your inventory and their status.
+
+=== Question 8: What Does the Security & Compliance Toolset Provide?
+
+Which of these is NOT a capability of the Security & Compliance toolset?
+
+a) View audit logs
+b) List credentials
+c) Launch job templates  ✓
+d) Review access history
+
+**Answer:** C
+
+**Explanation:** Launching job templates is handled by the Job Management toolset. Security & Compliance provides access to audit logs, credentials, security policies, and access history.
+
+=== Question 9: Can You Use All 6 Toolsets with One MCP Server?
+
+Can you connect to multiple toolsets simultaneously?
+
+a) No, you can only use one at a time
+b) Yes, but only if you have admin permissions
+c) Yes, all 6 can be configured together  ✓
+d) No, you need separate MCP servers for each
+
+**Answer:** C
+
+**Explanation:** You configure all 6 toolsets when setting up your AI tool. The single MCP server has 6 endpoints, and you connect to all of them. The AI model can call any tool needed.
+
+=== Question 10: Which Toolset Gives System Health Status?
+
+If you want to check "Is my AAP platform healthy?", which toolset would you ask?
+
+a) User Management
+b) System Monitoring  ✓
+c) Platform Configuration
+d) Security & Compliance
+
+**Answer:** B
+
+**Explanation:** System Monitoring provides health status, capacity metrics, and performance data about your AAP instance and execution nodes.
+
+=== Question 11: What's the Difference Between Job Management and Inventory Management?
+
+What does Job Management handle that Inventory Management doesn't?
+
+a) Both handle hosts
+b) Job Management is for playbooks, Inventory is for servers
+c) Job Management handles job execution, workflows, and templates; Inventory handles hosts and groups  ✓
+d) They're the same, just different names
+
+**Answer:** C
+
+**Explanation:** Job Management deals with automation workflows—running jobs, checking status, accessing job templates. Inventory Management deals with infrastructure—hosts, groups, variables.
+
+---
+
+## Part 3: Practical Workflow (5 Questions)
+
+=== Question 12: What Three Steps Deploy and Use MCP?
+
+What are the three main steps to get MCP working?
+
+a) Download, Install, Verify
+b) Deploy MCP server, Generate token, Configure tool  ✓
+c) Login, Setup, Run
+d) Cluster, Pod, Service
+
+**Answer:** B
+
+**Explanation:** The workflow is: (1) Deploy the MCP server on your infrastructure, (2) Generate an API token in AAP, (3) Configure your AI tool with the token and MCP URL.
+
+=== Question 13: Where Does the API Token Come From?
+
+Where do you create an API token?
+
+a) In Cursor IDE settings
+b) In the Claude configuration file
+c) In Ansible Automation Platform (AAP)  ✓
+d) In OpenShift console
+
+**Answer:** C
+
+**Explanation:** API tokens are created in AAP under Access Management → API Tokens. You then use that token to configure your AI tool.
+
+=== Question 14: What Information Do You Need to Configure an AI Tool?
+
+When configuring Cursor or Claude for MCP, what two pieces of information are essential?
+
+a) Username and password
+b) AAP hostname and cluster name
+c) MCP Server URL and API Token  ✓
+d) Playbook path and inventory file
+
+**Answer:** C
+
+**Explanation:** You need to tell the AI tool: (1) Where is the MCP server? (the URL), (2) Who am I? (the API token). The tool uses these to authenticate and connect.
+
+=== Question 15: What Happens if Your API Token Expires?
+
+If your API token expires, what do you need to do?
+
+a) Reinstall AAP
+b) Recreate the token and update your tool configuration  ✓
+c) Wait for it to auto-renew
+d) Upgrade Cursor or Claude
+
+**Answer:** B
+
+**Explanation:** Tokens can expire or be revoked. When this happens, you create a new token in AAP and update your AI tool configuration with the new token, then restart the tool.
+
+=== Question 16: What's the Difference Between Read and Write Token Scope?
+
+What's the key difference in what you can do with each scope?
+
+a) Read is slower, Write is faster
+b) Read is for Cursor, Write is for Claude
+c) Read allows querying but not making changes; Write allows both  ✓
+d) There's no difference
+
+**Answer:** C
+
+**Explanation:** A "Read" scoped token can only query information (view jobs, list hosts, check status). A "Write" scoped token can also make changes (launch jobs, create users, modify settings). Start with Read for safety.
+
+---
+
+## Part 4: Security & Architecture (4 Questions)
+
+=== Question 17: Where Does Security Get Enforced?
+
+At what point does MCP enforce your AAP permissions?
+
+a) Only in your AI tool
+b) Only in the MCP Server  ✓
+c) Only in AAP
+d) The AI model enforces it
+
+**Answer:** B
+
+**Explanation:** The MCP Server is the security checkpoint. It validates your token, checks your RBAC permissions, and only allows actions your user account has access to. The AI model doesn't have direct access to AAP.
+
+=== Question 18: Can the AI Model Bypass Your Permissions?
+
+If your token is read-only, can an AI tool still launch jobs?
+
+a) Yes, if the AI is smart enough
+b) Yes, but only with admin help
+c) No, the MCP Server will reject the request  ✓
+d) Only if you ask it politely
+
+**Answer:** C
+
+**Explanation:** The MCP Server enforces permissions at the security checkpoint. No matter how the AI requests it, if the token doesn't have write access, the request is denied.
+
+=== Question 19: What Gets Sent Between Components?
+
+What information flows from the AI to the MCP Server?
+
+a) Your AAP password
+b) Structured tool calls with parameters  ✓
+c) Ansible playbooks
+d) SSH private keys
+
+**Answer:** B
+
+**Explanation:** The AI sends structured tool calls ("call job_list with limit_days=7"), not raw requests or credentials. The MCP Server then translates these to API calls with your token.
+
+=== Question 20: If You Delete Your API Token, What Happens?
+
+What happens to existing MCP connections if you delete the token?
+
+a) They keep working (tokens can't be deleted)
+b) They fail immediately  ✓
+c) They keep working for 24 hours then fail
+d) Nothing, tokens don't affect connections
+
+**Answer:** B
+
+**Explanation:** When you delete a token in AAP, all connections using that token are immediately invalidated. You'll get "Unauthorized" errors until you create a new token and reconfigure your tool.
+
+---
+
+## Part 5: Real-World Scenarios (5 Questions)
+
+=== Question 21: Scenario - Your First Query
+
+You've configured Cursor with MCP. You ask: "Show me failed jobs from this week."
+
+What happens?
+
+a) Cursor searches the internet
+b) Cursor asks the AI model, which calls MCP tools, which queries AAP  ✓
+c) Cursor runs a local command
+d) Nothing—you need to manually query AAP first
+
+**Answer:** B
+
+**Explanation:** The full workflow: You ask → Cursor sends to AI → AI interprets and calls MCP tools → MCP Server queries AAP → Data comes back → AI summarizes for you.
+
+=== Question 22: Scenario - Permission Error
+
+You have a read-only token and try to ask: "Launch the deploy job."
+
+What happens?
+
+a) It launches the job
+b) The MCP Server returns a permission denied error  ✓
+c) The job launches but is marked as "read-only"
+d) It asks you for a password
+
+**Answer:** B
+
+**Explanation:** The MCP Server checks your token scope. Read-only tokens cannot launch jobs. The request is rejected at the security checkpoint.
+
+=== Question 23: Scenario - Connection Troubleshooting
+
+Cursor can't connect to MCP. You've verified the URL and token are correct. What's a likely cause?
+
+a) You need to upgrade Cursor
+b) The MCP deployment pod isn't running  ✓
+c) You configured too many toolsets
+d) The API token is the wrong color
+
+**Answer:** B
+
+**Explanation:** If the URL and token are correct but connection is refused, the MCP server itself is probably not running. Check that the MCP deployment is actually deployed and the pod is ready.
+
+=== Question 24: Scenario - Best Practice
+
+For production use with a team, what's the recommended approach for API tokens?
+
+a) Share one token among all team members
+b) Create individual tokens for each team member  ✓
+c) Use the admin token for everything
+d) Rotate tokens weekly
+
+**Answer:** B
+
+**Explanation:** Create individual tokens so you can track who did what (audit logs), revoke access independently, and follow the principle of least privilege. One shared token is a security risk.
+
+=== Question 25: Scenario - Adding Another Tool
+
+You want to use both Cursor and Claude with the same AAP instance. What do you need?
+
+a) Two different AAP instances
+b) Two different MCP servers
+c) One token for each tool (or can share same token)  ✓
+d) Different AAP users for each tool
+
+**Answer:** C
+
+**Explanation:** You can use the same API token for multiple AI tools, or create separate tokens for each. Either works. Both tools connect to the same MCP server(s).
+
+---
+
+## Answer Key & Scoring
+
+=== Scoring
+
+[%header,cols="1,2"]
+|===
+| Score | Assessment
+| 25/25 | Expert! You've mastered MCP.
+| 22-24/25 | Advanced. You understand the concepts deeply.
+| 18-21/25 | Proficient. You're ready for production use.
+| 15-17/25 | Intermediate. Review sections where you missed.
+| 12-14/25 | Beginner. Take the course again focusing on weak areas.
+| <12/25 | Review fundamentals. Go back to Chapter 1.
+|===
+
+=== By Topic
+
+**MCP Fundamentals (Q1-5):**
+- If you scored 5/5: Great understanding of what MCP is
+- If you scored <4/5: Review Section 1-2 of Chapter 1
+
+**AAP Toolsets (Q6-11):**
+- If you scored 6/6: Perfect knowledge of toolsets
+- If you scored <5/6: Review Section 3 of Chapter 1
+
+**Practical Workflow (Q12-16):**
+- If you scored 5/5: Ready for Labs
+- If you scored <4/5: Review Section 5 of Chapter 1
+
+**Security & Architecture (Q17-20):**
+- If you scored 4/4: Security understanding is solid
+- If you scored <3/4: Review Section 2 and 4 of Chapter 1
+
+**Real-World Scenarios (Q21-25):**
+- If you scored 5/5: Apply knowledge confidently
+- If you scored <4/5: Practice more before production
+
+---
+
+## What to Review Based on Results
+
+=== If You Struggled with Fundamentals (Q1-5)
+
+You might not fully understand what MCP is or why it matters. Review:
+* Section 1: What is MCP?
+* Section 2: MCP Architecture
+
+Focus on understanding:
+* MCP is a *standard*, not a tool
+* It gives AI *real-time access* to your systems
+* The MCP Server is the *security checkpoint*
+
+=== If You Struggled with Toolsets (Q6-11)
+
+You might not know which toolset to use for different tasks. Review:
+* Section 3: AAP Integration & Toolsets
+
+Practice:
+* Map real tasks to toolsets (e.g., "find offline hosts" → Inventory Management)
+* Ask yourself "which toolset would handle this?" for different scenarios
+
+=== If You Struggled with Practical Workflow (Q12-16)
+
+You might not understand the deployment and configuration steps. Review:
+* Section 5: End-to-End Workflow
+* Lab 1, 2, 3 for hands-on practice
+
+Practice:
+* Run through the labs again
+* Focus on each step and understand *why* you're doing it
+
+=== If You Struggled with Security (Q17-20)
+
+You might not understand how permissions and authentication work. Review:
+* Section 2: MCP Architecture (component roles)
+* Section 4: Communication Workflow (security checkpoints)
+
+Key concepts:
+* AI can't access AAP directly; MCP Server is the gatekeeper
+* Tokens control what you can do
+* RBAC is enforced at the server, not the client
+
+=== If You Struggled with Real-World Scenarios (Q21-25)
+
+You might have trouble applying concepts to realistic situations. Review:
+* All previous sections (understand foundations first)
+* Lab 3: Run Queries and Troubleshoot
+
+Practice:
+* Set up MCP yourself and run queries
+* Troubleshoot real issues
+* Think through "what would happen if..." scenarios
+
+---
+
+## Tips for Using This Knowledge Check
+
+1. **Take it honestly** — This is for you, not graded
+2. **Review weaknesses** — Use the scoring guide to focus study
+3. **Re-take it later** — Test yourself again after time passes
+4. **Apply it** — The real test is using MCP successfully
+5. **Help others** — Teaching others deepens your understanding
+
+---
+
+## Passing the Course
+
+To successfully complete this MCP course, you should be able to:
+
+✅ Define MCP and explain why it matters
+✅ Describe the 4 MCP components and how they interact
+✅ Name the 6 AAP toolsets and when to use each
+✅ Deploy MCP on OpenShift
+✅ Generate an API token securely
+✅ Configure a tool (Cursor, Claude, or LibreChat)
+✅ Run queries and understand the workflow
+✅ Troubleshoot common issues
+✅ Score 18+ on this knowledge check
+
+If you meet these criteria, **congratulations!** You're ready to use MCP in your environment.
+
+---
+
+**Next Steps:**
+* Use the MCP Cheat Sheet for quick reference
+* Reference the Troubleshooting Guide when issues arise
+* Share what you've learned with your team
+* Set up MCP in your production environment with confidence

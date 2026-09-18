@@ -1,0 +1,268 @@
+= Section 5: End-to-End Workflow
+
+== Getting MCP Running: The Three Steps
+
+Now that you understand *what* MCP is and *how* it works, here's what you actually *do* to make it work.
+
+Every deployment follows the same three-step workflow:
+
+[%header,cols="1,3,2"]
+|===
+| Step | What Happens | Where
+| **1. Deploy** | Get the MCP server running on your infrastructure | Chapter 2, Lab 1
+| **2. Authenticate** | Create an API token so the AI tool can prove it's you | Chapter 2, Lab 1
+| **3. Configure** | Tell your AI tool where the MCP server is and provide the token | Chapter 2, Lab 2
+|===
+
+== Step 1: Deploy the MCP Server
+
+=== Where Does It Run?
+
+The Ansible MCP Server runs as a containerized service on your infrastructure. You can deploy it on:
+
+* **OpenShift Container Platform (OCP)** — Most common for enterprise
+* **RHEL with containers** — Simpler, on a single machine
+* **Kubernetes** — Any Kubernetes cluster
+
+=== How Do You Enable It?
+
+For **OpenShift deployments**, you enable it in your `AnsibleAutomationPlatform` custom resource (a Kubernetes YAML file).
+
+[source,yaml]
+----
+apiVersion: aap.ansible.com/v1beta1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: aap
+spec:
+  mcp:
+    disabled: false
+    allow_write_operations: false
+----
+
+Set:
+* `disabled: false` → Enable the MCP server
+* `allow_write_operations: false` → Read-only (safe default for starting out)
+
+The Kubernetes Operator will then:
+1. Create a new Pod for the MCP server
+2. Expose it with a network route
+3. Handle certificates and networking
+
+=== How Long Does It Take?
+
+Usually **5-15 minutes** for the operator to reconcile and the MCP server to be ready.
+
+== Step 2: Generate an API Token
+
+=== What's an API Token?
+
+An **API token** is like a password, but:
+* ✓ Safer — it can't see your actual password
+* ✓ Restricted — you can give it only certain permissions
+* ✓ Temporary — you can delete it without changing your password
+* ✓ Auditable — you can see which token did what
+
+=== How Do You Create One?
+
+In Ansible Automation Platform:
+
+1. Log in to the AAP web UI
+2. Go to **Access Management** → **API Tokens**
+3. Click **Create Token**
+4. Enter:
+   - **Name**: Something descriptive like `mcp-token` or `claude-integration`
+   - **Scope**: Usually **Read** to start (safer), or **Read + Write** if you need to launch jobs
+5. Click **Create** and copy the token immediately
+
+⚠️ **Important**: The token is only displayed once. If you don't copy it now, you'll have to delete it and create a new one.
+
+=== Example Token
+
+[source]
+----
+a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0
+----
+
+This is what you'll provide to your AI tool later.
+
+=== What Permissions Should It Have?
+
+[%header,cols="1,3"]
+|===
+| Scope | When to Use
+| **Read Only** | You want the AI to query information but not change anything. Great for learning and demos.
+| **Read + Write** | You want the AI to launch jobs, create users, etc. Use carefully with proper RBAC.
+|===
+
+**Recommendation**: Start with **Read Only**. Upgrade to **Read + Write** once you're comfortable with the workflow.
+
+== Step 3: Configure Your AI Tool
+
+=== What Are You Telling It?
+
+You're giving your AI tool three pieces of information:
+
+1. **Where is the MCP server?** (The URL)
+2. **Who am I?** (Your API token)
+3. **What can I access?** (The 6 toolsets)
+
+=== How Do You Configure It?
+
+This depends on which AI tool you're using:
+
+==== Option A: Cursor IDE
+[source,bash]
+----
+# 1. Set environment variables
+export AAP_SERVER="https://aap.example.com:8448"
+export MY_SERVICE_TOKEN="your-api-token"
+
+# 2. Open Cursor Settings → Tools & MCP
+# 3. Paste the MCP configuration (includes all 6 toolsets)
+# 4. Click Save and restart Cursor
+----
+
+==== Option B: Claude Desktop
+[source,bash]
+----
+# 1. Create a config file at:
+# ~/.claude/claude.json
+
+# 2. Add MCP server configuration with your AAP URL and token
+
+# 3. Restart Claude
+----
+
+==== Option C: LibreChat (Web-Based)
+[source,bash]
+----
+# 1. Open LibreChat web interface
+# 2. Go to Settings
+# 3. Add MCP Server:
+#    Name: aap
+#    URL: https://aap.example.com:8448/mcp
+#    Token: your-api-token
+# 4. Click Connect
+----
+
+## Example Configuration (JSON Format)
+
+[source,json]
+----
+{
+  "mcpServers": {
+    "aap-job-mgmt": {
+      "type": "http",
+      "url": "https://aap.example.com:8448/job_management/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    },
+    "aap-inventory": {
+      "type": "http",
+      "url": "https://aap.example.com:8448/inventory_management/mcp",
+      "headers": {
+        "Authorization": "Bearer YOUR_API_TOKEN"
+      }
+    },
+    // ... (4 more toolsets)
+  }
+}
+----
+
+== Verification: Is Everything Connected?
+
+After configuration, test the connection:
+
+[source,bash]
+----
+# In your AI tool, type:
+"What MCP tools are available?"
+
+# The AI should respond:
+"You have access to 6 AAP MCP toolsets with approximately
+85 tools total:
+- Job Management (15 tools)
+- Inventory Management (12 tools)
+- System Monitoring (18 tools)
+- User Management (10 tools)
+- Security & Compliance (14 tools)
+- Platform Configuration (16 tools)"
+----
+
+If you see this, **congratulations!** Everything is working.
+
+If not, check:
+* ✓ MCP server is running (check Kubernetes/OCP)
+* ✓ AAP URL is correct (no typos, correct port)
+* ✓ API token is valid (hasn't expired or been deleted)
+* ✓ Firewall allows connection to AAP
+
+== Example End-to-End Scenario
+
+Here's what a real workflow looks like:
+
+[source]
+----
+Monday 9:00 AM
+You: "How many jobs failed this weekend?"
+
+AI queries AAP → Returns 5 failed jobs
+
+You: "Show me the details of job #456"
+
+AI queries AAP → Returns error logs
+
+You: "What was the failure?"
+
+AI: "Host 'prod-web-02' was unreachable."
+
+You: "Can I restart that host?"
+
+AI: "Your token has read-only permission.
+    You'd need to create a new token with write access
+    or log into AAP directly to restart the host."
+
+You: "Never mind. List all production hosts."
+
+AI queries AAP → Returns 24 production hosts
+
+You: "Are they all healthy?"
+
+AI: "I'll check the monitoring data...
+    23 are healthy, but 'prod-db-03' has high CPU (87%)"
+
+You: "Alert the team about the high CPU."
+
+AI: "I've logged this. Here's the information to share:
+    Host: prod-db-03
+    CPU: 87%
+    Memory: 45%
+    Alert time: 9:15 AM"
+----
+
+This all happened **without logging into AAP directly** or writing any code.
+
+== Key Takeaways
+
+* **3 simple steps**: Deploy → Authenticate → Configure
+* **Deployment** takes 5-15 minutes on Kubernetes/OCP
+* **Tokens** give controlled access to your infrastructure
+* **Configuration** is just telling your AI tool where to find MCP
+* **Verification** is asking the AI what tools it has access to
+
+== What's Next?
+
+You now understand:
+* ✓ What MCP is
+* ✓ How the architecture works
+* ✓ What AAP provides
+* ✓ The communication flow
+* ✓ The deployment workflow
+
+**Chapter 2 is hands-on labs** where you'll actually do these three steps yourself.
+
+Ready? Let's get started with the labs!
+
+→ **Continue to Chapter 2: Hands-On Labs**

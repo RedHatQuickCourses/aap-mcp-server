@@ -1,0 +1,581 @@
+= MCP Cheat Sheet
+
+A quick reference for common tasks, queries, and configurations.
+
+== Quick Setup Commands
+
+=== Cursor IDE (One-Time Setup)
+
+[source,bash]
+----
+# 1. Add to ~/.zshrc or ~/.bashrc
+export AAP_MCP_URL="https://your-aap.com:8448"
+export MY_SERVICE_TOKEN="your-token-here"
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+# 2. Reload shell
+source ~/.zshrc
+
+# 3. Open Cursor Settings → Tools & MCP
+# 4. Add 6 servers with this template:
+{
+  "type": "streamable-http",
+  "url": "${env:AAP_MCP_URL}/job_management/mcp",
+  "headers": {"Authorization": "Bearer ${env:MY_SERVICE_TOKEN}"}
+}
+# (Change "job_management" to: inventory_management, system_monitoring,
+#  user_management, security_compliance, platform_configuration)
+
+# 5. Restart Cursor
+----
+
+=== Claude Desktop (One-Time Setup)
+
+[source,bash]
+----
+# 1. Add to ~/.zshrc or ~/.bashrc
+export AAP_SERVER="https://your-aap.com:8448"
+export AAP_SERVICE_TOKEN="your-token-here"
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+# 2. Reload shell
+source ~/.zshrc
+
+# 3. Create/edit ~/.claude/claude.json with 6 servers
+# (See Lab 2 for full config)
+
+# 4. Restart Claude
+----
+
+=== Test Configuration
+
+[source,bash]
+----
+# Verify MCP server is accessible
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://your-aap.com:8448/job_management/mcp
+
+# Verify token is set
+echo $MY_SERVICE_TOKEN
+echo $AAP_MCP_URL
+
+# Verify environment is loaded
+env | grep AAP
+----
+
+== Common Queries
+
+=== Job Management Queries
+
+[cols="2,3"]
+|===
+| What You Want | What to Ask
+
+| List all jobs
+| "List all job executions"
+
+| Recent failed jobs
+| "Show me jobs that failed in the last 7 days"
+
+| Running jobs
+| "What jobs are currently running?"
+
+| Job details
+| "Show me details for job #456"
+
+| Job by name
+| "Did the 'Deploy Web Servers' job succeed?"
+
+| Job count
+| "How many jobs have run this month?"
+
+| Job templates
+| "List all job templates available"
+
+| Job output
+| "Show me the output from the last run of Job X"
+|===
+
+=== Inventory Queries
+
+[cols="2,3"]
+|===
+| What You Want | What to Ask
+
+| Host count
+| "How many hosts are in my inventory?"
+
+| Hosts by group
+| "Which hosts are in the production group?"
+
+| Windows hosts
+| "Show me all Windows servers"
+
+| Linux hosts
+| "List all Linux hosts"
+
+| Offline hosts
+| "Are there any hosts that haven't checked in?"
+
+| Host variables
+| "Show me variables for host web-01"
+
+| Groups list
+| "What inventory groups do I have?"
+
+| Specific inventory
+| "Show me all hosts in the 'prod' inventory"
+|===
+
+=== Monitoring Queries
+
+[cols="2,3"]
+|===
+| What You Want | What to Ask
+
+| Platform health
+| "What's the health status of my AAP instance?"
+
+| Execution nodes
+| "Show me my execution nodes and their status"
+
+| Capacity
+| "What's my AAP capacity utilization?"
+
+| Job metrics
+| "How many jobs ran this week?"
+
+| Failure rate
+| "What's my job failure percentage?"
+
+| Performance
+| "Which execution node has the best performance?"
+|===
+
+=== User Management Queries
+
+[cols="2,3"]
+|===
+| What You Want | What to Ask
+
+| All users
+| "List all users in the system"
+
+| Teams
+| "What teams exist in AAP?"
+
+| Team members
+| "Show me the members of the ops team"
+
+| User roles
+| "What roles does user alice have?"
+
+| Organizations
+| "List all organizations"
+
+| User count
+| "How many users are in my AAP?"
+|===
+
+=== Security & Compliance Queries
+
+[cols="2,3"]
+|===
+| What You Want | What to Ask
+
+| Audit logs
+| "Show me audit logs from the past 24 hours"
+
+| Credentials
+| "List all credentials and their types"
+
+| Changes
+| "What changed in the past week?"
+
+| Access events
+| "Show me login activity"
+
+| Failed attempts
+| "Were there any failed authentication attempts?"
+|===
+
+=== Configuration Queries
+
+[cols="2,3"]
+|===
+| What You Want | What to Ask
+
+| Projects
+| "List all projects and their status"
+
+| Execution environments
+| "What execution environments are available?"
+
+| Settings
+| "Show me platform configuration"
+
+| Integrations
+| "What integrations are configured?"
+
+| Database
+| "Show me database settings"
+|===
+
+== API Token Quick Reference
+
+=== Create Token (AAP Web UI)
+
+[source]
+----
+1. Log in to AAP
+2. Access Management → API Tokens
+3. Create API Token
+4. Name: "mcp-token" (or any name)
+5. Application: Leave blank
+6. Scope: "Read" or "Read + Write"
+7. Click Create
+8. Copy token immediately (not shown again!)
+----
+
+=== Token Scopes
+
+[%header,cols="1,3"]
+|===
+| Scope | Permissions
+| Read | View-only access (safe default)
+| Write | Can make changes (use carefully)
+| Read + Write | Full access (admin only)
+|===
+
+=== Rotate Token (Security Best Practice)
+
+[source]
+----
+1. Create new token with same scope
+2. Update configuration in AI tool
+3. Restart AI tool
+4. Delete old token in AAP
+----
+
+== URL Reference
+
+=== Deployment Types
+
+[%header,cols="2,3"]
+|===
+| Deployment | URL Format
+| OpenShift | `https://aap-mcp.apps.cluster.example.com`
+| Containerized (RHEL) | `https://aap-hostname.com:8448`
+|===
+
+=== MCP Endpoint Paths
+
+[%header,cols="2,2"]
+|===
+| Toolset | Endpoint
+| Job Management | `/job_management/mcp`
+| Inventory Management | `/inventory_management/mcp`
+| System Monitoring | `/system_monitoring/mcp`
+| User Management | `/user_management/mcp`
+| Security & Compliance | `/security_compliance/mcp`
+| Platform Configuration | `/platform_configuration/mcp`
+|===
+
+=== Full MCP URLs
+
+[source]
+----
+# Example: OpenShift deployment
+https://aap-mcp.apps.example.com/job_management/mcp
+https://aap-mcp.apps.example.com/inventory_management/mcp
+https://aap-mcp.apps.example.com/system_monitoring/mcp
+https://aap-mcp.apps.example.com/user_management/mcp
+https://aap-mcp.apps.example.com/security_compliance/mcp
+https://aap-mcp.apps.example.com/platform_configuration/mcp
+
+# Example: Containerized deployment
+https://aap.example.com:8448/job_management/mcp
+https://aap.example.com:8448/inventory_management/mcp
+(etc...)
+----
+
+== Troubleshooting Checklist
+
+=== Connection Issues
+
+[cols="1,2"]
+|===
+| Check | How to Verify
+
+| URL is correct
+| Paste URL in browser, should not give "refused"
+
+| Token is valid
+| Try creating new token in AAP
+
+| Network reaches MCP
+| `curl -k https://your-mcp-url`
+
+| MCP is deployed
+| Check OCP: Deployments → mcp pod running?
+
+| AAP is accessible
+| Log in to AAP web UI successfully
+|===
+
+=== Configuration Issues
+
+[cols="1,2"]
+|===
+| Check | How to Verify
+
+| Environment variables set
+| `echo $MY_SERVICE_TOKEN`
+
+| All 6 toolsets added
+| "What tools are available?" should list 85+
+
+| Bearer prefix included
+| Config should have `Bearer $token` not just `$token`
+
+| AI tool restarted
+| Fully close and reopen (not refresh)
+
+| YAML is valid
+| Try different tool first to test setup
+|===
+
+=== Permission Issues
+
+[cols="1,2"]
+|===
+| Check | How to Verify
+
+| Token scope matches needs
+| Read-only token can't launch jobs
+
+| AAP user has permissions
+| Check RBAC in AAP → Access Management
+
+| Organization access
+| User should be in organization to access
+
+| Team membership
+| Team-level resources require team access
+|===
+
+== Quick Debugging Steps
+
+=== "Connection Refused"
+
+[source,bash]
+----
+# Step 1: Test URL manually
+curl -k https://your-mcp-url
+# Should return 400/401, not "refused"
+
+# Step 2: Check deployment
+oc get deployments -n aap | grep mcp
+# Should show 1/1 Ready
+
+# Step 3: Check route
+oc get routes -n aap | grep mcp
+# Should show a URL in Location column
+
+# Step 4: Try different URL format
+# If using OCP, make sure NO port (aap-mcp.apps.com)
+# If using RHEL, make sure WITH port (hostname:8448)
+----
+
+=== "Unauthorized" / "401"
+
+[source,bash]
+----
+# Step 1: Verify token
+echo $MY_SERVICE_TOKEN
+# Should show 40+ character string
+
+# Step 2: Test token
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://your-mcp-url
+# Should not return 401
+
+# Step 3: Create new token
+# Go to AAP → Access Management → API Tokens
+# Create new token
+# Update configuration
+
+# Step 4: Restart tool
+# Fully close and reopen AI tool
+----
+
+=== "Tool Not Found"
+
+[source,bash]
+----
+# Step 1: List available tools
+# In AI tool, ask: "What tools are available?"
+
+# Step 2: Verify all 6 toolsets configured
+# Check config for all 6 endpoints
+
+# Step 3: Check tool name spelling
+# Use exact names from "tools available" response
+
+# Step 4: Restart tool and retry
+----
+
+## Common Configuration Errors
+
+=== Missing Bearer Prefix
+
+**Wrong:**
+[source,json]
+----
+"Authorization": "${env:MY_SERVICE_TOKEN}"
+----
+
+**Correct:**
+[source,json]
+----
+"Authorization": "Bearer ${env:MY_SERVICE_TOKEN}"
+----
+
+=== Wrong URL Format
+
+**Wrong (OpenShift):**
+[source]
+----
+https://aap-mcp.apps.example.com:8448/job_management/mcp
+(includes port)
+----
+
+**Correct (OpenShift):**
+[source]
+----
+https://aap-mcp.apps.example.com/job_management/mcp
+(no port)
+----
+
+=== Missing Toolsets
+
+**Wrong (only 1 server):**
+[source]
+----
+{
+  "aap-job-mgmt": {...}
+}
+----
+
+**Correct (all 6 servers):**
+[source]
+----
+{
+  "aap-job-mgmt": {...},
+  "aap-inventory": {...},
+  "aap-monitoring": {...},
+  "aap-user-mgmt": {...},
+  "aap-security": {...},
+  "aap-config": {...}
+}
+----
+
+## Environment Variables
+
+[%header,cols="2,3,2"]
+|===
+| Variable | Purpose | Example
+
+| AAP_MCP_URL or AAP_SERVER
+| MCP server location
+| https://aap-mcp.apps.example.com
+
+| MY_SERVICE_TOKEN or AAP_SERVICE_TOKEN
+| API authentication
+| abc123def456...
+
+| NODE_TLS_REJECT_UNAUTHORIZED
+| Skip SSL verification (demo only!)
+| 0
+
+| NODE_DEBUG
+| Debug mode (verbose logging)
+| *
+|===
+
+**Warning:** Only use `NODE_TLS_REJECT_UNAUTHORIZED=0` in development! Use proper SSL certificates in production.
+
+## Useful One-Liners
+
+[source,bash]
+----
+# Find MCP route URL
+oc get routes -n aap -o wide | grep mcp
+
+# Get MCP pod logs
+oc logs -n aap -l app=aap-mcp --tail=50
+
+# Check MCP pod status
+oc get pods -n aap | grep mcp
+
+# Restart MCP pod
+oc delete pod -n aap -l app=aap-mcp
+
+# Check AAP token validity
+curl -k -H "Authorization: Token $MY_SERVICE_TOKEN" \
+  https://your-aap-url/api/v2/ping/
+
+# Test MCP endpoint
+curl -k -H "Authorization: Bearer $MY_SERVICE_TOKEN" \
+  https://your-mcp-url/job_management/mcp
+
+# Show environment variables
+env | grep -E "(AAP|TOKEN|MCP)"
+----
+
+## Quick Reference Table
+
+[%header,cols="1,2,2"]
+|===
+| Component | Where | File/Location
+
+| Course Content
+| This site
+| Start at Welcome
+
+| MCP Server
+| OpenShift
+| Deployments → aap-mcp pod
+
+| MCP Server URL
+| OpenShift
+| Networking → Routes → aap-mcp
+
+| API Token
+| AAP Web UI
+| Access Management → API Tokens
+
+| Tool Config (Cursor)
+| Computer
+| Cursor Settings → Tools & MCP
+
+| Tool Config (Claude)
+| Computer
+| ~/.claude/claude.json
+
+| Tool Config (LibreChat)
+| Web Interface
+| Settings → MCP Servers
+
+| Environment Variables
+| Computer
+| ~/.zshrc or ~/.bashrc
+
+| AAP User Permissions
+| AAP Web UI
+| Access Management → Users
+|===
+
+---
+
+**Pro Tip:** Bookmark this page for quick reference during labs and production use!

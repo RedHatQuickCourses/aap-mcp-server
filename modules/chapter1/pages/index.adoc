@@ -1,7 +1,22 @@
-= Chapter 1
+= Chapter 1: Understanding MCP & AAP Integration
 
-In this section, we cover... FIXME
+Welcome to the learning section of this course. In this chapter, you will understand what the Model Context Protocol is, how it works, and how Ansible Automation Platform uses it to connect with AI tools.
 
+We'll break this down into bite-sized sections that follow a simple pattern: **What is it? → Why is it needed? → How does it work?**
 
-- Add or remove section entries in the `antora.yaml` file as needed.
-- Ensure you create or delete the corresponding directory for the chapter accordingly.
+== What You'll Learn
+
+By the end of this chapter, you will be able to:
+
+* Define the Model Context Protocol and understand its role in the AI ecosystem
+* Understand the architecture of MCP and how different components interact
+* Explain Ansible Automation Platform's MCP server and its capabilities
+* Describe the complete communication workflow from user to AI to AAP
+* Identify and describe the 6 AAP MCP toolsets
+* Understand the end-to-end workflow for deploying and using MCP
+
+== Time Required
+
+This chapter takes approximately **30-45 minutes** to read and understand. Each section builds on the previous one, so go through them in order.
+
+**Ready?** Start with Section 1 below!
