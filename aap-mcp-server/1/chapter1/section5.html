@@ -82,7 +82,7 @@
     <a class="nav-link" href="section5.html">End-to-End Workflow</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section6.html">section6.adoc</a>
+    <a class="nav-link" href="section6.html">Key Takeaways</a>
   </li>
 </ul>
   </li>
@@ -221,7 +221,7 @@
 <p>Launch the <a href="{openshift_cluster_console_url}" target="_blank" rel="noopener">OpenShift Web Console</a></p>
 </li>
 <li>
-<p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a> page to login to the OpenShift console</p>
+<p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a> page to login to the OpenShift console.</p>
 </li>
 <li>
 <p>Navigate to <strong>Ecosystem</strong> &#8594; <strong>Installed Operators</strong></p>
@@ -572,7 +572,7 @@ type: Opaque</code></pre>
                 "apiKey": "{env:LITELLM_API_KEY}"
             },
             "models": {
-                "qwen3-14b": {
+                "claude-sonnet-4-6": {
                     "name": "{env:LITELLM_MODEL_NAME}",
                     "limit": {
                         "context": 35000,
@@ -660,9 +660,6 @@ type: Opaque</code></pre>
 <div class="paragraph">
 <p>Either the list of AAP project that are returned as a result of the <code>projects_list</code> tool invocation will be displayed or you can continue the conversation by asking additional questions to display more information related to the desired query.</p>
 </div>
-<div class="paragraph">
-<p>If an error or returned or no data is displayed, you can review the <a href="#mcp-opencode-troubleshooting">troubleshooting section</a> below for additional guidance.</p>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -671,208 +668,6 @@ type: Opaque</code></pre>
 </td>
 <td class="content">
 Due to the non-deterministic nature of LLM&#8217;s, the exact response provided by OpenCode may vary between invocations and may not match exactly what is shown in the screenshot or steps above.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect3">
-<h4 id="mcp-opencode-troubleshooting"><a class="anchor" href="#mcp-opencode-troubleshooting"></a>3.1.4: Troubleshooting OpenCode MCP Integration</h4>
-<div class="paragraph">
-<p>If you encounter issues when attempting to interact with the Ansible MCP Server via OpenCode, consider the following troubleshooting steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Response similar to <code>Your current request is incomplete. Please provide more details or specify the task you need help with</code></p>
-<div class="ulist">
-<ul>
-<li>
-<p>This response typically indicates that the LLM model was unable to interpret the request or map it to an available MCP tool. Feel free to retry the request again.</p>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Hitting the up arrow key will place the last request into the chat window for easy access for subsequent invocations.
-</td>
-</tr>
-</table>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>No response is provided</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Retry the request again</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Abort the current request</p>
-<div class="ulist">
-<ul>
-<li>
-<p>If the request appears to be taking too long to process, or you wish to abort the current request, hit the <code>ESC</code> key to interrupt the current operation.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Clear the existing context/start a new chat session</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Enter <code>/new</code> into the chat prompt to start a new session</p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_3_2_using_librechat_with_the_ansible_mcp_server"><a class="anchor" href="#_3_2_using_librechat_with_the_ansible_mcp_server"></a>3.2: Using LibreChat with the Ansible MCP Server</h3>
-<div class="paragraph">
-<p><a href="https://www.librechat.ai" target="_blank" rel="noopener">LibreChat</a> is a Open Source AI chat tool that can be integrated with various hosted and self-hosted LLM&#8217;s. LibreChat can be accessed via a web browser and provides a chat-based interface for interacting with AI models. This section will illustrate how to configure LibreChat to connect to the Ansible MCP Server.</p>
-</div>
-<div class="sect3">
-<h4 id="_3_2_1_configuring_librechat"><a class="anchor" href="#_3_2_1_configuring_librechat"></a>3.2.1: Configuring LibreChat</h4>
-<div class="paragraph">
-<p>LibreChat has been deployed within the OpenShift environment as part of the lab setup. While most of the configurations have been pre-configured for you, there is one final step that you need to complete to enable the integration with the Ansible MCP Server: Specifying the API token that was generated in the prior section.</p>
-</div>
-<div class="paragraph">
-<p>All of the resources associated with LibreChat have been deployed in the <code>librechat</code> Project. To configure the Ansible MCP API token, perform the following steps in the OpenShift web console to update the value stored in the <code>librechat-credentials-env</code> Secret resource in the <code>librechat</code> Project:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Launch the <a href="{openshift_cluster_console_url}" target="_blank" rel="noopener">OpenShift Web Console</a></p>
-</li>
-<li>
-<p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a> page to login to the OpenShift console</p>
-</li>
-<li>
-<p>Navigate to <strong>Workloads</strong> on the left hand navigation &#8594; <strong>Secrets</strong>. From the project dropdown at the top, select <strong>librechat</strong>.</p>
-</li>
-<li>
-<p>Locate the <strong>librechat-credentials-env</strong> Secret resource, click the kebab menu (three vertical dots) on the right hand side of the entry and select <strong>Edit Secret</strong>.</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/librechat-edit-secret.png" target="blank"><img src="_images/librechat-edit-secret.png" alt="Edit the librechat-credentials-env Secret"></a>
-</div>
-</div>
-</li>
-<li>
-<p>Locate the <code>ANSIBLE_MCP_TOKEN</code> entry. By default, the value is set as <code>placeholder</code>. Update the value of this entry by replacing <code>placeholder</code> with the API token that was generated in the prior section.</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/librechat-edit-secret-value.png" target="blank"><img src="_images/librechat-edit-secret-value.png" alt="Edit ANSIBLE_MCP_TOKEN in the librechat-credentials-env Secret"></a>
-</div>
-</div>
-</li>
-<li>
-<p>Scroll to the bottom of the page and click the <strong>Save</strong> button to apply the changes.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Once the <em>Secret</em> containing the API token has been updated, the next step is to restart the LibreChat pod so that it can load the updated value. To restart the LibreChat pod, perform the following steps:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Navigate to <strong>Workloads</strong> on the left hand navigation &#8594; <strong>Pods</strong>. From the project dropdown at the top, ensure <strong>librechat</strong> is selected.</p>
-</li>
-<li>
-<p>Locate the filter section at the top of the page and select the dropdown that has the value of <code>Name</code> present and select <strong>Label</strong>. Enter <strong>app.kubernetes.io/name=librechat</strong> in the text box and select the button provided below the textbox to apply the filter.</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/librechat-pods-filter.png" target="blank"><img src="_images/librechat-pods-filter.png" alt="Filter the librechat Pods by Label"></a>
-</div>
-</div>
-</li>
-<li>
-<p>Locate the single pod that is displayed and click the kebab menu (three vertical dots) on the right hand side of the entry and select <strong>Delete Pod</strong>.</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/librechat-delete-pod.png" target="blank"><img src="_images/librechat-delete-pod.png" alt="Delete the librechat Pod"></a>
-</div>
-</div>
-</li>
-<li>
-<p>Wait until the pod has been recreated, is <em>Running</em>, and displays <code>1/1</code> in the <em>Ready</em> column.</p>
-</li>
-<li>
-<p>Launch the LibreChat web interface by navigating to: <a href="https://librechat-librechat.{openshift_cluster_ingress_domain}" target="_blank" rel="noopener">LibreChat Web Interface</a>. You will be presented with the LibreChat login page.</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/librechat-login-page.png" target="blank"><img src="_images/librechat-login-page.png" alt="LibreChat Login Page"></a>
-</div>
-</div>
-</li>
-<li>
-<p>Enter the username and password using the credentials provided from the <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a> page and click the <strong>Continue</strong> button.</p>
-<div class="paragraph">
-<p>Once authenticated, you will be presented with the LibreChat main interface.</p>
-</div>
-</li>
-<li>
-<p>Enable the {litellm_available_models_list} model by clicking on the <strong>My Agents</strong> button at the top of the page, hover over <strong>LiteMaaS</strong>, and then select <strong>{litellm_available_models_list}</strong>.</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/librechat-enable-model.png" target="blank"><img src="_images/librechat-enable-model.png" alt="Enable the {litellm_available_models_list} Model in LibreChat"></a>
-</div>
-</div>
-</li>
-<li>
-<p>Enable the connection to the Ansible MCP Server by selecting the <em>MCP Servers</em> dropdown within the chat window and selecting <strong>aap</strong>. A successful connection will display a checkmark next to the MCP server name.</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/librechat-enable-mcp.png" target="blank"><img src="_images/librechat-enable-mcp.png" alt="Enable aap MCP Server in LibreChat"></a>
-</div>
-</div>
-<div class="paragraph">
-<p>Now, lets start a chat session using our natural language that retrieves details that originate from Ansible Automation Platform that is facilitated through the integration with the AAP MCP Server.</p>
-</div>
-</li>
-<li>
-<p>Ask for information related to the <em>Projects</em> that have been defined:</p>
-</li>
-</ol>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">Display the names of aap projects</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In a few moments, you will see LibreChat making queries to the <em>Tools</em> exposed by the AAP MCP Server and then providing a natural language response based on the information retrieved. A successful invocation of the MCP tool will display similar to the following:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/librechat-chat-result.png" target="blank"><img src="_images/librechat-chat-result.png" alt="LibreChat Chat Result"></a>
-</div>
-</div>
-<div class="paragraph">
-<p>Notice how the <code>projects_list</code> tool was invoked to retrieve the list of projects from Ansible Automation Platform. The response provided by LibreChat includes the names of the projects that were retrieved. You can expand the result of the <code>projects_list</code> tool to see the raw data that was returned from Ansible Automation Platform if desired.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Due to the non-deterministic nature of LLM&#8217;s, the exact response provided by LibreChat may vary between invocations and may not match exactly what is shown in the screenshot or steps above.
 </td>
 </tr>
 </table>
@@ -886,7 +681,7 @@ Due to the non-deterministic nature of LLM&#8217;s, the exact response provided 
 </div>
 <nav class="pagination">
   <span class="prev"><a href="section4.html">Communication Workflow</a></span>
-  <span class="next"><a href="section6.html">section6.adoc</a></span>
+  <span class="next"><a href="section6.html">Key Takeaways</a></span>
 </nav>
 </article>
   </div>
