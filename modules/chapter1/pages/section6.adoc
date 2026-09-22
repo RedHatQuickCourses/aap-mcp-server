@@ -1,4 +1,4 @@
-== Key Takeaways
+= Key Takeaways
 
 * **MCP provides a standard way** to connect AI models with external systems.
 * **Ansible MCP Server connects AI with AAP**, exposing AAP capabilities through MCP toolsets.
