@@ -4,8 +4,7 @@
 
 Now that you understand *what* MCP is and *how* it works, here's what you actually *do* to make it work and connect your external AI tool to Ansible Automation Platform (AAP) through the Ansible MCP Server. The process is broken down into three steps:
 
-
-== End to End Workflow
+== Requirements to Deploy the MCP Server
 
 To make use of the Ansible MCP Server, the following steps are required:
 
@@ -17,7 +16,7 @@ To make use of the Ansible MCP Server, the following steps are required:
 
 === Where Does It Run?
 
-The Ansible MCP Server runs as a containerized service on your infrastructure. You can deploy it on:
+The Ansible MCP Server runs as a containerized/pod service on your infrastructure. You can deploy it on:
 
 * **OpenShift Container Platform (OCP)** — Most common for enterprise
 * **RHEL with containers** — Simpler, on a single machine
@@ -25,8 +24,7 @@ The Ansible MCP Server runs as a containerized service on your infrastructure. Y
 
 Deploy the Ansible MCP Server to your OpenShift environment by enabling the MCP capability within the `AnsibleAutomationPlatform` custom resource.
 
-. Launch the link:{openshift_cluster_console_url}[OpenShift Web Console,window=_blank]
-. Select the **htpasswd_provider** button and use the credentials provided in the RHDP login page to the OpenShift console.
+. Launch the OpenShift Web Console from the RHDP login page and use the credentials provided to login to the OpenShift console. 
 . Navigate to **Ecosystem** -> **Installed Operators**
 . From the _Project_ dropdown, ensure `aap` is selected
 . The `Ansible Automation Platform` operator is listed and installed within this project.
@@ -73,7 +71,8 @@ Usually **5-15 minutes** for the operator to reconcile and the MCP server to be 
 
 An **API token** is like a password, Create a Personal Access Token (PAT) by performing the following:
 
-. Launch the link:{aap_controller_web_url}[Ansible Automation Platform,window=_blank] web interface and login using the credentials from the xref:environment-details.adoc[Environment Details,window=_blank] page.
+. Launch the Ansible Automation Platform web interface and login using the credentials from the RHDP login page.
+
 . From the navigation menu on the left, expand **Access Management** and click on **API Token**.
 +
 image::api-token-overview.png[API Token Overview,link=self,window=blank]
@@ -93,10 +92,16 @@ NOTE: Make sure to store the token securely, as it will not be displayed again.
 
 == 3: Configuring External AI Tools
 
-Now that the Ansible MCP Server is deployed and an API token has been generated, the final step is to configure external AI tools that can be used to connect to the Ansible MCP Server using the generated API token. While there are multiple external AI tools that can be used to demonstrate the integration with the Ansible MCP Server, for the purpose of this lab, the following solutions will be demonstrated:
+Once the Ansible MCP Server is deployed and the API token is generated, the next step is to configure an external AI tool to connect to the MCP server.
 
-. link:https://opencode.ai[OpenCode,window=_blank] - Terminal based AI agent that can be executed from within the OpenShift Dev Spaces workspace.
-. link:https://www.librechat.ai[LibreChat,window=_blank] - Web based AI chat tool that can be accessed via a web browser.
+Several AI tools can be used for this integration.
+
+* link:[https://opencode.ai[OpenCode,window=_blank](https://opencode.ai[OpenCode,window=_blank)] — A terminal-based AI agent that can run from an OpenShift Dev Spaces workspace.
+* link:[https://www.librechat.ai[LibreChat,window=_blank](https://www.librechat.ai[LibreChat,window=_blank)] — A web-based AI chat tool that can be accessed through a browser.
+
+Other AI tools, such as ChatGPT or Claude, may also support MCP integrations depending on their current capabilities and configuration options.
+
+In the following sections, you will learn how to configure **OpenCode to connect to the Ansible MCP Server** using the generated API token where we will be using the claude-sonnet-4-6 model from the LiteLLM inference service to process natural language requests and interact with Ansible Automation Platform through the Ansible MCP Server.
 
 === 3.1: Using OpenCode with the Ansible MCP Server
 
@@ -104,14 +109,20 @@ link:https://opencode.ai[OpenCode,window=_blank] is an Open Source, terminal bas
 
 ==== 3.1.1: Customizing a Dev Spaces Workspace
 
-OpenShift Dev Spaces includes several different methods for configuring and customizing a workspace. For this section, we will create a `ConfigMap` and `Secret` resource within the `admin-devspaces` project containing your workspace to externalize and inject environment variables into your workspace. These values will be referenced by the OpenCode configuration file that you will then define to drive the functionality of the tool.
+OpenShift Dev Spaces provides several ways to customize a workspace. In this section, you will create a ConfigMap and Secret in the admin-devspaces project to store and inject environment variables into the workspace. These values will be referenced by the OpenCode configuration file used to connect to the Ansible MCP Server.
 
-Labels and annotations are applied to the `ConfigMap` and `Secret` resources so that they become eligible for injection into the Dev Spaces workspace. By setting the `controller.devfile.io/mount-to-devworkspace` label to `true`, the Dev Spaces controller will automatically mount the resources into the workspace. The contents of the `ConfigMap` or `Secret` can either by mounted as files or environment variables. This is dictated by the `controller.devfile.io/mount-as` annotation.
+To make the resources available inside the Dev Spaces workspace:
+
+- Add the *controller.devfile.io/mount-to-devworkspace*: "true" label to the ConfigMap and Secret.
+
+[NOTE]
+The value of the controller.devfile.io/mount-as annotation in the snippet above is set to env, which means the contents of the ConfigMap will be mounted as environment variables in the Dev Spaces workspace. 
+
+The Dev Spaces controller automatically detects and mounts resources with the required label.
 
 First, create a `ConfigMap` resource to contain the non-sensitive configuration values by performing the following in the OpenShift web console. Instead of using the OpenShift web console to interactively create the ConfigMap, you will import the raw YAML definition using the _Import YAML_ feature.
 
-. Launch the link:{openshift_cluster_console_url}[OpenShift Web Console,window=_blank]
-. Select the **htpasswd_provider** button and use the credentials provided in the xref:environment-details.adoc[Environment Details,window=_blank] page to login to the OpenShift console
+. Launch the OpenShift Web Console from the RHDP login page and use the credentials provided to login to the OpenShift console. 
 . On the top navigation bar, click on the **+** icon and select **Import YAML**
 +
 image::openshift-overview-import-yaml.png[Import YAML option in OpenShift console,link=self,window=blank]
@@ -122,7 +133,7 @@ image::openshift-overview-import-yaml.png[Import YAML option in OpenShift consol
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: superlab-devspaces-config
+  name: mcp-devspaces-config
   namespace: admin-devspaces
   labels:
     controller.devfile.io/mount-to-devworkspace: 'true'
@@ -130,13 +141,15 @@ metadata:
   annotations:
     controller.devfile.io/mount-as: env
 data:
-  AAP_MCP_URL: https://aap-mcp-aap.{openshift_cluster_ingress_domain}/mcp
-  LITELLM_MODEL_NAME: {litellm_available_models_list}
-  LITELLM_URL: {litellm_api_base_url}
+  AAP_MCP_URL: https://<aap-mcp-instance-URL>/mcp
+  LITELLM_MODEL_NAME: openai/granite-3-2-8b-instruct, claude-sonnet-4-6, gemini-2.5-pro
+  LITELLM_URL: <LLM base URL from RHDP login page>
   OPENCODE_CONFIG: /projects/ansible-devspaces/opencode.json
 ----
 +
-NOTE: Notice the value of the `controller.devfile.io/mount-as` annotation in the snippet above is set to `env`, which means the contents of the `ConfigMap` will be mounted as environment variables in the Dev Spaces workspace.
+image::1.1.png[]
++
+NOTE: Notice the value of the `controller.devfile.io/mount-as` annotation in the snippet above is set to `env`, which means the contents of the `ConfigMap` will be mounted as environment variables in the Dev Spaces workspace and for getting the *AAP_MCP_URL* value, you can got to OCP console -> Networking -> Routes and look for the route that is created for the MCP server. The URL will be in the format of `https://aap-mcp-<instance_name>.<cluster_domain>/mcp` where `<instance_name>` is the name of your Ansible Automation Platform instance and `<cluster_domain>` is the domain of your OpenShift cluster.
 +
 . Click the **Create** button to create the ConfigMap resource.
 
@@ -150,7 +163,7 @@ Now, create a `Secret` resource to contain the sensitive configuration values by
 kind: Secret
 apiVersion: v1
 metadata:
-  name: superlab-devspaces-secret
+  name: mcp-devspaces-config
   namespace: admin-devspaces
   labels:
     controller.devfile.io/mount-to-devworkspace: 'true'
@@ -158,10 +171,12 @@ metadata:
   annotations:
     controller.devfile.io/mount-as: env
 stringData:
-  AAP_MCP_API_KEY: PLACEHOLDER_REPLACE_ME
-  LITELLM_API_KEY: {litellm_virtual_key}
+  AAP_MCP_API_KEY: <Replace this with the API Token generated from the Ansible Automation Platform>
+  LITELLM_API_KEY: <API Key available from the LLM Information for the MCP Course RHDP login page>
 type: Opaque
 ----
++
+image::1.2.png[]
 +
 . Click the **Create** button to create the Secret resource.
 
@@ -188,9 +203,11 @@ The output should display values that correspond to the environment variables de
 
 ==== 3.1.2: Configuring OpenCode
 
-With the necessary environment variables now mounted into your Dev Spaces workspace, the next step is to introduce the external AI tool that will interact with Ansible Automation Platform via the Ansible MCP Server. For this section, we will utilize link:https://opencode.ai[OpenCode,window=_blank], an open-source AI development platform that enables developers to build, deploy, and manage AI applications. OpenCode provides a unified interface for interacting with various AI models and services, making it easier to integrate AI capabilities into applications.
+With the required environment variables mounted in your Dev Spaces workspace, the next step is to configure OpenCode to interact with Ansible Automation Platform through the Ansible MCP Server.
 
-You may have noticed earlier that one of the environment variables defined in the `ConfigMap` resource was the `OPENCODE_CONFIG` property, which specifies the location of the OpenCode configuration file (Hint: you can run the command `env | grep OPENCODE_CONFIG` to see the value). This file does not exist yet as we will need to create it as part of this exercise. An link:https://opencode.ai/docs/config[OpenCode configuration file^] contains details related to the inference service as well as any MCP servers that should be utilized. 
+OpenCode is an open-source AI development platform that provides a unified interface for working with AI models and services.
+
+Earlier, you configured the OPENCODE_CONFIG environment variable in the ConfigMap. This variable specifies the location of the OpenCode configuration file.
 
 Create a new file named `opencode.json` at the within the `/projects/ansible-devspaces` directory containing the following:
 

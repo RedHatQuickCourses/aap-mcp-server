@@ -60,6 +60,12 @@ In this course, it's **Ansible Automation Platform (AAP)**, but it could be:
 * Your monitoring system
 * Any system with an API
 
+
+=== Component 5: The Response Loop (The Feedback)
+
+Response loop: The automation result is returned to the MCP server, standardized into a format the AI agent can process, and displayed to the user via the AI client.
+
+
 *Role*: Executes the actual action or returns the requested data.
 
 == How They Connect
@@ -69,7 +75,7 @@ Here's the complete architecture:
 [source]
 ----
 ┌──────────────┐
-│   You        │  Enter natural language
+│   You        │  Enter your Prompt to AI chat.
 └──────┬───────┘
        │
 ┌──────▼─────────────────────────────┐
@@ -138,4 +144,3 @@ Response to AI: "You don't have permission to delete hosts"
 
 You understand the components. Now let's see how *Ansible Automation Platform* uses MCP.
 
-→ **Continue to Section 3: AAP Integration & Toolsets**

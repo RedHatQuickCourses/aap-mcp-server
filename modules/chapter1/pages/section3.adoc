@@ -192,6 +192,5 @@ This means:
 
 == Next Steps
 
-You understand the toolsets. Now let's see the *complete communication workflow*—how a request flows from user to AI to AAP.
+You understand the toolsets. Now let's *Know More About MCP Tool Discovery and Access Control*. 
 
-→ **Continue to Section 4: Communication Workflow**

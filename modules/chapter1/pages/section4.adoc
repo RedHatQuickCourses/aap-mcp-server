@@ -1,302 +1,55 @@
-= Communication Workflow
+= Know More About MCP Tool Discovery and Access Control
 
-== The Full Journey: From User to AAP
+== Optimize Token Usage with the Discover Endpoint
 
-Let's trace exactly what happens when you ask the AI a question. This is the **complete communication workflow**.
+When integrating an AI agent with an MCP server, loading every tool for each request can increase token consumption. The discover endpoint helps optimize this by providing a lightweight summary of available toolsets.
 
-== Step-by-Step Breakdown
+The AI agent identifies the relevant toolset and loads only the tools required for the task.
 
-=== Step 1: The User Initiates a Request
-[source]
+[source,text]
 ----
-You: "Show me failed jobs from the past 7 days"
-----
-
-This is a natural language request sent to your AI tool (Claude, Cursor, ChatGPT, etc).
-
-*What's happening*:
-
-* The AI client receives your message
-* It sends it to the AI model for interpretation
-
-=== Step 2: The AI Model Interprets and Plans
-[source]
-----
-AI Model (thinking):
-"The user wants:
-1. A list of jobs
-2. Filtered to only FAILED status
-3. From the last 7 days
-
-I need to call the job_list tool with:
-- status = "failed"
-- limit = 7 days
-"
+<MCP server URL>/mcp/discover
 ----
 
-*What's happening*:
+Once loaded, tools remain available for the rest of the session. Additional toolsets are loaded as needed.
 
-* The AI model understands your intent
-* It maps your request to available MCP tools
-* It prepares the structured request with parameters
+== Access All Tools
 
-=== Step 3: The MCP Server Receives the Request
-[source]
+If token optimization is not a priority, use the all-tools endpoint to make every tool available.
+
+[source,text]
 ----
-Request from AI:
-{
-  "method": "tools/call",
-  "params": {
-    "name": "job_list",
-    "arguments": {
-      "status": "failed",
-      "limit_days": 7
-    }
-  }
-}
+<MCP server URL>/mcp
 ----
 
-*What's happening*:
+== Restrict Access to Specific Toolsets
 
-* The MCP server receives a structured tool call
-* It validates the request format
-* It checks that the tool exists
+To control which tools the AI agent can access, configure a separate endpoint for each toolset.
 
-=== Step 4: The MCP Server Authenticates
-[source]
+[source,text]
 ----
-MCP Server checks:
-✓ API token is valid? YES
-✓ Token belongs to active user? YES
-✓ User has read permission? YES
-
-Status: AUTHENTICATED
+<MCP server URL>/mcp/<toolset>
 ----
 
-*What's happening*:
+Available toolsets:
+`job_management`, `inventory_management`, `system_monitoring`,
+`user_management`, `security_compliance`, `platform_configuration`,
+`content_discovery`.
 
-* The MCP server extracts your API token from the request headers
-* It verifies the token with AAP
-* It loads your user's permissions and RBAC settings
+== Understand Server-Level and User-Level Permissions
 
-=== Step 5: The MCP Server Translates and Calls AAP
-[source]
-----
-MCP Server translates to AAP API call:
-GET /api/v2/jobs/?status=failed&created__gte=2024-09-08
+The MCP server uses two layers of access control:
 
-Headers:
-  Authorization: Token <your-aap-api-token>
-  Content-Type: application/json
-----
+* **Server-level permissions:** Configured by the administrator during deployment.
+** Read-only: Allows the AI agent to retrieve information without making changes.
+** Read-write: Allows changes, subject to the user's API token permissions.
 
-*What's happening*:
+* **User-level permissions:** Inherited from the user's Ansible Automation Platform API token. The AI agent can perform only actions authorized for that user.
 
-* The MCP server converts the tool call into an AAP API request
-* It uses your API token to authenticate with AAP
-* It applies any RBAC restrictions from your user account
+For example, if a user can access the `network` inventory but not the `database` inventory, the AI agent cannot access the database inventory using that user's token.
 
-=== Step 6: AAP Executes the Query
-[source]
-----
-AAP Database Query:
-SELECT jobs WHERE status='failed' AND created > '2024-09-08'
-RESULT: 3 failed jobs found
-----
+== Security Consideration
 
-*What's happening*:
+Read-write access allows the AI agent to make changes in Ansible Automation Platform, including launching automation jobs when authorized.
 
-* AAP queries its database
-* It applies your user's permission restrictions
-* It only returns jobs you're allowed to see
-* It returns the results as JSON
-
-=== Step 7: The MCP Server Standardizes the Response
-[source]
-----
-Raw AAP Response (200 JSON objects with 50 fields each):
-{
-  "count": 3,
-  "results": [
-    {
-      "id": 456,
-      "name": "Deploy Config",
-      "status": "failed",
-      "created": "2024-09-10T14:32:00Z",
-      "started": "2024-09-10T14:32:05Z",
-      "finished": "2024-09-10T14:45:00Z",
-      ...50 more fields...
-    },
-    ...
-  ]
-}
-
-MCP Server Standardizes:
-{
-  "jobs": [
-    {
-      "id": 456,
-      "name": "Deploy Config",
-      "status": "failed",
-      "duration": "12 minutes",
-      "failure_reason": "Host unreachable"
-    },
-    ...
-  ]
-}
-----
-
-*What's happening*:
-
-* The MCP server receives raw AAP data
-* It extracts only relevant fields
-* It formats data in a way the AI can easily understand
-* It simplifies complex structures
-
-=== Step 8: The AI Model Processes the Data
-[source]
-----
-AI Model receives standardized response
-AI Model thinks:
-"I have 3 failed jobs. Let me summarize them for the user
-in a clear, readable format"
-----
-
-*What's happening*:
-
-* The AI receives the structured data
-* It reads and understands the job details
-* It composes a human-readable summary
-
-=== Step 9: The AI Client Displays the Response
-[source]
-----
-You see in your AI chat:
-
-"You have 3 failed jobs from the past 7 days:
-
-1. Deploy Config (Job #456)
-   - Duration: 12 minutes
-   - Status: FAILED
-   - Reason: Host unreachable
-   - Started: Sept 10, 2:32 PM
-
-2. Database Migration (Job #457)
-   - Duration: 25 minutes
-   - Status: FAILED
-   - Reason: Permission denied
-   - Started: Sept 11, 10:15 AM
-
-3. Cleanup Tasks (Job #458)
-   - Duration: 5 minutes
-   - Status: FAILED
-   - Reason: Timeout
-   - Started: Sept 12, 3:45 PM
-"
-----
-
-*What's happening*:
-
-* The AI client displays the formatted response
-* You read the summary
-* You can now ask follow-up questions
-
-== Visualized Workflow
-
-[source]
-----
-┌─ User ──────────────────────────────────────────────────────────────┐
-│  "Show failed jobs from past 7 days"                                 │
-└──────────────────────────┬──────────────────────────────────────────┘
-                           │
-                    ┌──────▼─────────┐
-                    │  AI Client      │
-                    │  (Cursor,etc)   │
-                    └──────┬──────────┘
-                           │
-                    ┌──────▼──────────────────────────────────┐
-                    │  AI Model (Claude, GPT, etc)            │
-                    │  Interprets: "call job_list tool"       │
-                    └──────┬───────────────────────────────────┘
-                           │
-          ┌────────────────┼────────────────┐
-          │                │                │
-   ┌──────▼──────┐  ┌─────▼──────┐ ┌──────▼──────┐
-   │ Tool 1      │  │ Tool 2      │ │ Tool 3      │ (Tool selection)
-   │ job_list    │  │ inv_list    │ │ user_list   │
-   │ [SELECTED]  │  │             │ │             │
-   └──────┬──────┘  └─────────────┘ └─────────────┘
-          │
-   ┌──────▼─────────────────────────────────┐
-   │  MCP Server                             │
-   │  1. Validate request format             │
-   │  2. Authenticate with token             │
-   │  3. Check RBAC permissions              │
-   │  4. Translate to AAP API call           │
-   └──────┬─────────────────────────────────┘
-          │
-   ┌──────▼──────────────────────────────┐
-   │  Ansible Automation Platform (AAP)  │
-   │  1. Query database                  │
-   │  2. Apply user permissions          │
-   │  3. Return results as JSON          │
-   └──────┬───────────────────────────────┘
-          │
-   ┌──────▼──────────────────────────────┐
-   │  MCP Server (Response Phase)         │
-   │  1. Parse JSON from AAP              │
-   │  2. Extract relevant fields          │
-   │  3. Standardize format               │
-   │  4. Send to AI Model                 │
-   └──────┬───────────────────────────────┘
-          │
-   ┌──────▼──────────────────────────────────┐
-   │  AI Model (Response Generation)         │
-   │  Reads standardized data                │
-   │  Composes natural language summary      │
-   └──────┬─────────────────────────────────┘
-          │
-   ┌──────▼──────────────┐
-   │  AI Client          │
-   │  Display to user    │
-   └──────┬───────────────┘
-          │
-   ┌──────▼──────────────────────────────────────────┐
-   │  You (User)                                      │
-   │  "Here are your 3 failed jobs..."               │
-   │  [Read summary, ask follow-up questions]        │
-   └──────────────────────────────────────────────────┘
-----
-
-== Key Insights
-
-=== Security Checkpoints
-
-The workflow has **multiple security checkpoints**:
-
-1. ✓ Token validation (is the request from a valid user?)
-2. ✓ RBAC check (does the user have permission for this action?)
-3. ✓ Data filtering (only show data the user is allowed to see)
-
-=== Data Flow
-
-Data flows in **two directions**:
-
-1. **Request direction**: Natural language → Structured tool call → API call → Database query
-2. **Response direction**: Database result → Formatted response → Natural language summary → Display
-
-=== No Direct AI-to-AAP Access
-**Important**: The AI model never talks directly to AAP.
-
-The MCP server is always in the middle:
-
-* ✓ The AI cannot bypass authentication
-* ✓ The AI cannot exceed user permissions
-* ✓ All requests are logged and auditable
-* ✓ All data is standardized and validated
-
-== Next Steps
-
-You now understand the complete workflow. Let's look at what happens in real deployments.
-
-→ **Continue to Section 5: End-to-End Workflow**
+Because AI agents may misinterpret requests, start with read-only access and introduce write permissions only when appropriate safeguards and RBAC controls are in place.

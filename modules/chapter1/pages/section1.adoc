@@ -61,4 +61,3 @@ AI: "Here are your last 5 jobs: ..."
 
 You understand *what* MCP is. Now let's understand *how* it's built — the architecture and components.
 
-→ **Continue to Section 2: MCP Architecture**

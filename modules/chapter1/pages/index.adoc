@@ -17,9 +17,8 @@ By the end of this chapter, you will be able to:
 
 === 1: Launching Dev Spaces from OpenShift
 
-. Launch the link:{openshift_cluster_console_url}[OpenShift console,window=_blank] and login using the credentials provided in the RHDP login page.
+. Launch the OpenShift console and login using the credentials provided on the RHDP login page.
 
-. Select the **htpasswd_provider** button and use the credentials provided in the RHDP login page to login to the OpenShift console use the URL. 
 . Use the 9-block icon in the upper right to launch _Red Hat OpenShift Dev Spaces_ directly from the OpenShift console header.
 +
 image::intro-dev_spaces_shortcut.png[link=self,window=blank]
@@ -43,17 +42,9 @@ image::intro4.png[link=self,window=blank]
 +
 . Click the **Trust Publishers and Install** button to trust the extension publishers that are included within the Dev Spaces workspace
 . Click the **Yes, I trust the Authors** button to trust the workspace authors (your instructors).
-. Wait a few minutes until the additional extension icons appear for Ansible and OpenShift on the left side.
-+
-image::intro5.png[link=self,window=blank]
 
-== Ansible and OpenShift Extensions
+. For this lab, we have provided a pre-configured configuration along with additional configurations to curate your development environment. 
 
-For this lab, we have provided a pre-configured configuration that included all the extensions along with additional configurations to curate your development environment. 
-
-. Click on the **Ansible** extension icon to access the Ansible Development Tools extension (covered in a subsequent lab)
-+
-image::intro6.png[link=self,window=blank]
 
 == Accessing a Terminal
 
@@ -94,15 +85,15 @@ ansible --version
 +
 [source,output]
 ----
-ansible [core 2.19.3]
+ansible [core 2.20.5]
   config file = None
-  configured module search path = ['/home/user/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/local/lib/python3.11/site-packages/ansible
-  ansible collection location = /home/user/.ansible/collections:/usr/share/ansible/collections
+  configured module search path = ['/projects/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.12/site-packages/ansible
+  ansible collection location = /projects/.ansible/collections:/usr/share/ansible/collections
   executable location = /usr/local/bin/ansible
-  python version = 3.11.13 (main, Aug 21 2025, 00:00:00) [GCC 11.5.0 20240719 (Red Hat 11.5.0-11)] (/usr/bin/python3.11)
+  python version = 3.12.12 (main, Apr 16 2026, 00:00:00) [GCC 11.5.0 20240719 (Red Hat 11.5.0-11)] (/usr/bin/python3.12)
   jinja version = 3.1.6
-  pyyaml version = 6.0.3 (with libyaml v0.2.5)
+  pyyaml version = 6.0.1 (with libyaml v0.2.5)
 ----
 
 **Ready?** Start with Section 1 below!
