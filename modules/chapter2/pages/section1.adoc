@@ -1,0 +1,211 @@
+= Mcp Server for playbook error detection and resolution.
+
+This brief will demonstrate how the MCP server can be leveraged to identify errors in Ansible playbooks, use Claude to analyze the issues and recommend appropriate resolutions, and then automate the remediation process. To ensure the changes are applied in a controlled and governed manner, the Automation Orchestrator approval workflow can be integrated to provide a human-in-the-loop validation step before the fix is automatically implemented.
+
+== Lab Scenario: Hello World Sample with Error
+
+We'll use a simple but intentional error to demonstrate the system:
+
+[source,yaml,role=playbook]
+----
+---
+- name: Hello World Sample
+  hosts: all
+  tasks:
+    - name: Hello Message
+      debug:
+        msg: "Hello World"
+
+    - name: APP version
+      debug:
+        msg: "{{ app_version }}"
+----
+
+we created a file `hello-world-playbook.yml` with the above content. The second task references a variable `app_version` that is not defined anywhere, which will trigger an error when the playbook is executed. This will allow us to observe how MCP captures the error and a prompt to Claude analyzes it. 
+
+== Part 1: Configure GitHub in Ansible Automation Platform
+
+=== Step 1.1: Access AAP Controller
+
+. Navigate to your AAP Controller URL from the RHDP login page.
+. Log in with your credentials.
+
+=== Step 1.2: Create Project in AAP
+
+. Go to **Projects** (Resources → Projects)
+. Click **Create project**
+. Fill in the project details:
++
+[%header,cols="1,2"]
+|===
+| Field | Value
+| Name | `MCP-Playbooks-Lab`
+| Description | "Ansible Playbooks with MCP Error Detection"
+| Source Control Type | Git
+| Source Control URL | `https://github.com/opentraining-labs-customizations/aap-playbooks.git`
+|===
+
+. Click **Save**
+. Wait for the project to sync (you'll see a status message)
++
+[source,output]
+----
+Status: Successful
+Commit: abc1234567...
+Branch: main
+----
+
+✅ **GitHub is now connected to AAP!**
+
+== Part 2: Create Job Template with MCP Integration
+
+In AAP Controller:
+
+. Go to **Templates** (Resources → Templates)
+. Click **Create template** → **Job template**
+. Fill in the basic details:
++
+[%header,cols="1,2"]
+|===
+| Field | Value
+| Name | `MCP-Error-Detection-Lab`
+| Description | "Hello World playbook with MCP error detection"
+| Job Type | Run
+| Inventory | `Demo-inventory`
+| Project | `MCP-Playbooks-Lab`
+| Playbook | `hello-world-playbook.yml`
+|===
+
+. Click **Save**
+
+✅ **Job Template is ready!**
+
+== Part 3: Run the Playbook
+
+In AAP Controller:
+
+. Go to **Templates** (Resources → Templates)
+. Find `MCP-Error-Detection-Lab`
+. Click the **Launch** button (play icon)
++
+image::aap-launch-job.png[AAP Launch Job,400]
+
+
+=== Step 3.3: Monitor Job Execution
+
+The job output will show:
+
+[source,output,role=console]
+----
+PLAY [Hello World Sample] ****
+
+TASK [Hello Message] ****
+ok: [localhost] => {
+    "msg": "Hello World"
+}
+
+TASK [APP version] ****
+fatal: [localhost]: FAILED! => {
+    "msg": "undefined variable: app_version"
+}
+
+PLAY RECAP ****
+localhost: ok=1 changed=0 unreachable=0 failed=1
+
+FAILED - RETRYING: APP version (Attempt 1 of 3)
+----
+
+✅ **Error detected! Now lets check with the MCP Server**
+
+== Part 5: Observe MCP Error Detection & Resolution
+
+. Go to Ansible devspace and open the vscode terminal and Run the command opencode to start the MCP server. You should see the following output:
+
+. Now give a Prompt to Claude to analyze the error. The system will automatically send the error context to Claude for analysis. Within 30 seconds, you will receive a proposed solution.
+
+. The output can be different from the following example, but it should look similar and the resolution would be to add the aap_version. 
+
+. Now its upto the human to decide at what level of playbook/ inventory/host_vars/group_vars or extra variable the resolution should be proposed.
+
+[Note]
+ The Automation Orchestrator workflow can be integrated to provide a human-in-the-loop validation and proposed solution by the AI where with simple click of a button the Human can approve the fix and the system will automatically apply the fix and retry the playbook.
+
+. I will add the Variable to the Job Template extra variable section as shown below and click on the Save button and execute the Job Template again. The playbook should now succeed without any errors: 
+
+== Part 6: Watch Playbook Retry and Succeed
+
+=== Step 6.1: Playbook Retries with Fix
+
+The playbook automatically retries:
+
+[source,output,role=console]
+----
+PLAY [Hello World Sample] ****
+
+TASK [Hello Message] ****
+ok: [localhost] => {
+    "msg": "Hello World"
+}
+
+TASK [APP version] ****
+ok: [localhost] => {
+    "msg": "1.0.0"
+}
+
+PLAY RECAP ****
+localhost: ok=2 changed=0 unreachable=0 failed=0
+
+✓ PLAYBOOK COMPLETED SUCCESSFULLY!
+----
+
+=== Step 6.2: Alternate fix option:
+
+The applied fix (visible in job output or GitHub):
+
+[source,yaml]
+----
+# Original (with error):
+- name: APP version
+  debug:
+    msg: "{{ app_version }}"
+
+# Fixed by Claude (auto-applied):
+- name: APP version
+  debug:
+    msg: "{{ app_version | default('1.0.0') }}"
+
+# Or with explicit variable:
+vars:
+  app_version: "1.0.0"
+----
+
+=== Step 6.3: Verify in GitHub
+
+The changes are committed to GitHub:
+
+[source,bash,role=execute]
+----
+git pull origin main
+cat hello-world-playbook.yml
+----
+
+Output:
+[source,output]
+----
+---
+- name: Hello World Sample
+  hosts: all
+  vars:
+    app_version: "1.0.0"
+  tasks:
+    - name: Hello Message
+      debug:
+        msg: "Hello World"
+
+    - name: APP version
+      debug:
+        msg: "{{ app_version }}"
+----
+
+✅ **Playbook now has the fix applied!**
+

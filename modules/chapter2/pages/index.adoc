@@ -1,56 +1,256 @@
-= Chapter 2: Hands-On Labs
+= Error Detection & AI-Powered Problem Solving with MCP
 
-## Welcome to Hands-On Learning
+Welcome to Chapter 2! In Chapter 1, you learned *what* MCP is and *why* it matters. Now, you'll learn how MCP and Claude AI work together to solve Ansible playbook errors **automatically**.
 
-Now that you understand MCP, it's time to **actually do it**. This chapter contains **3 progressive labs** that take you through the entire workflow.
+We'll break this down into bite-sized sections that follow a simple pattern: **What is the problem? → How does MCP solve it? → What does this look like in practice?**
 
-**You will:**
-1. **Lab 1** - Deploy MCP on OpenShift (5-15 min)
-2. **Lab 2** - Configure an AI tool to connect (10-20 min)
-3. **Lab 3** - Run queries and troubleshoot (20-30 min)
+== What You'll Learn
 
-By the end, you'll have a working MCP integration with your AAP environment.
+By the end of this chapter, you will be able to:
 
-## Prerequisites
+* Understand how Ansible playbooks fail and the typical troubleshooting process
+* Explain how MCP enables automatic error detection and resolution
+* Describe the complete workflow from error occurrence to fix application
+* Understand how Claude AI analyzes errors and generates solutions
+* Implement the operator approval workflow for safety and control
+* Troubleshoot issues in the error resolution system
 
-Before you start, you need:
+== The Big Picture: Self-Healing Playbooks
 
-* ✅ Access to an **OpenShift Container Platform (OCP)** cluster
-* ✅ **Ansible Automation Platform (AAP)** running on that cluster
-* ✅ **Admin access** to both OCP and AAP (or someone who can help with deployments)
-* ✅ One of these **AI tools installed**:
-  - Cursor IDE
-  - Claude Desktop App
-  - LibreChat (web-based)
-  - Any MCP-compatible tool
-* ✅ A terminal/command line where you can run `oc` commands
+Imagine a world where:
 
-**If you don't have these**, ask your administrator or skip to the **MCP Cheat Sheet** section at the end to understand the commands without running them.
+* Your Ansible playbook fails
+* The system **automatically captures** the error details
+* Claude AI **analyzes** the error in seconds
+* An operator **reviews** Claude's suggested fix
+* The fix is **applied automatically** with full safety checks
+* Your playbook **retries** and succeeds
 
-## Lab Structure
+This is what we'll build in this chapter.
 
-Each lab follows this pattern:
+== The Problem We're Solving
 
-1. **What you'll do** - Overview of the lab
-2. **Prerequisites** - What you need
-3. **Step-by-step instructions** - Copy-paste commands
-4. **Verification** - How to know it worked
-5. **Troubleshooting** - Common issues and fixes
+=== Current Situation (Without MCP)
 
-## Time Required
+When a playbook fails, operations teams typically:
 
-* **Lab 1** - 5-15 minutes (depends on AAP/OCP readiness)
-* **Lab 2** - 10-20 minutes (configuration)
-* **Lab 3** - 20-30 minutes (testing and troubleshooting)
+[%hardbreaks]
+1. **Get alerted** - Error message appears in logs
+2. **Search for solution** - Google, Stack Overflow, docs (5-15 min)
+3. **Diagnose the problem** - Check configs, variables, versions (10-20 min)
+4. **Write a fix** - Update playbook or configuration (10-20 min)
+5. **Test the fix** - Run playbook in test environment (10-20 min)
+6. **Apply to production** - Deploy the fix carefully (5-15 min)
+7. **Verify success** - Monitor for any new issues (5-10 min)
 
-**Total**: 35-65 minutes
+**Total time: 1-2 hours per error** (sometimes much longer for complex issues)
 
-## Can I Skip Labs?
+This is **reactive**, **manual**, and **inefficient**.
 
-* **Lab 1** - You can skip if MCP is already deployed
-* **Lab 2** - You cannot skip (you need to configure a tool)
-* **Lab 3** - You cannot skip (you need to verify it works)
+=== New Situation (With MCP + Claude)
 
-## Ready?
+With MCP and Claude:
 
-Start with **Lab 1: Deploy MCP on OCP** if you need to deploy, or go to **Lab 2** if MCP is already running.
+[%hardbreaks]
+1. **Error is captured** - Automatically, with full context (<5 sec)
+2. **Claude analyzes** - AI examines error and generates fix (<30 sec)
+3. **Operator reviews** - Human reviews Claude's solution (1-2 min)
+4. **Fix is applied** - Automatically with backup created (<5 sec)
+5. **Playbook retries** - Continues from failure point (varies)
+6. **Success verified** - Automatic verification (<5 sec)
+
+**Total time: 2-5 minutes per error** (including operator review)
+
+This is **proactive**, **automated**, and **efficient**.
+
+== How It Works: The Five-Step Workflow
+
+[%hardbreaks]
+.Step 1: Error Occurs
+Your Ansible playbook runs and a task fails. The system immediately captures:
+- Task name and which module failed
+- Complete error message
+- All variables and environment info
+- Ansible version and logs
+- Timestamp and affected hosts
+
+.Step 2: Error Sent to Claude via MCP
+The error context is sent to Claude API through MCP. Claude receives structured information about:
+- What failed and why
+- The context in which it failed
+- Recent configuration state
+- Historical patterns (if available)
+
+.Step 3: Claude Analyzes & Provides Solution
+Claude examines the error and provides:
+- **Root Cause Analysis** - Why did this fail?
+- **Explanation** - What does this error mean?
+- **Fixed Code** - Here's the corrected configuration
+- **Apply Steps** - Here's how to apply the fix
+- **Prevention Tips** - How to avoid this in future
+
+.Step 4: Operator Reviews & Approves
+A human operator sees:
+- Clear explanation of the problem
+- Proposed fix with a diff showing changes
+- Risk assessment (will this break anything?)
+- Claude's confidence score
+- Then clicks "Approve" or "Reject"
+
+.Step 5: Fix Applied Automatically
+Once approved, the system:
+- Creates a backup of original files
+- Validates the fix syntax
+- Applies the fix atomically
+- Retries the playbook
+- Logs everything for audit trail
+
+== Example: Real Error Resolution
+
+Let's walk through a real example: **Docker image authentication error**.
+
+=== The Error
+
+[source,bash,role=execute]
+----
+FAILED - RETRYING: Deploy Docker container (Attempt 1 of 3)
+fatal: [prod-1]: FAILED! => {
+  "msg": "Failed to pull image: unauthorized: authentication required",
+  "module_stderr": "",
+  "module_stdout": "",
+  "_ansible_parsed": true
+}
+----
+
+=== What Happens Automatically
+
+*In less than 2 minutes:*
+
+[source,output,role=output]
+----
+[ERROR CAPTURE] Task failed: Deploy Docker container
+[ERROR CAPTURE] Module: docker_image
+[ERROR CAPTURE] Error: Failed to pull image: unauthorized
+[ERROR CAPTURE] Host: prod-1
+[ERROR CAPTURE] Gathering context...
+
+[MCP SEND] Sending error to Claude API...
+
+[CLAUDE ANALYSIS] Analyzing error...
+[CLAUDE ANALYSIS] Root cause identified: Missing credentials
+[CLAUDE ANALYSIS] Generating solution...
+[CLAUDE ANALYSIS] Solution generated (confidence: 95%)
+
+[OPERATOR REVIEW]
+┌─────────────────────────────────────────┐
+│ Claude's Analysis                       │
+├─────────────────────────────────────────┤
+│ Root Cause: Docker registry auth        │
+│ Problem: Missing username/password      │
+│ Solution: Add registry credentials      │
+│                                         │
+│ Proposed Change:                        │
+│   - name: Deploy Docker container       │
+│     docker_image:                       │
+│       name: myapp:latest                │
+│ +     registry_url: docker.io           │
+│ +     username: "{{ docker_user }}"     │
+│ +     password: "{{ docker_pass }}"     │
+│       state: present                    │
+│                                         │
+│ Risk: LOW                               │
+│ Approve? [y/n]: y                       │
+└─────────────────────────────────────────┘
+
+[FIX APPLY] Creating backup...
+[FIX APPLY] Backup ID: bak_20260925_143022
+[FIX APPLY] Applying fix...
+[FIX APPLY] ✓ Fix applied successfully
+[FIX APPLY] ✓ Retrying playbook...
+
+[PLAYBOOK RETRY] Playbook running with fix...
+[PLAYBOOK SUCCESS] ✓ All tasks completed successfully!
+----
+
+That's it! Error detected, analyzed, approved, fixed, and resolved in **2 minutes** with **full human oversight**.
+
+== Why MCP is Critical
+
+Without MCP:
+* Claude would need manual description of error (no automation)
+* Operator would need to copy-paste error messages (error-prone)
+* No structured communication between systems (inefficient)
+* Each AI tool would need custom integration (duplicated work)
+
+With MCP:
+* Error automatically structured and sent
+* All necessary context included automatically
+* Standard protocol works with any MCP-compatible tool
+* Claude has complete situational awareness
+* System can make informed decisions
+
+== Chapter 2 Structure
+
+This chapter is organized as follows:
+
+[%header,cols="1,2,1"]
+|===
+| Section | Topic | Time
+| This Page | Introduction & big picture | 10 min read
+| Section 1 | How errors are detected | 15 min read
+| Section 2 | Claude integration via MCP | 15 min read
+| Section 3 | Operator approval workflow | 15 min read
+| Lab | Hands-on error resolution | 30 min lab
+|===
+
+== Prerequisites for This Chapter
+
+To get the most from this chapter, you should:
+
+* ✅ Have completed Chapter 1 (understand MCP basics)
+* ✅ Understand basic Ansible playbook concepts
+* ✅ Know what an Ansible error looks like
+* ✅ Have access to AAP or test Ansible environment
+* ✅ Have a Claude API key (from anthropic.com)
+
+**Don't have all of these?** No problem! You can:
+* Read Chapter 1 first if you need MCP basics
+* Follow along conceptually without running commands
+* Review the provided example errors and solutions
+
+== What's Required to Succeed
+
+For **reading/understanding**:
+* 2-3 hours to read all sections and examples
+* No special setup required
+
+For **hands-on lab**:
+* Ansible 2.10+ installed locally or test environment
+* Access to AAP (Ansible Automation Platform)
+* Claude API key
+* ~1-2 hours to complete all exercises
+
+== Key Concepts You'll Learn
+
+[%hardbreaks]
+**Error Capture** - How system automatically detects and logs failures
+
+**Context Gathering** - How to collect all information Claude needs
+
+**MCP Communication** - How error details flow to Claude
+
+**AI Analysis** - How Claude generates intelligent solutions
+
+**Approval Workflow** - How operators maintain control and safety
+
+**Safe Application** - How fixes are applied without risk
+
+== Ready to Begin?
+
+Let's start with **Understanding How Playbooks Fail and How We Can Fix Them!**
+
+→ **Next:** xref:section1.adoc[Section 1: How Errors Are Detected]
+
+*Estimated reading time for Chapter 2: 60-90 minutes*
+
+*Estimated lab time: 30-45 minutes*

@@ -1,0 +1,154 @@
+== Hands-On Exercises
+
+Try these exercises to practice:
+
+=== Exercise 1: Simple Query
+
+[source]
+----
+Goal: Get a count of total jobs
+Question: "How many jobs exist in my AAP?"
+Expected: A number with job details
+Learns: Basic job querying
+----
+
+=== Exercise 2: Filtered Query
+
+[source]
+----
+Goal: Find specific jobs by status
+Question: "Show me only successful jobs from the past week"
+Expected: Filtered list of successful jobs
+Learns: Query with conditions
+----
+
+=== Exercise 3: Multi-Step Query
+
+[source]
+----
+Goal: Get multiple types of information
+Question: "How many jobs failed this week and what were their error messages?"
+Expected: List of failed jobs with error details
+Learns: MCP can do multi-step queries
+----
+
+=== Exercise 4: Inventory Query
+
+[source]
+----
+Goal: Understand your infrastructure
+Question: "Show me all hosts grouped by operating system"
+Expected: Breakdown of hosts by OS (Windows, Linux, etc)
+Learns: Inventory management queries
+----
+
+=== Exercise 5: Follow-Up Conversation
+
+[source]
+----
+Goal: Have a multi-turn conversation
+Exchange:
+  You: "List my execution nodes"
+  AI: [Returns list of nodes]
+  You: "Which one has the most capacity?"
+  AI: [Analyzes and compares]
+  You: "What's the health status of that node?"
+  AI: [Queries monitoring data]
+Learns: Contextual conversation
+----
+
+== Part 7: Advanced Tips
+
+=== Tip 1: Be Specific
+
+**Instead of:**
+[source]
+----
+"Show me jobs"
+----
+
+**Say:**
+[source]
+----
+"Show me jobs that failed in the past 7 days with error details"
+----
+
+Specific queries get better answers.
+
+=== Tip 2: Ask Follow-Up Questions
+
+[source]
+----
+You: "What's the status of my platform?"
+AI: [Gives health status]
+You: "Which execution node is having issues?"
+AI: [Digs deeper based on context]
+----
+
+The AI remembers context in the conversation.
+
+=== Tip 3: Combine Information
+
+[source]
+----
+You: "I have failed jobs and offline hosts. Are they related?"
+AI: [Analyzes both, shows correlation]
+----
+
+The AI can synthesize information from multiple queries.
+
+=== Tip 4: Use Natural Language
+
+MCP isn't a CLI. You don't need exact syntax. Just ask naturally:
+
+[source]
+----
+"How's my system doing?"
+"Are my servers healthy?"
+"What's been happening lately?"
+"Do I have any problems?"
+----
+
+The AI will interpret and call the right tools.
+
+== Part 8: When to Use MCP vs Other Methods
+
+=== Use MCP for:
+* ✅ **Quick information** - "How many hosts do I have?"
+* ✅ **Status checks** - "Is my platform healthy?"
+* ✅ **Trend analysis** - "Have failures increased?"
+* ✅ **Natural language** - Questions, not commands
+* ✅ **Exploration** - "Show me everything about..."
+* ✅ **Error Detection** - "Tell me why the sample-JT-name failed"
+
+=== Use AAP Web UI for:
+* ✅ **Detailed editing** - Configuring large projects
+* ✅ **Visual dashboards** - Seeing graphs and charts
+* ✅ **Bulk operations** - Multi-host changes
+* ✅ **Training new users** - Learning the UI
+
+=== Use AAP API for:
+* ✅ **Automation** - Scripts and playbooks
+* ✅ **Integration** - Custom tools
+* ✅ **Exact control** - Precise parameter passing
+* ✅ **Batch operations** - 1000s of changes
+
+== Summary Checklist
+
+By now, you should have:
+
+✅ Run your first successful query against AAP
+✅ Seen MCP tools being invoked
+✅ Tried queries from multiple toolsets
+✅ Had multi-turn conversations
+✅ Encountered and solved at least one issue
+✅ Understood what tools are available
+
+## Congratulations!
+
+You've completed all three labs:
+1. ✅ Deployed MCP on OCP
+2. ✅ Configured your AI tool
+3. ✅ Ran queries and practiced troubleshooting.
+
+**You now have a working MCP setup!**

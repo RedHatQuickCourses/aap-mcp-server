@@ -19,12 +19,11 @@ By the end of this chapter, you will be able to:
 
 . Launch the link:{openshift_cluster_console_url}[OpenShift console,window=_blank] and login using the credentials provided in the RHDP login page.
 
-. Select the **htpasswd_provider** button and use the credentials provided in the xref:environment-details.adoc[Environment Details,window=_blank] page to login to the OpenShift console
+. Select the **htpasswd_provider** button and use the credentials provided in the RHDP login page to login to the OpenShift console use the URL. 
 . Use the 9-block icon in the upper right to launch _Red Hat OpenShift Dev Spaces_ directly from the OpenShift console header.
 +
 image::intro-dev_spaces_shortcut.png[link=self,window=blank]
 +
-TIP: Alternatively, the direct URL is link:https://devspaces.{openshift_cluster_ingress_domain}[https://devspaces.{openshift_cluster_ingress_domain},window=_blank] also available in xref:environment-details.adoc[Environment Details,window=_blank].
 
 == Dev Spaces Workspace
 
@@ -50,7 +49,7 @@ image::intro5.png[link=self,window=blank]
 
 == Ansible and OpenShift Extensions
 
-For this lab, we have provided a link:https://code.visualstudio.com/docs/editing/workspaces/workspaces[.code-workspace,window=_blank] configuration that included these extensions along with additional configurations to curate your development environment. See link:https://github.com/sabre1041/ansible-devspaces/blob/ansible-superlab/.code-workspace[the source of this workspace configuration^].
+For this lab, we have provided a pre-configured configuration that included all the extensions along with additional configurations to curate your development environment. 
 
 . Click on the **Ansible** extension icon to access the Ansible Development Tools extension (covered in a subsequent lab)
 +

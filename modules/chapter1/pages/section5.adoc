@@ -2,7 +2,8 @@
 
 == Getting MCP Running: The Three Steps
 
-Now that you understand *what* MCP is and *how* it works, here's what you actually *do* to make it work.
+Now that you understand *what* MCP is and *how* it works, here's what you actually *do* to make it work and connect your external AI tool to Ansible Automation Platform (AAP) through the Ansible MCP Server. The process is broken down into three steps:
+
 
 == End to End Workflow
 
@@ -25,7 +26,7 @@ The Ansible MCP Server runs as a containerized service on your infrastructure. Y
 Deploy the Ansible MCP Server to your OpenShift environment by enabling the MCP capability within the `AnsibleAutomationPlatform` custom resource.
 
 . Launch the link:{openshift_cluster_console_url}[OpenShift Web Console,window=_blank]
-. Select the **htpasswd_provider** button and use the credentials provided in the xref:environment-details.adoc[Environment Details,window=_blank] page to login to the OpenShift console.
+. Select the **htpasswd_provider** button and use the credentials provided in the RHDP login page to the OpenShift console.
 . Navigate to **Ecosystem** -> **Installed Operators**
 . From the _Project_ dropdown, ensure `aap` is selected
 . The `Ansible Automation Platform` operator is listed and installed within this project.
