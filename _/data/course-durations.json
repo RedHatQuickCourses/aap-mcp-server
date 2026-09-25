@@ -1,6 +1,6 @@
 {
-  "totalSeconds": 1586,
-  "pageCount": 12,
+  "totalSeconds": 2534,
+  "pageCount": 15,
   "pages": [
     {
       "module": "ROOT",
@@ -10,7 +10,7 @@
     {
       "module": "LABENV",
       "page": "index.adoc",
-      "seconds": 4
+      "seconds": 46
     },
     {
       "module": "chapter1",
@@ -61,6 +61,21 @@
       "module": "chapter2",
       "page": "section2.adoc",
       "seconds": 99
+    },
+    {
+      "module": "appendix",
+      "page": "appendix.adoc",
+      "seconds": 55
+    },
+    {
+      "module": "appendix",
+      "page": "cheat-sheet.adoc",
+      "seconds": 164
+    },
+    {
+      "module": "appendix",
+      "page": "knowledge-check.adoc",
+      "seconds": 687
     }
   ]
 }
