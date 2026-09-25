@@ -92,16 +92,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+    <a class="nav-link" href="../chapter2/index.html">Error Detection &amp; AI-Powered Problem Solving with MCP</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+    <a class="nav-link" href="../chapter2/section1.html">Mcp Server for playbook error detection and resolution.</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+    <a class="nav-link" href="../chapter2/section2.html">section2.adoc</a>
   </li>
 </ul>
   </li>
@@ -207,7 +204,7 @@
 <p>Launch the <a href="{openshift_cluster_console_url}" target="_blank" rel="noopener">OpenShift console</a> and login using the credentials provided in the RHDP login page.</p>
 </li>
 <li>
-<p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a> page to login to the OpenShift console</p>
+<p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the RHDP login page to login to the OpenShift console use the URL.</p>
 </li>
 <li>
 <p>Use the 9-block icon in the upper right to launch <em>Red Hat OpenShift Dev Spaces</em> directly from the OpenShift console header.</p>
@@ -216,27 +213,13 @@
 <a class="image" href="_images/intro-dev_spaces_shortcut.png" target="blank"><img src="_images/intro-dev_spaces_shortcut.png" alt="intro dev spaces shortcut"></a>
 </div>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Alternatively, the direct URL is <a href="https://devspaces.{openshift_cluster_ingress_domain}" target="_blank" rel="noopener">https://devspaces.{openshift_cluster_ingress_domain}</a> also available in <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a>.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>== Dev Spaces Workspace</p>
 </div>
 </li>
 </ol>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dev_spaces_workspace"><a class="anchor" href="#_dev_spaces_workspace"></a>Dev Spaces Workspace</h2>
-<div class="sectionbody">
 <div class="sect2">
 <h3 id="_launching_a_specific_dev_spaces_workspace"><a class="anchor" href="#_launching_a_specific_dev_spaces_workspace"></a>Launching a specific Dev Spaces Workspace</h3>
 <div class="paragraph">
@@ -298,7 +281,7 @@ It will take a few minutes for the Dev Spaces instance to initialize. When it ha
 <h2 id="_ansible_and_openshift_extensions"><a class="anchor" href="#_ansible_and_openshift_extensions"></a>Ansible and OpenShift Extensions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For this lab, we have provided a <a href="https://code.visualstudio.com/docs/editing/workspaces/workspaces" target="_blank" rel="noopener">.code-workspace</a> configuration that included these extensions along with additional configurations to curate your development environment. See <a href="https://github.com/sabre1041/ansible-devspaces/blob/ansible-superlab/.code-workspace" target="_blank" rel="noopener">the source of this workspace configuration</a>.</p>
+<p>For this lab, we have provided a pre-configured configuration that included all the extensions along with additional configurations to curate your development environment.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">

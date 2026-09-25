@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Mcp Server for playbook error detection and resolution. :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <link rel="prev" href="index.html">
+    <link rel="next" href="section2.html">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section2.html">MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section5.html">End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section6.html">Key Takeaways</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Error Detection &amp; AI-Powered Problem Solving with MCP</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section1.html">Mcp Server for playbook error detection and resolution.</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section2.html">section2.adoc</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="index.html">Error Detection &amp; AI-Powered Problem Solving with MCP</a></li>
+    <li><a href="section1.html">Mcp Server for playbook error detection and resolution.</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Mcp Server for playbook error detection and resolution.</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This brief will demonstrate how the MCP server can be leveraged to identify errors in Ansible playbooks, use Claude to analyze the issues and recommend appropriate resolutions, and then automate the remediation process. To ensure the changes are applied in a controlled and governed manner, the Automation Orchestrator approval workflow can be integrated to provide a human-in-the-loop validation step before the fix is automatically implemented.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_scenario_hello_world_sample_with_error"><a class="anchor" href="#_lab_scenario_hello_world_sample_with_error"></a>Lab Scenario: Hello World Sample with Error</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ll use a simple but intentional error to demonstrate the system:</p>
+</div>
+<div class="listingblock playbook">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+- name: Hello World Sample
+  hosts: all
+  tasks:
+    - name: Hello Message
+      debug:
+        msg: "Hello World"
+
+    - name: APP version
+      debug:
+        msg: "{{ app_version }}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>we created a file <code>hello-world-playbook.yml</code> with the above content. The second task references a variable <code>app_version</code> that is not defined anywhere, which will trigger an error when the playbook is executed. This will allow us to observe how MCP captures the error and a prompt to Claude analyzes it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_1_configure_github_in_ansible_automation_platform"><a class="anchor" href="#_part_1_configure_github_in_ansible_automation_platform"></a>Part 1: Configure GitHub in Ansible Automation Platform</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_step_1_1_access_aap_controller"><a class="anchor" href="#_step_1_1_access_aap_controller"></a>Step 1.1: Access AAP Controller</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to your AAP Controller URL from the RHDP login page.</p>
+</li>
+<li>
+<p>Log in with your credentials.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_1_2_create_project_in_aap"><a class="anchor" href="#_step_1_2_create_project_in_aap"></a>Step 1.2: Create Project in AAP</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <strong>Projects</strong> (Resources → Projects)</p>
+</li>
+<li>
+<p>Click <strong>Create project</strong></p>
+</li>
+<li>
+<p>Fill in the project details:</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MCP-Playbooks-Lab</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Ansible Playbooks with MCP Error Detection"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source Control Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Git</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source Control URL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="https://github.com/opentraining-labs-customizations/aap-playbooks.git" class="bare">https://github.com/opentraining-labs-customizations/aap-playbooks.git</a></code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Click <strong>Save</strong></p>
+</li>
+<li>
+<p>Wait for the project to sync (you&#8217;ll see a status message)</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">Status: Successful
+Commit: abc1234567...
+Branch: main</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>✅ <strong>GitHub is now connected to AAP!</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_2_create_job_template_with_mcp_integration"><a class="anchor" href="#_part_2_create_job_template_with_mcp_integration"></a>Part 2: Create Job Template with MCP Integration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In AAP Controller:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <strong>Templates</strong> (Resources → Templates)</p>
+</li>
+<li>
+<p>Click <strong>Create template</strong> → <strong>Job template</strong></p>
+</li>
+<li>
+<p>Fill in the basic details:</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Field</th>
+<th class="tableblock halign-left valign-top">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MCP-Error-Detection-Lab</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Hello World playbook with MCP error detection"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Job Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Run</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inventory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Demo-inventory</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>MCP-Playbooks-Lab</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Playbook</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hello-world-playbook.yml</code></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Click <strong>Save</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>✅ <strong>Job Template is ready!</strong></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_3_run_the_playbook"><a class="anchor" href="#_part_3_run_the_playbook"></a>Part 3: Run the Playbook</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In AAP Controller:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <strong>Templates</strong> (Resources → Templates)</p>
+</li>
+<li>
+<p>Find <code>MCP-Error-Detection-Lab</code></p>
+</li>
+<li>
+<p>Click the <strong>Launch</strong> button (play icon)</p>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="aap-launch-job.png" alt="AAP Launch Job" width="400">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="_step_3_3_monitor_job_execution"><a class="anchor" href="#_step_3_3_monitor_job_execution"></a>Step 3.3: Monitor Job Execution</h3>
+<div class="paragraph">
+<p>The job output will show:</p>
+</div>
+<div class="listingblock console">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">PLAY [Hello World Sample] ****
+
+TASK [Hello Message] ****
+ok: [localhost] =&gt; {
+    "msg": "Hello World"
+}
+
+TASK [APP version] ****
+fatal: [localhost]: FAILED! =&gt; {
+    "msg": "undefined variable: app_version"
+}
+
+PLAY RECAP ****
+localhost: ok=1 changed=0 unreachable=0 failed=1
+
+FAILED - RETRYING: APP version (Attempt 1 of 3)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>✅ <strong>Error detected! Now lets check with the MCP Server</strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_5_observe_mcp_error_detection_resolution"><a class="anchor" href="#_part_5_observe_mcp_error_detection_resolution"></a>Part 5: Observe MCP Error Detection &amp; Resolution</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to Ansible devspace and open the vscode terminal and Run the command opencode to start the MCP server. You should see the following output:</p>
+</li>
+<li>
+<p>Now give a Prompt to Claude to analyze the error. The system will automatically send the error context to Claude for analysis. Within 30 seconds, you will receive a proposed solution.</p>
+</li>
+<li>
+<p>The output can be different from the following example, but it should look similar and the resolution would be to add the aap_version.</p>
+</li>
+<li>
+<p>Now its upto the human to decide at what level of playbook/ inventory/host_vars/group_vars or extra variable the resolution should be proposed.</p>
+</li>
+</ol>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>The Automation Orchestrator workflow can be integrated to provide a human-in-the-loop validation and proposed solution by the AI where with simple click of a button the Human can approve the fix and the system will automatically apply the fix and retry the playbook.</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>I will add the Variable to the Job Template extra variable section as shown below and click on the Save button and execute the Job Template again. The playbook should now succeed without any errors:</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_6_watch_playbook_retry_and_succeed"><a class="anchor" href="#_part_6_watch_playbook_retry_and_succeed"></a>Part 6: Watch Playbook Retry and Succeed</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_step_6_1_playbook_retries_with_fix"><a class="anchor" href="#_step_6_1_playbook_retries_with_fix"></a>Step 6.1: Playbook Retries with Fix</h3>
+<div class="paragraph">
+<p>The playbook automatically retries:</p>
+</div>
+<div class="listingblock console">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">PLAY [Hello World Sample] ****
+
+TASK [Hello Message] ****
+ok: [localhost] =&gt; {
+    "msg": "Hello World"
+}
+
+TASK [APP version] ****
+ok: [localhost] =&gt; {
+    "msg": "1.0.0"
+}
+
+PLAY RECAP ****
+localhost: ok=2 changed=0 unreachable=0 failed=0
+
+✓ PLAYBOOK COMPLETED SUCCESSFULLY!</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_6_2_alternate_fix_option"><a class="anchor" href="#_step_6_2_alternate_fix_option"></a>Step 6.2: Alternate fix option:</h3>
+<div class="paragraph">
+<p>The applied fix (visible in job output or GitHub):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"># Original (with error):
+- name: APP version
+  debug:
+    msg: "{{ app_version }}"
+
+# Fixed by Claude (auto-applied):
+- name: APP version
+  debug:
+    msg: "{{ app_version | default('1.0.0') }}"
+
+# Or with explicit variable:
+vars:
+  app_version: "1.0.0"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_6_3_verify_in_github"><a class="anchor" href="#_step_6_3_verify_in_github"></a>Step 6.3: Verify in GitHub</h3>
+<div class="paragraph">
+<p>The changes are committed to GitHub:</p>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git pull origin main
+cat hello-world-playbook.yml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">---
+- name: Hello World Sample
+  hosts: all
+  vars:
+    app_version: "1.0.0"
+  tasks:
+    - name: Hello Message
+      debug:
+        msg: "Hello World"
+
+    - name: APP version
+      debug:
+        msg: "{{ app_version }}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>✅ <strong>Playbook now has the fix applied!</strong></p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="index.html">Error Detection &amp; AI-Powered Problem Solving with MCP</a></span>
+  <span class="next"><a href="section2.html">section2.adoc</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>

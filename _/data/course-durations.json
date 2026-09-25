@@ -1,6 +1,6 @@
 {
-  "totalSeconds": 1115,
-  "pageCount": 9,
+  "totalSeconds": 1586,
+  "pageCount": 12,
   "pages": [
     {
       "module": "ROOT",
@@ -15,7 +15,7 @@
     {
       "module": "chapter1",
       "page": "index.adoc",
-      "seconds": 167
+      "seconds": 158
     },
     {
       "module": "chapter1",
@@ -40,12 +40,27 @@
     {
       "module": "chapter1",
       "page": "section5.adoc",
-      "seconds": 362
+      "seconds": 370
     },
     {
       "module": "chapter1",
       "page": "section6.adoc",
       "seconds": 27
+    },
+    {
+      "module": "chapter2",
+      "page": "index.adoc",
+      "seconds": 276
+    },
+    {
+      "module": "chapter2",
+      "page": "section1.adoc",
+      "seconds": 97
+    },
+    {
+      "module": "chapter2",
+      "page": "section2.adoc",
+      "seconds": 99
     }
   ]
 }

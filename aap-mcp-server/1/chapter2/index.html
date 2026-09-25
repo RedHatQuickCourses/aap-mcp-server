@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Chapter 2: Hands-On Labs :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <title>Error Detection &amp; AI-Powered Problem Solving with MCP :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <link rel="prev" href="../chapter1/section6.html">
+    <link rel="next" href="section1.html">
     <meta name="generator" content="Antora 3.2.0-alpha.12">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
@@ -88,18 +90,15 @@
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="#pages/index.adoc">Chapter 2: Hands-On Labs</a>
+    <a class="nav-link" href="index.html">Error Detection &amp; AI-Powered Problem Solving with MCP</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#pages/lab1-deploy-mcp.adoc">Lab 1: Deploy MCP on OCP</a>
+    <a class="nav-link" href="section1.html">Mcp Server for playbook error detection and resolution.</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#pages/lab2-configure-tools.adoc">Lab 2: Configure Your AI Tool</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#pages/lab3-queries.adoc">Lab 3: Run Queries &amp; Troubleshoot</a>
+    <a class="nav-link" href="section2.html">section2.adoc</a>
   </li>
 </ul>
   </li>
@@ -150,7 +149,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
-    <li><a href="index.html">Chapter 2: Hands-On Labs</a></li>
+    <li><a href="index.html">Error Detection &amp; AI-Powered Problem Solving with MCP</a></li>
   </ul>
 </nav>
 </div>
@@ -159,144 +158,445 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Chapter 2: Hands-On Labs</h1>
-<div class="sect1">
-<h2 id="_welcome_to_hands_on_learning"><a class="anchor" href="#_welcome_to_hands_on_learning"></a>Welcome to Hands-On Learning</h2>
+<h1 class="page">Error Detection &amp; AI-Powered Problem Solving with MCP</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now that you understand MCP, it&#8217;s time to <strong>actually do it</strong>. This chapter contains <strong>3 progressive labs</strong> that take you through the entire workflow.</p>
+<p>Welcome to Chapter 2! In Chapter 1, you learned <strong>what</strong> MCP is and <strong>why</strong> it matters. Now, you&#8217;ll learn how MCP and Claude AI work together to solve Ansible playbook errors <strong>automatically</strong>.</p>
 </div>
 <div class="paragraph">
-<p><strong>You will:</strong>
-1. <strong>Lab 1</strong> - Deploy MCP on OpenShift (5-15 min)
-2. <strong>Lab 2</strong> - Configure an AI tool to connect (10-20 min)
-3. <strong>Lab 3</strong> - Run queries and troubleshoot (20-30 min)</p>
-</div>
-<div class="paragraph">
-<p>By the end, you&#8217;ll have a working MCP integration with your AAP environment.</p>
+<p>We&#8217;ll break this down into bite-sized sections that follow a simple pattern: <strong>What is the problem? → How does MCP solve it? → What does this look like in practice?</strong></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="_what_youll_learn"><a class="anchor" href="#_what_youll_learn"></a>What You&#8217;ll Learn</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Before you start, you need:</p>
+<p>By the end of this chapter, you will be able to:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>✅ Access to an <strong>OpenShift Container Platform (OCP)</strong> cluster</p>
+<p>Understand how Ansible playbooks fail and the typical troubleshooting process</p>
 </li>
 <li>
-<p>✅ <strong>Ansible Automation Platform (AAP)</strong> running on that cluster</p>
+<p>Explain how MCP enables automatic error detection and resolution</p>
 </li>
 <li>
-<p>✅ <strong>Admin access</strong> to both OCP and AAP (or someone who can help with deployments)</p>
+<p>Describe the complete workflow from error occurrence to fix application</p>
 </li>
 <li>
-<p>✅ One of these <strong>AI tools installed</strong>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Cursor IDE</p>
+<p>Understand how Claude AI analyzes errors and generates solutions</p>
 </li>
 <li>
-<p>Claude Desktop App</p>
+<p>Implement the operator approval workflow for safety and control</p>
 </li>
 <li>
-<p>LibreChat (web-based)</p>
-</li>
-<li>
-<p>Any MCP-compatible tool</p>
+<p>Troubleshoot issues in the error resolution system</p>
 </li>
 </ul>
-</div>
-</li>
-<li>
-<p>✅ A terminal/command line where you can run <code>oc</code> commands</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>If you don&#8217;t have these</strong>, ask your administrator or skip to the <strong>MCP Cheat Sheet</strong> section at the end to understand the commands without running them.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_lab_structure"><a class="anchor" href="#_lab_structure"></a>Lab Structure</h2>
+<h2 id="_the_big_picture_self_healing_playbooks"><a class="anchor" href="#_the_big_picture_self_healing_playbooks"></a>The Big Picture: Self-Healing Playbooks</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Each lab follows this pattern:</p>
+<p>Imagine a world where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Your Ansible playbook fails</p>
+</li>
+<li>
+<p>The system <strong>automatically captures</strong> the error details</p>
+</li>
+<li>
+<p>Claude AI <strong>analyzes</strong> the error in seconds</p>
+</li>
+<li>
+<p>An operator <strong>reviews</strong> Claude&#8217;s suggested fix</p>
+</li>
+<li>
+<p>The fix is <strong>applied automatically</strong> with full safety checks</p>
+</li>
+<li>
+<p>Your playbook <strong>retries</strong> and succeeds</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is what we&#8217;ll build in this chapter.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_problem_were_solving"><a class="anchor" href="#_the_problem_were_solving"></a>The Problem We&#8217;re Solving</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_current_situation_without_mcp"><a class="anchor" href="#_current_situation_without_mcp"></a>Current Situation (Without MCP)</h3>
+<div class="paragraph">
+<p>When a playbook fails, operations teams typically:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>What you&#8217;ll do</strong> - Overview of the lab</p>
+<p><strong>Get alerted</strong> - Error message appears in logs</p>
 </li>
 <li>
-<p><strong>Prerequisites</strong> - What you need</p>
+<p><strong>Search for solution</strong> - Google, Stack Overflow, docs (5-15 min)</p>
 </li>
 <li>
-<p><strong>Step-by-step instructions</strong> - Copy-paste commands</p>
+<p><strong>Diagnose the problem</strong> - Check configs, variables, versions (10-20 min)</p>
 </li>
 <li>
-<p><strong>Verification</strong> - How to know it worked</p>
+<p><strong>Write a fix</strong> - Update playbook or configuration (10-20 min)</p>
 </li>
 <li>
-<p><strong>Troubleshooting</strong> - Common issues and fixes</p>
+<p><strong>Test the fix</strong> - Run playbook in test environment (10-20 min)</p>
+</li>
+<li>
+<p><strong>Apply to production</strong> - Deploy the fix carefully (5-15 min)</p>
+</li>
+<li>
+<p><strong>Verify success</strong> - Monitor for any new issues (5-10 min)</p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p><strong>Total time: 1-2 hours per error</strong> (sometimes much longer for complex issues)</p>
+</div>
+<div class="paragraph">
+<p>This is <strong>reactive</strong>, <strong>manual</strong>, and <strong>inefficient</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_new_situation_with_mcp_claude"><a class="anchor" href="#_new_situation_with_mcp_claude"></a>New Situation (With MCP + Claude)</h3>
+<div class="paragraph">
+<p>With MCP and Claude:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Error is captured</strong> - Automatically, with full context (&lt;5 sec)</p>
+</li>
+<li>
+<p><strong>Claude analyzes</strong> - AI examines error and generates fix (&lt;30 sec)</p>
+</li>
+<li>
+<p><strong>Operator reviews</strong> - Human reviews Claude&#8217;s solution (1-2 min)</p>
+</li>
+<li>
+<p><strong>Fix is applied</strong> - Automatically with backup created (&lt;5 sec)</p>
+</li>
+<li>
+<p><strong>Playbook retries</strong> - Continues from failure point (varies)</p>
+</li>
+<li>
+<p><strong>Success verified</strong> - Automatic verification (&lt;5 sec)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Total time: 2-5 minutes per error</strong> (including operator review)</p>
+</div>
+<div class="paragraph">
+<p>This is <strong>proactive</strong>, <strong>automated</strong>, and <strong>efficient</strong>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_time_required"><a class="anchor" href="#_time_required"></a>Time Required</h2>
+<h2 id="_how_it_works_the_five_step_workflow"><a class="anchor" href="#_how_it_works_the_five_step_workflow"></a>How It Works: The Five-Step Workflow</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<div class="title">Step 1: Error Occurs</div>
+<p>Your Ansible playbook runs and a task fails. The system immediately captures:<br>
+- Task name and which module failed<br>
+- Complete error message<br>
+- All variables and environment info<br>
+- Ansible version and logs<br>
+- Timestamp and affected hosts</p>
+</div>
+<div class="paragraph">
+<div class="title">Step 2: Error Sent to Claude via MCP</div>
+<p>The error context is sent to Claude API through MCP. Claude receives structured information about:
+- What failed and why
+- The context in which it failed
+- Recent configuration state
+- Historical patterns (if available)</p>
+</div>
+<div class="paragraph">
+<div class="title">Step 3: Claude Analyzes &amp; Provides Solution</div>
+<p>Claude examines the error and provides:
+- <strong>Root Cause Analysis</strong> - Why did this fail?
+- <strong>Explanation</strong> - What does this error mean?
+- <strong>Fixed Code</strong> - Here&#8217;s the corrected configuration
+- <strong>Apply Steps</strong> - Here&#8217;s how to apply the fix
+- <strong>Prevention Tips</strong> - How to avoid this in future</p>
+</div>
+<div class="paragraph">
+<div class="title">Step 4: Operator Reviews &amp; Approves</div>
+<p>A human operator sees:
+- Clear explanation of the problem
+- Proposed fix with a diff showing changes
+- Risk assessment (will this break anything?)
+- Claude&#8217;s confidence score
+- Then clicks "Approve" or "Reject"</p>
+</div>
+<div class="paragraph">
+<div class="title">Step 5: Fix Applied Automatically</div>
+<p>Once approved, the system:
+- Creates a backup of original files
+- Validates the fix syntax
+- Applies the fix atomically
+- Retries the playbook
+- Logs everything for audit trail</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example_real_error_resolution"><a class="anchor" href="#_example_real_error_resolution"></a>Example: Real Error Resolution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s walk through a real example: <strong>Docker image authentication error</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="_the_error"><a class="anchor" href="#_the_error"></a>The Error</h3>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">FAILED - RETRYING: Deploy Docker container (Attempt 1 of 3)
+fatal: [prod-1]: FAILED! =&gt; {
+  "msg": "Failed to pull image: unauthorized: authentication required",
+  "module_stderr": "",
+  "module_stdout": "",
+  "_ansible_parsed": true
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_happens_automatically"><a class="anchor" href="#_what_happens_automatically"></a>What Happens Automatically</h3>
+<div class="paragraph">
+<p><strong>In less than 2 minutes:</strong></p>
+</div>
+<div class="listingblock output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">[ERROR CAPTURE] Task failed: Deploy Docker container
+[ERROR CAPTURE] Module: docker_image
+[ERROR CAPTURE] Error: Failed to pull image: unauthorized
+[ERROR CAPTURE] Host: prod-1
+[ERROR CAPTURE] Gathering context...
+
+[MCP SEND] Sending error to Claude API...
+
+[CLAUDE ANALYSIS] Analyzing error...
+[CLAUDE ANALYSIS] Root cause identified: Missing credentials
+[CLAUDE ANALYSIS] Generating solution...
+[CLAUDE ANALYSIS] Solution generated (confidence: 95%)
+
+[OPERATOR REVIEW]
+┌─────────────────────────────────────────┐
+│ Claude's Analysis                       │
+├─────────────────────────────────────────┤
+│ Root Cause: Docker registry auth        │
+│ Problem: Missing username/password      │
+│ Solution: Add registry credentials      │
+│                                         │
+│ Proposed Change:                        │
+│   - name: Deploy Docker container       │
+│     docker_image:                       │
+│       name: myapp:latest                │
+│ +     registry_url: docker.io           │
+│ +     username: "{{ docker_user }}"     │
+│ +     password: "{{ docker_pass }}"     │
+│       state: present                    │
+│                                         │
+│ Risk: LOW                               │
+│ Approve? [y/n]: y                       │
+└─────────────────────────────────────────┘
+
+[FIX APPLY] Creating backup...
+[FIX APPLY] Backup ID: bak_20260925_143022
+[FIX APPLY] Applying fix...
+[FIX APPLY] ✓ Fix applied successfully
+[FIX APPLY] ✓ Retrying playbook...
+
+[PLAYBOOK RETRY] Playbook running with fix...
+[PLAYBOOK SUCCESS] ✓ All tasks completed successfully!</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it! Error detected, analyzed, approved, fixed, and resolved in <strong>2 minutes</strong> with <strong>full human oversight</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_why_mcp_is_critical"><a class="anchor" href="#_why_mcp_is_critical"></a>Why MCP is Critical</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Without MCP:
+* Claude would need manual description of error (no automation)
+* Operator would need to copy-paste error messages (error-prone)
+* No structured communication between systems (inefficient)
+* Each AI tool would need custom integration (duplicated work)</p>
+</div>
+<div class="paragraph">
+<p>With MCP:
+* Error automatically structured and sent
+* All necessary context included automatically
+* Standard protocol works with any MCP-compatible tool
+* Claude has complete situational awareness
+* System can make informed decisions</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_chapter_2_structure"><a class="anchor" href="#_chapter_2_structure"></a>Chapter 2 Structure</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This chapter is organized as follows:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 50%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Section</th>
+<th class="tableblock halign-left valign-top">Topic</th>
+<th class="tableblock halign-left valign-top">Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This Page</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Introduction &amp; big picture</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10 min read</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Section 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">How errors are detected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 min read</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Section 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Claude integration via MCP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 min read</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Section 3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operator approval workflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15 min read</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lab</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hands-on error resolution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">30 min lab</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites_for_this_chapter"><a class="anchor" href="#_prerequisites_for_this_chapter"></a>Prerequisites for This Chapter</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To get the most from this chapter, you should:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Lab 1</strong> - 5-15 minutes (depends on AAP/OCP readiness)</p>
+<p>✅ Have completed Chapter 1 (understand MCP basics)</p>
 </li>
 <li>
-<p><strong>Lab 2</strong> - 10-20 minutes (configuration)</p>
+<p>✅ Understand basic Ansible playbook concepts</p>
 </li>
 <li>
-<p><strong>Lab 3</strong> - 20-30 minutes (testing and troubleshooting)</p>
+<p>✅ Know what an Ansible error looks like</p>
+</li>
+<li>
+<p>✅ Have access to AAP or test Ansible environment</p>
+</li>
+<li>
+<p>✅ Have a Claude API key (from anthropic.com)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Total</strong>: 35-65 minutes</p>
+<p><strong>Don&#8217;t have all of these?</strong> No problem! You can:
+* Read Chapter 1 first if you need MCP basics
+* Follow along conceptually without running commands
+* Review the provided example errors and solutions</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_can_i_skip_labs"><a class="anchor" href="#_can_i_skip_labs"></a>Can I Skip Labs?</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Lab 1</strong> - You can skip if MCP is already deployed</p>
-</li>
-<li>
-<p><strong>Lab 2</strong> - You cannot skip (you need to configure a tool)</p>
-</li>
-<li>
-<p><strong>Lab 3</strong> - You cannot skip (you need to verify it works)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ready"><a class="anchor" href="#_ready"></a>Ready?</h2>
+<h2 id="_whats_required_to_succeed"><a class="anchor" href="#_whats_required_to_succeed"></a>What&#8217;s Required to Succeed</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Start with <strong>Lab 1: Deploy MCP on OCP</strong> if you need to deploy, or go to <strong>Lab 2</strong> if MCP is already running.</p>
+<p>For <strong>reading/understanding</strong>:
+* 2-3 hours to read all sections and examples
+* No special setup required</p>
+</div>
+<div class="paragraph">
+<p>For <strong>hands-on lab</strong>:
+* Ansible 2.10+ installed locally or test environment
+* Access to AAP (Ansible Automation Platform)
+* Claude API key
+* ~1-2 hours to complete all exercises</p>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_key_concepts_youll_learn"><a class="anchor" href="#_key_concepts_youll_learn"></a>Key Concepts You&#8217;ll Learn</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Error Capture</strong> - How system automatically detects and logs failures</p>
+</div>
+<div class="paragraph">
+<p><strong>Context Gathering</strong> - How to collect all information Claude needs</p>
+</div>
+<div class="paragraph">
+<p><strong>MCP Communication</strong> - How error details flow to Claude</p>
+</div>
+<div class="paragraph">
+<p><strong>AI Analysis</strong> - How Claude generates intelligent solutions</p>
+</div>
+<div class="paragraph">
+<p><strong>Approval Workflow</strong> - How operators maintain control and safety</p>
+</div>
+<div class="paragraph">
+<p><strong>Safe Application</strong> - How fixes are applied without risk</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ready_to_begin"><a class="anchor" href="#_ready_to_begin"></a>Ready to Begin?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s start with <strong>Understanding How Playbooks Fail and How We Can Fix Them!</strong></p>
+</div>
+<div class="paragraph">
+<p>→ <strong>Next:</strong> <a href="section1.html" class="xref page">Section 1: How Errors Are Detected</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Estimated reading time for Chapter 2: 60-90 minutes</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Estimated lab time: 30-45 minutes</strong></p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../chapter1/section6.html">Key Takeaways</a></span>
+  <span class="next"><a href="section1.html">Mcp Server for playbook error detection and resolution.</a></span>
+</nav>
 </article>
   </div>
 </main>

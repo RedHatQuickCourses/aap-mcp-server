@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: Model Context Protocol (MCP) for Ansible Automation Platform</title>
+    <link rel="prev" href="section1.html">
+    <link rel="next" href="#pages/appendix.adoc">
+    <meta name="generator" content="Antora 3.2.0-alpha.12">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/collapsible.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/reading-time.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/audio-transcript.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aap-mcp-server" data-version="1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Welcome</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../chapter1/index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section1.html">What is MCP?</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section2.html">MCP Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section3.html">AAP Integration &amp; Toolsets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section4.html">Communication Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section5.html">End-to-End Workflow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter1/section6.html">Key Takeaways</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="index.html">Error Detection &amp; AI-Powered Problem Solving with MCP</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="section1.html">Mcp Server for playbook error detection and resolution.</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section2.html">section2.adoc</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/appendix.adoc">Appendix &amp; Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/cheat-sheet.adoc">MCP Cheat Sheet</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/knowledge-check.adoc">Knowledge Check &amp; Quiz</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#pages/troubleshooting.adoc">Troubleshooting Guide</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Model Context Protocol (MCP) for Ansible Automation Platform</span>
+    <span class="version">1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Model Context Protocol (MCP) for Ansible Automation Platform</a></li>
+    <li><a href="index.html">Error Detection &amp; AI-Powered Problem Solving with MCP</a></li>
+    <li><a href="section2.html">section2.adoc</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<div class="sect1">
+<h2 id="_hands_on_exercises"><a class="anchor" href="#_hands_on_exercises"></a>Hands-On Exercises</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Try these exercises to practice:</p>
+</div>
+<div class="sect2">
+<h3 id="_exercise_1_simple_query"><a class="anchor" href="#_exercise_1_simple_query"></a>Exercise 1: Simple Query</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Goal: Get a count of total jobs
+Question: "How many jobs exist in my AAP?"
+Expected: A number with job details
+Learns: Basic job querying</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exercise_2_filtered_query"><a class="anchor" href="#_exercise_2_filtered_query"></a>Exercise 2: Filtered Query</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Goal: Find specific jobs by status
+Question: "Show me only successful jobs from the past week"
+Expected: Filtered list of successful jobs
+Learns: Query with conditions</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exercise_3_multi_step_query"><a class="anchor" href="#_exercise_3_multi_step_query"></a>Exercise 3: Multi-Step Query</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Goal: Get multiple types of information
+Question: "How many jobs failed this week and what were their error messages?"
+Expected: List of failed jobs with error details
+Learns: MCP can do multi-step queries</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exercise_4_inventory_query"><a class="anchor" href="#_exercise_4_inventory_query"></a>Exercise 4: Inventory Query</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Goal: Understand your infrastructure
+Question: "Show me all hosts grouped by operating system"
+Expected: Breakdown of hosts by OS (Windows, Linux, etc)
+Learns: Inventory management queries</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exercise_5_follow_up_conversation"><a class="anchor" href="#_exercise_5_follow_up_conversation"></a>Exercise 5: Follow-Up Conversation</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Goal: Have a multi-turn conversation
+Exchange:
+  You: "List my execution nodes"
+  AI: [Returns list of nodes]
+  You: "Which one has the most capacity?"
+  AI: [Analyzes and compares]
+  You: "What's the health status of that node?"
+  AI: [Queries monitoring data]
+Learns: Contextual conversation</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_7_advanced_tips"><a class="anchor" href="#_part_7_advanced_tips"></a>Part 7: Advanced Tips</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_tip_1_be_specific"><a class="anchor" href="#_tip_1_be_specific"></a>Tip 1: Be Specific</h3>
+<div class="paragraph">
+<p><strong>Instead of:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"Show me jobs"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Say:</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"Show me jobs that failed in the past 7 days with error details"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Specific queries get better answers.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tip_2_ask_follow_up_questions"><a class="anchor" href="#_tip_2_ask_follow_up_questions"></a>Tip 2: Ask Follow-Up Questions</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "What's the status of my platform?"
+AI: [Gives health status]
+You: "Which execution node is having issues?"
+AI: [Digs deeper based on context]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The AI remembers context in the conversation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tip_3_combine_information"><a class="anchor" href="#_tip_3_combine_information"></a>Tip 3: Combine Information</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">You: "I have failed jobs and offline hosts. Are they related?"
+AI: [Analyzes both, shows correlation]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The AI can synthesize information from multiple queries.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tip_4_use_natural_language"><a class="anchor" href="#_tip_4_use_natural_language"></a>Tip 4: Use Natural Language</h3>
+<div class="paragraph">
+<p>MCP isn&#8217;t a CLI. You don&#8217;t need exact syntax. Just ask naturally:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">"How's my system doing?"
+"Are my servers healthy?"
+"What's been happening lately?"
+"Do I have any problems?"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The AI will interpret and call the right tools.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_part_8_when_to_use_mcp_vs_other_methods"><a class="anchor" href="#_part_8_when_to_use_mcp_vs_other_methods"></a>Part 8: When to Use MCP vs Other Methods</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_use_mcp_for"><a class="anchor" href="#_use_mcp_for"></a>Use MCP for:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ <strong>Quick information</strong> - "How many hosts do I have?"</p>
+</li>
+<li>
+<p>✅ <strong>Status checks</strong> - "Is my platform healthy?"</p>
+</li>
+<li>
+<p>✅ <strong>Trend analysis</strong> - "Have failures increased?"</p>
+</li>
+<li>
+<p>✅ <strong>Natural language</strong> - Questions, not commands</p>
+</li>
+<li>
+<p>✅ <strong>Exploration</strong> - "Show me everything about&#8230;&#8203;"</p>
+</li>
+<li>
+<p>✅ <strong>Error Detection</strong> - "Tell me why the sample-JT-name failed"</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_aap_web_ui_for"><a class="anchor" href="#_use_aap_web_ui_for"></a>Use AAP Web UI for:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ <strong>Detailed editing</strong> - Configuring large projects</p>
+</li>
+<li>
+<p>✅ <strong>Visual dashboards</strong> - Seeing graphs and charts</p>
+</li>
+<li>
+<p>✅ <strong>Bulk operations</strong> - Multi-host changes</p>
+</li>
+<li>
+<p>✅ <strong>Training new users</strong> - Learning the UI</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_aap_api_for"><a class="anchor" href="#_use_aap_api_for"></a>Use AAP API for:</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>✅ <strong>Automation</strong> - Scripts and playbooks</p>
+</li>
+<li>
+<p>✅ <strong>Integration</strong> - Custom tools</p>
+</li>
+<li>
+<p>✅ <strong>Exact control</strong> - Precise parameter passing</p>
+</li>
+<li>
+<p>✅ <strong>Batch operations</strong> - 1000s of changes</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary_checklist"><a class="anchor" href="#_summary_checklist"></a>Summary Checklist</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By now, you should have:</p>
+</div>
+<div class="paragraph">
+<p>✅ Run your first successful query against AAP
+✅ Seen MCP tools being invoked
+✅ Tried queries from multiple toolsets
+✅ Had multi-turn conversations
+✅ Encountered and solved at least one issue
+✅ Understood what tools are available</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_congratulations"><a class="anchor" href="#_congratulations"></a>Congratulations!</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You&#8217;ve completed all three labs:
+1. ✅ Deployed MCP on OCP
+2. ✅ Configured your AI tool
+3. ✅ Ran queries and practiced troubleshooting.</p>
+</div>
+<div class="paragraph">
+<p><strong>You now have a working MCP setup!</strong></p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="section1.html">Mcp Server for playbook error detection and resolution.</a></span>
+  <span class="next"><a href="#pages/appendix.adoc">Appendix &amp; Resources</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script defer src="../../../_/js/vendor/tabs.js"></script>
+<script defer src="../../../_/js/vendor/reading-time.js"></script>
+<script src="../../../_/js/vendor/lunr.js"></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script async src="../../../search-index.js"></script>
+  </body>
+</html>
