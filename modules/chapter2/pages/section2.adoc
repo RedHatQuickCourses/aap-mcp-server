@@ -1,4 +1,4 @@
-== Hands-On Exercises
+= Hands-On Exercises & Summary
 
 Try these exercises to practice:
 

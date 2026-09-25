@@ -1,4 +1,4 @@
-* xref:pages/appendix.adoc[Appendix & Resources]
-* xref:pages/cheat-sheet.adoc[MCP Cheat Sheet]
-* xref:pages/knowledge-check.adoc[Knowledge Check & Quiz]
-* xref:pages/troubleshooting.adoc[Troubleshooting Guide]
+* xref:appendix.adoc[Appendix & Resources]
+** xref:cheat-sheet.adoc[MCP Cheat Sheet]
+** xref:knowledge-check.adoc[Knowledge Check & Quiz]
+*8 xref:troubleshooting.adoc[Troubleshooting Guide]
