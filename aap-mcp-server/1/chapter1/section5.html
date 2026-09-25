@@ -76,7 +76,7 @@
     <a class="nav-link" href="section3.html">AAP Integration &amp; Toolsets</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section4.html">Communication Workflow</a>
+    <a class="nav-link" href="section4.html">Know More About MCP Tool Discovery and Access Control</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="section5.html">End-to-End Workflow</a>
@@ -168,7 +168,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_end_to_end_workflow"><a class="anchor" href="#_end_to_end_workflow"></a>End to End Workflow</h2>
+<h2 id="_requirements_to_deploy_the_mcp_server"><a class="anchor" href="#_requirements_to_deploy_the_mcp_server"></a>Requirements to Deploy the MCP Server</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>To make use of the Ansible MCP Server, the following steps are required:</p>
@@ -194,7 +194,7 @@
 <div class="sect2">
 <h3 id="_where_does_it_run"><a class="anchor" href="#_where_does_it_run"></a>Where Does It Run?</h3>
 <div class="paragraph">
-<p>The Ansible MCP Server runs as a containerized service on your infrastructure. You can deploy it on:</p>
+<p>The Ansible MCP Server runs as a containerized/pod service on your infrastructure. You can deploy it on:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -215,10 +215,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Launch the <a href="{openshift_cluster_console_url}" target="_blank" rel="noopener">OpenShift Web Console</a></p>
-</li>
-<li>
-<p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the RHDP login page to the OpenShift console.</p>
+<p>Launch the OpenShift Web Console from the RHDP login page and use the credentials provided to login to the OpenShift console.</p>
 </li>
 <li>
 <p>Navigate to <strong>Ecosystem</strong> &#8594; <strong>Installed Operators</strong></p>
@@ -316,7 +313,7 @@ Setting <code>allow_write_operations</code> to <code>false</code> will restrict 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Launch the <a href="{aap_controller_web_url}" target="_blank" rel="noopener">Ansible Automation Platform</a> web interface and login using the credentials from the <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a> page.</p>
+<p>Launch the Ansible Automation Platform web interface and login using the credentials from the RHDP login page.</p>
 </li>
 <li>
 <p>From the navigation menu on the left, expand <strong>Access Management</strong> and click on <strong>API Token</strong>.</p>
@@ -374,17 +371,26 @@ Make sure to store the token securely, as it will not be displayed again.
 <h2 id="_3_configuring_external_ai_tools"><a class="anchor" href="#_3_configuring_external_ai_tools"></a>3: Configuring External AI Tools</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Now that the Ansible MCP Server is deployed and an API token has been generated, the final step is to configure external AI tools that can be used to connect to the Ansible MCP Server using the generated API token. While there are multiple external AI tools that can be used to demonstrate the integration with the Ansible MCP Server, for the purpose of this lab, the following solutions will be demonstrated:</p>
+<p>Once the Ansible MCP Server is deployed and the API token is generated, the next step is to configure an external AI tool to connect to the MCP server.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="paragraph">
+<p>Several AI tools can be used for this integration.</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p><a href="https://opencode.ai" target="_blank" rel="noopener">OpenCode</a> - Terminal based AI agent that can be executed from within the OpenShift Dev Spaces workspace.</p>
+<p>link:[<a href="https://opencode.ai" target="_blank" rel="noopener">OpenCode</a>(<a href="https://opencode.ai" target="_blank)">OpenCode</a> — A terminal-based AI agent that can run from an OpenShift Dev Spaces workspace.</p>
 </li>
 <li>
-<p><a href="https://www.librechat.ai" target="_blank" rel="noopener">LibreChat</a> - Web based AI chat tool that can be accessed via a web browser.</p>
+<p>link:[<a href="https://www.librechat.ai" target="_blank" rel="noopener">LibreChat</a>(<a href="https://www.librechat.ai" target="_blank)">LibreChat</a> — A web-based AI chat tool that can be accessed through a browser.</p>
 </li>
-</ol>
+</ul>
+</div>
+<div class="paragraph">
+<p>Other AI tools, such as ChatGPT or Claude, may also support MCP integrations depending on their current capabilities and configuration options.</p>
+</div>
+<div class="paragraph">
+<p>In the following sections, you will learn how to configure <strong>OpenCode to connect to the Ansible MCP Server</strong> using the generated API token where we will be using the claude-sonnet-4-6 model from the LiteLLM inference service to process natural language requests and interact with Ansible Automation Platform through the Ansible MCP Server.</p>
 </div>
 <div class="sect2">
 <h3 id="_3_1_using_opencode_with_the_ansible_mcp_server"><a class="anchor" href="#_3_1_using_opencode_with_the_ansible_mcp_server"></a>3.1: Using OpenCode with the Ansible MCP Server</h3>
@@ -394,10 +400,32 @@ Make sure to store the token securely, as it will not be displayed again.
 <div class="sect3">
 <h4 id="_3_1_1_customizing_a_dev_spaces_workspace"><a class="anchor" href="#_3_1_1_customizing_a_dev_spaces_workspace"></a>3.1.1: Customizing a Dev Spaces Workspace</h4>
 <div class="paragraph">
-<p>OpenShift Dev Spaces includes several different methods for configuring and customizing a workspace. For this section, we will create a <code>ConfigMap</code> and <code>Secret</code> resource within the <code>admin-devspaces</code> project containing your workspace to externalize and inject environment variables into your workspace. These values will be referenced by the OpenCode configuration file that you will then define to drive the functionality of the tool.</p>
+<p>OpenShift Dev Spaces provides several ways to customize a workspace. In this section, you will create a ConfigMap and Secret in the admin-devspaces project to store and inject environment variables into the workspace. These values will be referenced by the OpenCode configuration file used to connect to the Ansible MCP Server.</p>
 </div>
 <div class="paragraph">
-<p>Labels and annotations are applied to the <code>ConfigMap</code> and <code>Secret</code> resources so that they become eligible for injection into the Dev Spaces workspace. By setting the <code>controller.devfile.io/mount-to-devworkspace</code> label to <code>true</code>, the Dev Spaces controller will automatically mount the resources into the workspace. The contents of the <code>ConfigMap</code> or <code>Secret</code> can either by mounted as files or environment variables. This is dictated by the <code>controller.devfile.io/mount-as</code> annotation.</p>
+<p>To make the resources available inside the Dev Spaces workspace:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the <strong>controller.devfile.io/mount-to-devworkspace</strong>: "true" label to the ConfigMap and Secret.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The value of the controller.devfile.io/mount-as annotation in the snippet above is set to env, which means the contents of the ConfigMap will be mounted as environment variables in the Dev Spaces workspace.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The Dev Spaces controller automatically detects and mounts resources with the required label.</p>
 </div>
 <div class="paragraph">
 <p>First, create a <code>ConfigMap</code> resource to contain the non-sensitive configuration values by performing the following in the OpenShift web console. Instead of using the OpenShift web console to interactively create the ConfigMap, you will import the raw YAML definition using the <em>Import YAML</em> feature.</p>
@@ -405,10 +433,7 @@ Make sure to store the token securely, as it will not be displayed again.
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Launch the <a href="{openshift_cluster_console_url}" target="_blank" rel="noopener">OpenShift Web Console</a></p>
-</li>
-<li>
-<p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the <a href="#environment-details.adoc" class="xref unresolved" target="_blank" rel="noopener">Environment Details</a> page to login to the OpenShift console</p>
+<p>Launch the OpenShift Web Console from the RHDP login page and use the credentials provided to login to the OpenShift console.</p>
 </li>
 <li>
 <p>On the top navigation bar, click on the <strong>+</strong> icon and select <strong>Import YAML</strong></p>
@@ -425,7 +450,7 @@ Make sure to store the token securely, as it will not be displayed again.
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: superlab-devspaces-config
+  name: mcp-devspaces-config
   namespace: admin-devspaces
   labels:
     controller.devfile.io/mount-to-devworkspace: 'true'
@@ -433,10 +458,15 @@ metadata:
   annotations:
     controller.devfile.io/mount-as: env
 data:
-  AAP_MCP_URL: https://aap-mcp-aap.{openshift_cluster_ingress_domain}/mcp
-  LITELLM_MODEL_NAME: {litellm_available_models_list}
-  LITELLM_URL: {litellm_api_base_url}
+  AAP_MCP_URL: https://&lt;aap-mcp-instance-URL&gt;/mcp
+  LITELLM_MODEL_NAME: openai/granite-3-2-8b-instruct, claude-sonnet-4-6, gemini-2.5-pro
+  LITELLM_URL: &lt;LLM base URL from RHDP login page&gt;
   OPENCODE_CONFIG: /projects/ansible-devspaces/opencode.json</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.1.png" alt="1.1">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -446,7 +476,7 @@ data:
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Notice the value of the <code>controller.devfile.io/mount-as</code> annotation in the snippet above is set to <code>env</code>, which means the contents of the <code>ConfigMap</code> will be mounted as environment variables in the Dev Spaces workspace.
+Notice the value of the <code>controller.devfile.io/mount-as</code> annotation in the snippet above is set to <code>env</code>, which means the contents of the <code>ConfigMap</code> will be mounted as environment variables in the Dev Spaces workspace and for getting the <strong>AAP_MCP_URL</strong> value, you can got to OCP console &#8594; Networking &#8594; Routes and look for the route that is created for the MCP server. The URL will be in the format of <code><a href="https://aap-mcp-&lt;instance_name&gt;.&lt;cluster_domain&gt;/mcp" class="bare">https://aap-mcp-&lt;instance_name&gt;.&lt;cluster_domain&gt;/mcp</a></code> where <code>&lt;instance_name&gt;</code> is the name of your Ansible Automation Platform instance and <code>&lt;cluster_domain&gt;</code> is the domain of your OpenShift cluster.
 </td>
 </tr>
 </table>
@@ -472,7 +502,7 @@ Notice the value of the <code>controller.devfile.io/mount-as</code> annotation i
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: Secret
 apiVersion: v1
 metadata:
-  name: superlab-devspaces-secret
+  name: mcp-devspaces-config
   namespace: admin-devspaces
   labels:
     controller.devfile.io/mount-to-devworkspace: 'true'
@@ -480,9 +510,14 @@ metadata:
   annotations:
     controller.devfile.io/mount-as: env
 stringData:
-  AAP_MCP_API_KEY: PLACEHOLDER_REPLACE_ME
-  LITELLM_API_KEY: {litellm_virtual_key}
+  AAP_MCP_API_KEY: &lt;Replace this with the API Token generated from the Ansible Automation Platform&gt;
+  LITELLM_API_KEY: &lt;API Key available from the LLM Information for the MCP Course RHDP login page&gt;
 type: Opaque</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.2.png" alt="1.2">
 </div>
 </div>
 </li>
@@ -532,10 +567,13 @@ type: Opaque</code></pre>
 <div class="sect3">
 <h4 id="_3_1_2_configuring_opencode"><a class="anchor" href="#_3_1_2_configuring_opencode"></a>3.1.2: Configuring OpenCode</h4>
 <div class="paragraph">
-<p>With the necessary environment variables now mounted into your Dev Spaces workspace, the next step is to introduce the external AI tool that will interact with Ansible Automation Platform via the Ansible MCP Server. For this section, we will utilize <a href="https://opencode.ai" target="_blank" rel="noopener">OpenCode</a>, an open-source AI development platform that enables developers to build, deploy, and manage AI applications. OpenCode provides a unified interface for interacting with various AI models and services, making it easier to integrate AI capabilities into applications.</p>
+<p>With the required environment variables mounted in your Dev Spaces workspace, the next step is to configure OpenCode to interact with Ansible Automation Platform through the Ansible MCP Server.</p>
 </div>
 <div class="paragraph">
-<p>You may have noticed earlier that one of the environment variables defined in the <code>ConfigMap</code> resource was the <code>OPENCODE_CONFIG</code> property, which specifies the location of the OpenCode configuration file (Hint: you can run the command <code>env | grep OPENCODE_CONFIG</code> to see the value). This file does not exist yet as we will need to create it as part of this exercise. An <a href="https://opencode.ai/docs/config" target="_blank" rel="noopener">OpenCode configuration file</a> contains details related to the inference service as well as any MCP servers that should be utilized.</p>
+<p>OpenCode is an open-source AI development platform that provides a unified interface for working with AI models and services.</p>
+</div>
+<div class="paragraph">
+<p>Earlier, you configured the OPENCODE_CONFIG environment variable in the ConfigMap. This variable specifies the location of the OpenCode configuration file.</p>
 </div>
 <div class="paragraph">
 <p>Create a new file named <code>opencode.json</code> at the within the <code>/projects/ansible-devspaces</code> directory containing the following:</p>
@@ -677,7 +715,7 @@ Due to the non-deterministic nature of LLM&#8217;s, the exact response provided 
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="section4.html">Communication Workflow</a></span>
+  <span class="prev"><a href="section4.html">Know More About MCP Tool Discovery and Access Control</a></span>
   <span class="next"><a href="section6.html">Key Takeaways</a></span>
 </nav>
 </article>

@@ -76,7 +76,7 @@
     <a class="nav-link" href="../chapter1/section3.html">AAP Integration &amp; Toolsets</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section4.html">Communication Workflow</a>
+    <a class="nav-link" href="../chapter1/section4.html">Know More About MCP Tool Discovery and Access Control</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter1/section5.html">End-to-End Workflow</a>
@@ -185,7 +185,7 @@
 
     - name: APP version
       debug:
-        msg: "{{ app_version }}"</code></pre>
+        msg: "{{ aap_version }}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -251,6 +251,11 @@
 </tr>
 </tbody>
 </table>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.1.png" alt="1.1">
+</div>
+</div>
 </li>
 <li>
 <p>Click <strong>Save</strong></p>
@@ -327,6 +332,11 @@ Branch: main</code></pre>
 </tr>
 </tbody>
 </table>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.2.png" alt="1.2">
+</div>
+</div>
 </li>
 <li>
 <p>Click <strong>Save</strong></p>
@@ -354,9 +364,9 @@ Branch: main</code></pre>
 </li>
 <li>
 <p>Click the <strong>Launch</strong> button (play icon)</p>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="aap-launch-job.png" alt="AAP Launch Job" width="400">
+<img src="_images/1.3.png" alt="1.3">
 </div>
 </div>
 </li>
@@ -378,7 +388,7 @@ ok: [localhost] =&gt; {
 
 TASK [APP version] ****
 fatal: [localhost]: FAILED! =&gt; {
-    "msg": "undefined variable: app_version"
+    "msg": "undefined variable: aap_version"
 }
 
 PLAY RECAP ****
@@ -388,13 +398,17 @@ FAILED - RETRYING: APP version (Attempt 1 of 3)</code></pre>
 </div>
 </div>
 <div class="paragraph">
+<p>+
+image::1.4.png[]</p>
+</div>
+<div class="paragraph">
 <p>✅ <strong>Error detected! Now lets check with the MCP Server</strong></p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_part_5_observe_mcp_error_detection_resolution"><a class="anchor" href="#_part_5_observe_mcp_error_detection_resolution"></a>Part 5: Observe MCP Error Detection &amp; Resolution</h2>
+<h2 id="_observe_mcp_error_detection_resolution"><a class="anchor" href="#_observe_mcp_error_detection_resolution"></a>Observe MCP Error Detection &amp; Resolution</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -403,12 +417,32 @@ FAILED - RETRYING: APP version (Attempt 1 of 3)</code></pre>
 </li>
 <li>
 <p>Now give a Prompt to Claude to analyze the error. The system will automatically send the error context to Claude for analysis. Within 30 seconds, you will receive a proposed solution.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.5.png" alt="1.5">
+</div>
+</div>
 </li>
 <li>
 <p>The output can be different from the following example, but it should look similar and the resolution would be to add the aap_version.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.6.png" alt="1.6">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.7.png" alt="1.7">
+</div>
+</div>
 </li>
 <li>
 <p>Now its upto the human to decide at what level of playbook/ inventory/host_vars/group_vars or extra variable the resolution should be proposed.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.8.png" alt="1.8">
+</div>
+</div>
 </li>
 </ol>
 </div>
@@ -421,16 +455,21 @@ FAILED - RETRYING: APP version (Attempt 1 of 3)</code></pre>
 <ol class="arabic">
 <li>
 <p>I will add the Variable to the Job Template extra variable section as shown below and click on the Save button and execute the Job Template again. The playbook should now succeed without any errors:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/1.9.png" alt="1.9">
+</div>
+</div>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_part_6_watch_playbook_retry_and_succeed"><a class="anchor" href="#_part_6_watch_playbook_retry_and_succeed"></a>Part 6: Watch Playbook Retry and Succeed</h2>
+<h2 id="_watch_playbook_retry_and_succeed"><a class="anchor" href="#_watch_playbook_retry_and_succeed"></a>Watch Playbook Retry and Succeed</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_step_6_1_playbook_retries_with_fix"><a class="anchor" href="#_step_6_1_playbook_retries_with_fix"></a>Step 6.1: Playbook Retries with Fix</h3>
+<h3 id="_playbook_retries_with_fix"><a class="anchor" href="#_playbook_retries_with_fix"></a>Playbook Retries with Fix</h3>
 <div class="paragraph">
 <p>The playbook automatically retries:</p>
 </div>
@@ -445,7 +484,7 @@ ok: [localhost] =&gt; {
 
 TASK [APP version] ****
 ok: [localhost] =&gt; {
-    "msg": "1.0.0"
+    "msg": "success"
 }
 
 PLAY RECAP ****
@@ -454,9 +493,17 @@ localhost: ok=2 changed=0 unreachable=0 failed=0
 ✓ PLAYBOOK COMPLETED SUCCESSFULLY!</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>+
+image::1.10.png[]</p>
+</div>
+<div class="paragraph">
+<p>+
+image::1.11.png[]</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_step_6_2_alternate_fix_option"><a class="anchor" href="#_step_6_2_alternate_fix_option"></a>Step 6.2: Alternate fix option:</h3>
+<h3 id="_alternate_fix_option"><a class="anchor" href="#_alternate_fix_option"></a>Alternate fix option:</h3>
 <div class="paragraph">
 <p>The applied fix (visible in job output or GitHub):</p>
 </div>
@@ -475,38 +522,6 @@ localhost: ok=2 changed=0 unreachable=0 failed=0
 # Or with explicit variable:
 vars:
   app_version: "1.0.0"</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_step_6_3_verify_in_github"><a class="anchor" href="#_step_6_3_verify_in_github"></a>Step 6.3: Verify in GitHub</h3>
-<div class="paragraph">
-<p>The changes are committed to GitHub:</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git pull origin main
-cat hello-world-playbook.yml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Output:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">---
-- name: Hello World Sample
-  hosts: all
-  vars:
-    app_version: "1.0.0"
-  tasks:
-    - name: Hello Message
-      debug:
-        msg: "Hello World"
-
-    - name: APP version
-      debug:
-        msg: "{{ app_version }}"</code></pre>
 </div>
 </div>
 <div class="paragraph">

@@ -76,7 +76,7 @@
     <a class="nav-link" href="section3.html">AAP Integration &amp; Toolsets</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section4.html">Communication Workflow</a>
+    <a class="nav-link" href="section4.html">Know More About MCP Tool Discovery and Access Control</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="section5.html">End-to-End Workflow</a>
@@ -201,10 +201,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Launch the <a href="{openshift_cluster_console_url}" target="_blank" rel="noopener">OpenShift console</a> and login using the credentials provided in the RHDP login page.</p>
-</li>
-<li>
-<p>Select the <strong>htpasswd_provider</strong> button and use the credentials provided in the RHDP login page to login to the OpenShift console use the URL.</p>
+<p>Launch the OpenShift console and login using the credentials provided on the RHDP login page.</p>
 </li>
 <li>
 <p>Use the 9-block icon in the upper right to launch <em>Red Hat OpenShift Dev Spaces</em> directly from the OpenShift console header.</p>
@@ -265,35 +262,10 @@ It will take a few minutes for the Dev Spaces instance to initialize. When it ha
 <p>Click the <strong>Yes, I trust the Authors</strong> button to trust the workspace authors (your instructors).</p>
 </li>
 <li>
-<p>Wait a few minutes until the additional extension icons appear for Ansible and OpenShift on the left side.</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/intro5.png" target="blank"><img src="_images/intro5.png" alt="intro5"></a>
-</div>
-</div>
+<p>For this lab, we have provided a pre-configured configuration along with additional configurations to curate your development environment.</p>
 </li>
 </ol>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ansible_and_openshift_extensions"><a class="anchor" href="#_ansible_and_openshift_extensions"></a>Ansible and OpenShift Extensions</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For this lab, we have provided a pre-configured configuration that included all the extensions along with additional configurations to curate your development environment.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Click on the <strong>Ansible</strong> extension icon to access the Ansible Development Tools extension (covered in a subsequent lab)</p>
-<div class="imageblock">
-<div class="content">
-<a class="image" href="_images/intro6.png" target="blank"><img src="_images/intro6.png" alt="intro6"></a>
-</div>
-</div>
-</li>
-</ol>
 </div>
 </div>
 </div>
@@ -348,15 +320,15 @@ It will take a few minutes for the Dev Spaces instance to initialize. When it ha
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">ansible [core 2.19.3]
+<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">ansible [core 2.20.5]
   config file = None
-  configured module search path = ['/home/user/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/local/lib/python3.11/site-packages/ansible
-  ansible collection location = /home/user/.ansible/collections:/usr/share/ansible/collections
+  configured module search path = ['/projects/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/local/lib/python3.12/site-packages/ansible
+  ansible collection location = /projects/.ansible/collections:/usr/share/ansible/collections
   executable location = /usr/local/bin/ansible
-  python version = 3.11.13 (main, Aug 21 2025, 00:00:00) [GCC 11.5.0 20240719 (Red Hat 11.5.0-11)] (/usr/bin/python3.11)
+  python version = 3.12.12 (main, Apr 16 2026, 00:00:00) [GCC 11.5.0 20240719 (Red Hat 11.5.0-11)] (/usr/bin/python3.12)
   jinja version = 3.1.6
-  pyyaml version = 6.0.3 (with libyaml v0.2.5)</code></pre>
+  pyyaml version = 6.0.1 (with libyaml v0.2.5)</code></pre>
 </div>
 </div>
 </li>

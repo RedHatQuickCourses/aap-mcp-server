@@ -76,7 +76,7 @@
     <a class="nav-link" href="../chapter1/section3.html">AAP Integration &amp; Toolsets</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section4.html">Communication Workflow</a>
+    <a class="nav-link" href="../chapter1/section4.html">Know More About MCP Tool Discovery and Access Control</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../chapter1/section5.html">End-to-End Workflow</a>
@@ -217,10 +217,7 @@
 <p>Claude AI <strong>analyzes</strong> the error in seconds</p>
 </li>
 <li>
-<p>An operator <strong>reviews</strong> Claude&#8217;s suggested fix</p>
-</li>
-<li>
-<p>The fix is <strong>applied automatically</strong> with full safety checks</p>
+<p>A Human <strong>reviews</strong> Claude&#8217;s suggested fix and implement it.</p>
 </li>
 <li>
 <p>Your playbook <strong>retries</strong> and succeeds</p>
@@ -238,38 +235,32 @@
 <div class="sect2">
 <h3 id="_current_situation_without_mcp"><a class="anchor" href="#_current_situation_without_mcp"></a>Current Situation (Without MCP)</h3>
 <div class="paragraph">
-<p>When a playbook fails, operations teams typically:</p>
+<p>When a playbook fails, teams typically:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Get alerted</strong> - Error message appears in logs</p>
+<p>Get alerted to the error.</p>
 </li>
 <li>
-<p><strong>Search for solution</strong> - Google, Stack Overflow, docs (5-15 min)</p>
+<p>Search for a solution.</p>
 </li>
 <li>
-<p><strong>Diagnose the problem</strong> - Check configs, variables, versions (10-20 min)</p>
+<p>Diagnose the problem.</p>
 </li>
 <li>
-<p><strong>Write a fix</strong> - Update playbook or configuration (10-20 min)</p>
+<p>Develop and test a fix.</p>
 </li>
 <li>
-<p><strong>Test the fix</strong> - Run playbook in test environment (10-20 min)</p>
+<p>Apply the fix to production.</p>
 </li>
 <li>
-<p><strong>Apply to production</strong> - Deploy the fix carefully (5-15 min)</p>
-</li>
-<li>
-<p><strong>Verify success</strong> - Monitor for any new issues (5-10 min)</p>
+<p>Verify the result.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Total time: 1-2 hours per error</strong> (sometimes much longer for complex issues)</p>
-</div>
-<div class="paragraph">
-<p>This is <strong>reactive</strong>, <strong>manual</strong>, and <strong>inefficient</strong>.</p>
+<p>This process is <strong>manual, reactive, and time-consuming</strong>, often taking 1–2 hours or longer.</p>
 </div>
 </div>
 <div class="sect2">
@@ -280,227 +271,23 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>Error is captured</strong> - Automatically, with full context (&lt;5 sec)</p>
+<p>The error is automatically captured with context.</p>
 </li>
 <li>
-<p><strong>Claude analyzes</strong> - AI examines error and generates fix (&lt;30 sec)</p>
+<p><strong>Claude analyzes the error and suggests a solution.</strong></p>
 </li>
 <li>
-<p><strong>Operator reviews</strong> - Human reviews Claude&#8217;s solution (1-2 min)</p>
+<p><strong>A human reviews and implements the suggested solution.</strong></p>
 </li>
 <li>
-<p><strong>Fix is applied</strong> - Automatically with backup created (&lt;5 sec)</p>
-</li>
-<li>
-<p><strong>Playbook retries</strong> - Continues from failure point (varies)</p>
-</li>
-<li>
-<p><strong>Success verified</strong> - Automatic verification (&lt;5 sec)</p>
+<p>The playbook is rerun and the result is verified.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Total time: 2-5 minutes per error</strong> (including operator review)</p>
-</div>
-<div class="paragraph">
-<p>This is <strong>proactive</strong>, <strong>automated</strong>, and <strong>efficient</strong>.</p>
+<p>This approach makes troubleshooting <strong>faster and more efficient while keeping the human in control of the fix.</strong></p>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_it_works_the_five_step_workflow"><a class="anchor" href="#_how_it_works_the_five_step_workflow"></a>How It Works: The Five-Step Workflow</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<div class="title">Step 1: Error Occurs</div>
-<p>Your Ansible playbook runs and a task fails. The system immediately captures:<br>
-- Task name and which module failed<br>
-- Complete error message<br>
-- All variables and environment info<br>
-- Ansible version and logs<br>
-- Timestamp and affected hosts</p>
-</div>
-<div class="paragraph">
-<div class="title">Step 2: Error Sent to Claude via MCP</div>
-<p>The error context is sent to Claude API through MCP. Claude receives structured information about:
-- What failed and why
-- The context in which it failed
-- Recent configuration state
-- Historical patterns (if available)</p>
-</div>
-<div class="paragraph">
-<div class="title">Step 3: Claude Analyzes &amp; Provides Solution</div>
-<p>Claude examines the error and provides:
-- <strong>Root Cause Analysis</strong> - Why did this fail?
-- <strong>Explanation</strong> - What does this error mean?
-- <strong>Fixed Code</strong> - Here&#8217;s the corrected configuration
-- <strong>Apply Steps</strong> - Here&#8217;s how to apply the fix
-- <strong>Prevention Tips</strong> - How to avoid this in future</p>
-</div>
-<div class="paragraph">
-<div class="title">Step 4: Operator Reviews &amp; Approves</div>
-<p>A human operator sees:
-- Clear explanation of the problem
-- Proposed fix with a diff showing changes
-- Risk assessment (will this break anything?)
-- Claude&#8217;s confidence score
-- Then clicks "Approve" or "Reject"</p>
-</div>
-<div class="paragraph">
-<div class="title">Step 5: Fix Applied Automatically</div>
-<p>Once approved, the system:
-- Creates a backup of original files
-- Validates the fix syntax
-- Applies the fix atomically
-- Retries the playbook
-- Logs everything for audit trail</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_example_real_error_resolution"><a class="anchor" href="#_example_real_error_resolution"></a>Example: Real Error Resolution</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Let&#8217;s walk through a real example: <strong>Docker image authentication error</strong>.</p>
-</div>
-<div class="sect2">
-<h3 id="_the_error"><a class="anchor" href="#_the_error"></a>The Error</h3>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">FAILED - RETRYING: Deploy Docker container (Attempt 1 of 3)
-fatal: [prod-1]: FAILED! =&gt; {
-  "msg": "Failed to pull image: unauthorized: authentication required",
-  "module_stderr": "",
-  "module_stdout": "",
-  "_ansible_parsed": true
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_what_happens_automatically"><a class="anchor" href="#_what_happens_automatically"></a>What Happens Automatically</h3>
-<div class="paragraph">
-<p><strong>In less than 2 minutes:</strong></p>
-</div>
-<div class="listingblock output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-output hljs" data-lang="output">[ERROR CAPTURE] Task failed: Deploy Docker container
-[ERROR CAPTURE] Module: docker_image
-[ERROR CAPTURE] Error: Failed to pull image: unauthorized
-[ERROR CAPTURE] Host: prod-1
-[ERROR CAPTURE] Gathering context...
-
-[MCP SEND] Sending error to Claude API...
-
-[CLAUDE ANALYSIS] Analyzing error...
-[CLAUDE ANALYSIS] Root cause identified: Missing credentials
-[CLAUDE ANALYSIS] Generating solution...
-[CLAUDE ANALYSIS] Solution generated (confidence: 95%)
-
-[OPERATOR REVIEW]
-┌─────────────────────────────────────────┐
-│ Claude's Analysis                       │
-├─────────────────────────────────────────┤
-│ Root Cause: Docker registry auth        │
-│ Problem: Missing username/password      │
-│ Solution: Add registry credentials      │
-│                                         │
-│ Proposed Change:                        │
-│   - name: Deploy Docker container       │
-│     docker_image:                       │
-│       name: myapp:latest                │
-│ +     registry_url: docker.io           │
-│ +     username: "{{ docker_user }}"     │
-│ +     password: "{{ docker_pass }}"     │
-│       state: present                    │
-│                                         │
-│ Risk: LOW                               │
-│ Approve? [y/n]: y                       │
-└─────────────────────────────────────────┘
-
-[FIX APPLY] Creating backup...
-[FIX APPLY] Backup ID: bak_20260925_143022
-[FIX APPLY] Applying fix...
-[FIX APPLY] ✓ Fix applied successfully
-[FIX APPLY] ✓ Retrying playbook...
-
-[PLAYBOOK RETRY] Playbook running with fix...
-[PLAYBOOK SUCCESS] ✓ All tasks completed successfully!</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>That&#8217;s it! Error detected, analyzed, approved, fixed, and resolved in <strong>2 minutes</strong> with <strong>full human oversight</strong>.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_why_mcp_is_critical"><a class="anchor" href="#_why_mcp_is_critical"></a>Why MCP is Critical</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Without MCP:
-* Claude would need manual description of error (no automation)
-* Operator would need to copy-paste error messages (error-prone)
-* No structured communication between systems (inefficient)
-* Each AI tool would need custom integration (duplicated work)</p>
-</div>
-<div class="paragraph">
-<p>With MCP:
-* Error automatically structured and sent
-* All necessary context included automatically
-* Standard protocol works with any MCP-compatible tool
-* Claude has complete situational awareness
-* System can make informed decisions</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_chapter_2_structure"><a class="anchor" href="#_chapter_2_structure"></a>Chapter 2 Structure</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter is organized as follows:</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 50%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Section</th>
-<th class="tableblock halign-left valign-top">Topic</th>
-<th class="tableblock halign-left valign-top">Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">This Page</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Introduction &amp; big picture</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">10 min read</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Section 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">How errors are detected</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">15 min read</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Section 2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Claude integration via MCP</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">15 min read</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Section 3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Operator approval workflow</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">15 min read</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Lab</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hands-on error resolution</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">30 min lab</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <div class="sect1">
@@ -527,69 +314,6 @@ fatal: [prod-1]: FAILED! =&gt; {
 <p>✅ Have a Claude API key (from anthropic.com)</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><strong>Don&#8217;t have all of these?</strong> No problem! You can:
-* Read Chapter 1 first if you need MCP basics
-* Follow along conceptually without running commands
-* Review the provided example errors and solutions</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_whats_required_to_succeed"><a class="anchor" href="#_whats_required_to_succeed"></a>What&#8217;s Required to Succeed</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>For <strong>reading/understanding</strong>:
-* 2-3 hours to read all sections and examples
-* No special setup required</p>
-</div>
-<div class="paragraph">
-<p>For <strong>hands-on lab</strong>:
-* Ansible 2.10+ installed locally or test environment
-* Access to AAP (Ansible Automation Platform)
-* Claude API key
-* ~1-2 hours to complete all exercises</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_key_concepts_youll_learn"><a class="anchor" href="#_key_concepts_youll_learn"></a>Key Concepts You&#8217;ll Learn</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Error Capture</strong> - How system automatically detects and logs failures</p>
-</div>
-<div class="paragraph">
-<p><strong>Context Gathering</strong> - How to collect all information Claude needs</p>
-</div>
-<div class="paragraph">
-<p><strong>MCP Communication</strong> - How error details flow to Claude</p>
-</div>
-<div class="paragraph">
-<p><strong>AI Analysis</strong> - How Claude generates intelligent solutions</p>
-</div>
-<div class="paragraph">
-<p><strong>Approval Workflow</strong> - How operators maintain control and safety</p>
-</div>
-<div class="paragraph">
-<p><strong>Safe Application</strong> - How fixes are applied without risk</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ready_to_begin"><a class="anchor" href="#_ready_to_begin"></a>Ready to Begin?</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Let&#8217;s start with <strong>Understanding How Playbooks Fail and How We Can Fix Them!</strong></p>
-</div>
-<div class="paragraph">
-<p>→ <strong>Next:</strong> <a href="section1.html" class="xref page">Section 1: How Errors Are Detected</a></p>
-</div>
-<div class="paragraph">
-<p><strong>Estimated reading time for Chapter 2: 60-90 minutes</strong></p>
-</div>
-<div class="paragraph">
-<p><strong>Estimated lab time: 30-45 minutes</strong></p>
 </div>
 </div>
 </div>
