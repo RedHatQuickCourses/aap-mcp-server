@@ -463,13 +463,21 @@ Practice:
 To successfully complete this MCP course, you should be able to:
 
 ✅ Define MCP and explain why it matters
+
 ✅ Describe the 4 MCP components and how they interact
+
 ✅ Name the 6 AAP toolsets and when to use each
+
 ✅ Deploy MCP on OpenShift
+
 ✅ Generate an API token securely
+
 ✅ Configure a tool (Cursor, Claude, or LibreChat)
+
 ✅ Run queries and understand the workflow
+
 ✅ Troubleshoot common issues
+
 ✅ Score 18+ on this knowledge check
 
 If you meet these criteria, **congratulations!** You're ready to use MCP in your environment.
@@ -477,6 +485,7 @@ If you meet these criteria, **congratulations!** You're ready to use MCP in your
 ---
 
 **Next Steps:**
+
 * Use the MCP Cheat Sheet for quick reference
 * Reference the Troubleshooting Guide when issues arise
 * Share what you've learned with your team

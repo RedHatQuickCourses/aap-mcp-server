@@ -138,15 +138,22 @@ The AI will interpret and call the right tools.
 By now, you should have:
 
 ✅ Run your first successful query against AAP
+
 ✅ Seen MCP tools being invoked
+
 ✅ Tried queries from multiple toolsets
+
 ✅ Had multi-turn conversations
+
 ✅ Encountered and solved at least one issue
+
 ✅ Understood what tools are available
+
 
 ## Congratulations!
 
 You've completed all three labs:
+
 1. ✅ Deployed MCP on OCP
 2. ✅ Configured your AI tool
 3. ✅ Ran queries and practiced troubleshooting.
