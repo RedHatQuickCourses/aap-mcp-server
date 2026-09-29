@@ -29,7 +29,7 @@ source ~/.zshrc
 # 5. Restart Cursor
 ----
 
-=== Claude Desktop (One-Time Setup)
+=== OpenCode Desktop (One-Time Setup)
 
 [source,bash]
 ----
@@ -44,7 +44,7 @@ source ~/.zshrc
 # 3. Create/edit ~/.claude/claude.json with 6 servers
 # (See Lab 2 for full config)
 
-# 4. Restart Claude
+# 4. Restart OpenCode
 ----
 
 === Test Configuration
@@ -559,7 +559,7 @@ env | grep -E "(AAP|TOKEN|MCP)"
 | Computer
 | Cursor Settings → Tools & MCP
 
-| Tool Config (Claude)
+| Tool Config (OpenCode)
 | Computer
 | ~/.claude/claude.json
 

@@ -16,17 +16,17 @@ Instead of building a unique integration every time you want an AI model to inte
 
 == Why is MCP Needed?
 
-Imagine you want to use ChatGPT to query your servers, while a colleague uses Claude to do the same thing. Without a standard protocol:
+Imagine you want to use Qwen to query your servers, while a colleague uses OpenCode (with Qwen) to do the same thing. Without a standard protocol:
 
-* ChatGPT integration team writes custom code to connect ChatGPT to your servers
-* Claude integration team writes completely different code to do the same thing
+* Qwen integration team writes custom code to connect Qwen to your servers
+* OpenCode integration team writes completely different code to do the same thing
 * You have duplicated code, duplicated bugs, and duplicated maintenance
 
-**With MCP**, both ChatGPT and Claude connect to the same MCP server. No duplication. No redundancy.
+**With MCP**, both Qwen and OpenCode (powered by Qwen) connect to the same MCP server. No duplication. No redundancy.
 
 === The Real Problem MCP Solves
 
-AI models like Claude or ChatGPT are trained on data **frozen at a point in time**. They don't know:
+AI models like OpenCode or Qwen are trained on data **frozen at a point in time**. They don't know:
 
 * What jobs ran in your Ansible Automation Platform *yesterday*
 * Which servers are currently online in your inventory

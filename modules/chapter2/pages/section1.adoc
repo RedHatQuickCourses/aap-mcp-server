@@ -1,6 +1,6 @@
 = Mcp Server for playbook error detection and resolution.
 
-This brief will demonstrate how the MCP server can be leveraged to identify errors in Ansible playbooks, use Claude to analyze the issues and recommend appropriate resolutions, and then automate the remediation process. To ensure the changes are applied in a controlled and governed manner, the Automation Orchestrator approval workflow can be integrated to provide a human-in-the-loop validation step before the fix is automatically implemented.
+This brief will demonstrate how the MCP server can be leveraged to identify errors in Ansible playbooks, use OpenCode to analyze the issues and recommend appropriate resolutions, and then automate the remediation process. To ensure the changes are applied in a controlled and governed manner, the Automation Orchestrator approval workflow can be integrated to provide a human-in-the-loop validation step before the fix is automatically implemented.
 
 == Lab Scenario: Hello World Sample with Error
 
@@ -21,7 +21,7 @@ We'll use a simple but intentional error to demonstrate the system:
         msg: "{{ aap_version }}"
 ----
 
-we created a file `hello-world-playbook.yml` with the above content. The second task references a variable `app_version` that is not defined anywhere, which will trigger an error when the playbook is executed. This will allow us to observe how MCP captures the error and a prompt to Claude analyzes it. 
+we created a file `hello-world-playbook.yml` with the above content. The second task references a variable `app_version` that is not defined anywhere, which will trigger an error when the playbook is executed. This will allow us to observe how MCP captures the error and a prompt to OpenCode analyzes it. 
 
 == Part 1: Configure GitHub in Ansible Automation Platform
 
@@ -116,7 +116,7 @@ localhost: ok=1 changed=0 unreachable=0 failed=1
 
 FAILED - RETRYING: APP version (Attempt 1 of 3)
 ----
-+
+
 image::1.4.png[]
 
 ✅ **Error detected! Now lets check with the MCP Server**
@@ -125,7 +125,7 @@ image::1.4.png[]
 
 . Go to Ansible devspace and open the vscode terminal and Run the command opencode to start the MCP server. You should see the following output:
 
-. Now give a Prompt to Claude to analyze the error. The system will automatically send the error context to Claude for analysis. Within 30 seconds, you will receive a proposed solution.
+. Now give a Prompt to OpenCode to analyze the error. The system will automatically send the error context to OpenCode for analysis. Within 30 seconds, you will receive a proposed solution.
 +
 image::1.5.png[]
 
@@ -172,9 +172,9 @@ localhost: ok=2 changed=0 unreachable=0 failed=0
 
 ✓ PLAYBOOK COMPLETED SUCCESSFULLY!
 ----
-+
+
 image::1.10.png[]
-+
+
 image::1.11.png[]
 
 === Alternate fix option:
@@ -188,7 +188,7 @@ The applied fix (visible in job output or GitHub):
   debug:
     msg: "{{ app_version }}"
 
-# Fixed by Claude (auto-applied):
+# Fixed by OpenCode (auto-applied):
 - name: APP version
   debug:
     msg: "{{ app_version | default('1.0.0') }}"

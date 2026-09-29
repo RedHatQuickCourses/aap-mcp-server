@@ -12,7 +12,7 @@ Let's trace exactly what happens when you ask the AI a question. This is the **c
 You: "Show me failed jobs from the past 7 days"
 ----
 
-This is a natural language request sent to your AI tool (Claude, Cursor, ChatGPT, etc).
+This is a natural language request sent to your AI tool (OpenCode, Cursor, Qwen, etc).
 
 *What's happening*:
 
@@ -215,7 +215,7 @@ You see in your AI chat:
                     └──────┬──────────┘
                            │
                     ┌──────▼──────────────────────────────────┐
-                    │  AI Model (Claude, GPT, etc)            │
+                    │  AI Model (OpenCode with Qwen, etc)       │
                     │  Interprets: "call job_list tool"       │
                     └──────┬───────────────────────────────────┘
                            │

@@ -26,7 +26,7 @@ This section provides quick references, checklists, and deep-dive resources for 
 === AI Tools
 
 * https://docs.cursor.com/context/model-context-protocol[Cursor IDE MCP Documentation^]
-* https://code.claude.com/docs[Claude Code Documentation^]
+* https://code.claude.com/docs[OpenCode Code Documentation^]
 * https://www.librechat.ai[LibreChat Documentation^]
 
 === Community & Support

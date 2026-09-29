@@ -175,7 +175,7 @@ d) Cluster, Pod, Service
 Where do you create an API token?
 
 a) In Cursor IDE settings
-b) In the Claude configuration file
+b) In the OpenCode configuration file
 c) In Ansible Automation Platform (AAP)  ✓
 d) In OpenShift console
 
@@ -185,7 +185,7 @@ d) In OpenShift console
 
 === Question 14: What Information Do You Need to Configure an AI Tool?
 
-When configuring Cursor or Claude for MCP, what two pieces of information are essential?
+When configuring Cursor or OpenCode for MCP, what two pieces of information are essential?
 
 a) Username and password
 b) AAP hostname and cluster name
@@ -203,7 +203,7 @@ If your API token expires, what do you need to do?
 a) Reinstall AAP
 b) Recreate the token and update your tool configuration  ✓
 c) Wait for it to auto-renew
-d) Upgrade Cursor or Claude
+d) Upgrade Cursor or OpenCode
 
 **Answer:** B
 
@@ -214,7 +214,7 @@ d) Upgrade Cursor or Claude
 What's the key difference in what you can do with each scope?
 
 a) Read is slower, Write is faster
-b) Read is for Cursor, Write is for Claude
+b) Read is for Cursor, Write is for OpenCode
 c) Read allows querying but not making changes; Write allows both  ✓
 d) There's no difference
 
@@ -340,7 +340,7 @@ d) Rotate tokens weekly
 
 === Question 25: Scenario - Adding Another Tool
 
-You want to use both Cursor and Claude with the same AAP instance. What do you need?
+You want to use both Cursor and OpenCode with the same AAP instance. What do you need?
 
 a) Two different AAP instances
 b) Two different MCP servers
@@ -472,7 +472,7 @@ To successfully complete this MCP course, you should be able to:
 
 ✅ Generate an API token securely
 
-✅ Configure a tool (Cursor, Claude, or LibreChat)
+✅ Configure a tool (Cursor, OpenCode, or LibreChat)
 
 ✅ Run queries and understand the workflow
 

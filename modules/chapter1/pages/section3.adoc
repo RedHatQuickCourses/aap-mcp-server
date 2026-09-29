@@ -4,7 +4,7 @@
 
 The **Ansible MCP Server** is Ansible Automation Platform's implementation of the MCP standard.
 
-It enables connecting AAP with any preferred external AI tool (such as Claude, Cursor, or ChatGPT). The AI tools can access information about your AAP environment and perform tasks using natural language.
+It enables connecting AAP with any preferred external AI tool (such as OpenCode, Cursor, or Qwen). The AI tools can access information about your AAP environment and perform tasks using natural language.
 
 Instead of logging into the AAP web UI manually, you can ask an AI: "Launch the 'Deploy Web Servers' job template" and it does it for you.
 

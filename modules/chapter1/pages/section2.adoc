@@ -8,10 +8,10 @@ MCP is built from **four main components**. Let's break them down:
 
 This is where *you* interact with the AI. It could be:
 
-* **Claude Desktop** — A desktop application by Anthropic
+* **OpenCode Desktop** — A desktop application by Anthropic
 * **Cursor IDE** — A code editor with AI built in
 * **LibreChat** — A web-based chat interface
-* **ChatGPT** — OpenAI's chatbot
+* **Qwen** — Alibaba's large language model
 * **Any MCP-compatible tool** you're using
 
 *Role*: You enter natural language requests here. "Show me failed jobs from yesterday." The client sends your request to the AI model.
@@ -21,10 +21,9 @@ This is where *you* interact with the AI. It could be:
 This is the **large language model (LLM)** — the brain of the operation.
 
 Examples:
-* Claude (Anthropic)
-* GPT-4 (OpenAI)
+* OpenCode (powered by Qwen)
 * Qwen (Alibaba)
-* Any LLM that supports MCP
+* Other LLMs that support MCP
 
 *Role*: It interprets your natural language request and figures out which MCP *tools* to call and with what parameters.
 
@@ -79,7 +78,7 @@ Here's the complete architecture:
 └──────┬───────┘
        │
 ┌──────▼─────────────────────────────┐
-│  AI Client                          │  (Claude, Cursor, etc)
+│  AI Client                          │  (OpenCode, Cursor, etc)
 │ "List my jobs"                      │
 └──────┬─────────────────────────────┘
        │ Sends to LLM

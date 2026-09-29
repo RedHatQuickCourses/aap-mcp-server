@@ -1,6 +1,6 @@
 = Error Detection & AI-Powered Problem Solving with MCP
 
-Welcome to Chapter 2! In Chapter 1, you learned *what* MCP is and *why* it matters. Now, you'll learn how MCP and Claude AI work together to solve Ansible playbook errors **automatically**.
+Welcome to Chapter 2! In Chapter 1, you learned *what* MCP is and *why* it matters. Now, you'll learn how MCP and OpenCode AI work together to solve Ansible playbook errors **automatically**.
 
 We'll break this down into bite-sized sections that follow a simple pattern: **What is the problem? → How does MCP solve it? → What does this look like in practice?**
 
@@ -11,7 +11,7 @@ By the end of this chapter, you will be able to:
 * Understand how Ansible playbooks fail and the typical troubleshooting process
 * Explain how MCP enables automatic error detection and resolution
 * Describe the complete workflow from error occurrence to fix application
-* Understand how Claude AI analyzes errors and generates solutions
+* Understand how OpenCode AI analyzes errors and generates solutions
 * Implement the operator approval workflow for safety and control
 * Troubleshoot issues in the error resolution system
 
@@ -21,8 +21,8 @@ Imagine a world where:
 
 * Your Ansible playbook fails
 * The system **automatically captures** the error details
-* Claude AI **analyzes** the error in seconds
-* A Human **reviews** Claude's suggested fix and implement it.
+* OpenCode AI **analyzes** the error in seconds
+* A Human **reviews** OpenCode's suggested fix and implement it.
 * Your playbook **retries** and succeeds
 
 This is what we'll build in this chapter.
@@ -42,12 +42,12 @@ When a playbook fails, teams typically:
 
 This process is **manual, reactive, and time-consuming**, often taking 1–2 hours or longer.
 
-=== New Situation (With MCP + Claude)
+=== New Situation (With MCP + OpenCode)
 
-With MCP and Claude:
+With MCP and OpenCode:
 
 . The error is automatically captured with context.
-. **Claude analyzes the error and suggests a solution.**
+. **OpenCode analyzes the error and suggests a solution.**
 . **A human reviews and implements the suggested solution.**
 . The playbook is rerun and the result is verified.
 
@@ -61,6 +61,6 @@ To get the most from this chapter, you should:
 * ✅ Understand basic Ansible playbook concepts
 * ✅ Know what an Ansible error looks like
 * ✅ Have access to AAP or test Ansible environment
-* ✅ Have a Claude API key (from anthropic.com)
+* ✅ Have a OpenCode API key (from anthropic.com)
 
 
