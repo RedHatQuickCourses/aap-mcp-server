@@ -387,10 +387,10 @@ Make sure to store the token securely, as it will not be displayed again.
 </ul>
 </div>
 <div class="paragraph">
-<p>Other AI tools, such as ChatGPT or Claude, may also support MCP integrations depending on their current capabilities and configuration options.</p>
+<p>Other AI tools, such as Qwen or OpenCode, may also support MCP integrations depending on their current capabilities and configuration options.</p>
 </div>
 <div class="paragraph">
-<p>In the following sections, you will learn how to configure <strong>OpenCode to connect to the Ansible MCP Server</strong> using the generated API token where we will be using the claude-sonnet-4-6 model from the LiteLLM inference service to process natural language requests and interact with Ansible Automation Platform through the Ansible MCP Server.</p>
+<p>In the following sections, you will learn how to configure <strong>OpenCode to connect to the Ansible MCP Server</strong> using the generated API token where we will be using the qwen3-435b model from the LiteLLM inference service to process natural language requests and interact with Ansible Automation Platform through the Ansible MCP Server.</p>
 </div>
 <div class="sect2">
 <h3 id="_3_1_using_opencode_with_the_ansible_mcp_server"><a class="anchor" href="#_3_1_using_opencode_with_the_ansible_mcp_server"></a>3.1: Using OpenCode with the Ansible MCP Server</h3>
@@ -459,7 +459,7 @@ metadata:
     controller.devfile.io/mount-as: env
 data:
   AAP_MCP_URL: https://&lt;aap-mcp-instance-URL&gt;/mcp
-  LITELLM_MODEL_NAME: openai/granite-3-2-8b-instruct, claude-sonnet-4-6, gemini-2.5-pro
+  LITELLM_MODEL_NAME: qwen3-435b, qwen3-110b, qwen3-32b
   LITELLM_URL: &lt;LLM base URL from RHDP login page&gt;
   OPENCODE_CONFIG: /projects/ansible-devspaces/opencode.json</code></pre>
 </div>
@@ -607,7 +607,7 @@ type: Opaque</code></pre>
                 "apiKey": "{env:LITELLM_API_KEY}"
             },
             "models": {
-                "claude-sonnet-4-6": {
+                "qwen3-435b": {
                     "name": "{env:LITELLM_MODEL_NAME}",
                     "limit": {
                         "context": 35000,
