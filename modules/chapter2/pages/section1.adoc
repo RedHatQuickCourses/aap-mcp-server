@@ -34,6 +34,7 @@ we created a file `hello-world-playbook.yml` with the above content. The second 
 
 . Go to **Projects** (Resources → Projects)
 . Click **Create project**
+. The project use the default Organization. 
 . Fill in the project details:
 +
 [%header,cols="1,2"]
@@ -134,10 +135,14 @@ image::1.5.png[]
 image::1.6.png[]
 +
 image::1.7.png[]
++
+image::1.12.png[]
 
-. Now its upto the human to decide at what level of playbook/ inventory/host_vars/group_vars or extra variable the resolution should be proposed.
+. Now its upto the human to decide at what level of playbook/ inventory/host_vars/group_vars or extra variable the resolution should be proposed. the below are 2 outputs that you can get from the LLM model or it could be different for you based on the prompt and data sent to the LLM model. The below are just examples of what you can get from the LLM model.
 +
 image::1.8.png[]
++
+image::1.13.png[]
 
 [Note]
  The Automation Orchestrator workflow can be integrated to provide a human-in-the-loop validation and proposed solution by the AI where with simple click of a button the Human can approve the fix and the system will automatically apply the fix and retry the playbook.

@@ -96,8 +96,8 @@ Once the Ansible MCP Server is deployed and the API token is generated, the next
 
 Several AI tools can be used for this integration.
 
-* link:[https://opencode.ai[OpenCode,window=_blank](https://opencode.ai[OpenCode,window=_blank)] — A terminal-based AI agent that can run from an OpenShift Dev Spaces workspace.
-* link:[https://www.librechat.ai[LibreChat,window=_blank](https://www.librechat.ai[LibreChat,window=_blank)] — A web-based AI chat tool that can be accessed through a browser.
+* link:[https://opencode.ai[OpenCode,window=_blank]] — A terminal-based AI agent that can run from an OpenShift Dev Spaces workspace.
+* link:[https://www.librechat.ai[LibreChat,window=_blank]] — A web-based AI chat tool that can be accessed through a browser.
 
 Other AI tools, such as Qwen or OpenCode, may also support MCP integrations depending on their current capabilities and configuration options.
 
@@ -142,7 +142,7 @@ metadata:
     controller.devfile.io/mount-as: env
 data:
   AAP_MCP_URL: https://<aap-mcp-instance-URL>/mcp
-  LITELLM_MODEL_NAME: qwen3-435b, qwen3-110b, qwen3-32b
+  LITELLM_MODEL_NAME: qwen3-235b, qwen3-14b
   LITELLM_URL: <LLM base URL from RHDP login page>
   OPENCODE_CONFIG: /projects/ansible-devspaces/opencode.json
 ----
@@ -239,7 +239,7 @@ Create a new file named `opencode.json` at the within the `/projects/ansible-dev
                 "apiKey": "{env:LITELLM_API_KEY}"
             },
             "models": {
-                "qwen3-435b": {
+                "qwen3-235b": {
                     "name": "{env:LITELLM_MODEL_NAME}",
                     "limit": {
                         "context": 35000,
