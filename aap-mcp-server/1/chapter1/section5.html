@@ -379,10 +379,10 @@ Make sure to store the token securely, as it will not be displayed again.
 <div class="ulist">
 <ul>
 <li>
-<p>link:[<a href="https://opencode.ai" target="_blank" rel="noopener">OpenCode</a>(<a href="https://opencode.ai" target="_blank)">OpenCode</a> — A terminal-based AI agent that can run from an OpenShift Dev Spaces workspace.</p>
+<p><a href=""><a href="https://opencode.ai" target="_blank" rel="noopener">OpenCode</a></a> — A terminal-based AI agent that can run from an OpenShift Dev Spaces workspace.</p>
 </li>
 <li>
-<p>link:[<a href="https://www.librechat.ai" target="_blank" rel="noopener">LibreChat</a>(<a href="https://www.librechat.ai" target="_blank)">LibreChat</a> — A web-based AI chat tool that can be accessed through a browser.</p>
+<p><a href=""><a href="https://www.librechat.ai" target="_blank" rel="noopener">LibreChat</a></a> — A web-based AI chat tool that can be accessed through a browser.</p>
 </li>
 </ul>
 </div>
@@ -459,7 +459,7 @@ metadata:
     controller.devfile.io/mount-as: env
 data:
   AAP_MCP_URL: https://&lt;aap-mcp-instance-URL&gt;/mcp
-  LITELLM_MODEL_NAME: qwen3-435b, qwen3-110b, qwen3-32b
+  LITELLM_MODEL_NAME: qwen3-235b, qwen3-14b
   LITELLM_URL: &lt;LLM base URL from RHDP login page&gt;
   OPENCODE_CONFIG: /projects/ansible-devspaces/opencode.json</code></pre>
 </div>
@@ -607,7 +607,7 @@ type: Opaque</code></pre>
                 "apiKey": "{env:LITELLM_API_KEY}"
             },
             "models": {
-                "qwen3-435b": {
+                "qwen3-235b": {
                     "name": "{env:LITELLM_MODEL_NAME}",
                     "limit": {
                         "context": 35000,
