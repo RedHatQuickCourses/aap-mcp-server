@@ -30,7 +30,7 @@ d) Eliminates the need for SSH
 
 **Answer:** C
 
-**Explanation:** AI models are trained on frozen historical data. MCP solves this by giving them access to *real-time* data from your AAP environment—what jobs ran today, current host status, live inventory data, etc.
+**Explanation:** AI models are trained on frozen historical data. MCP solves this by giving them access to *real-time* data from your AAP environment, including what jobs ran today, current host status, live inventory data, etc.
 
 === Question 3: How Many Components Are in MCP Architecture?
 
@@ -151,7 +151,7 @@ d) They're the same, just different names
 
 **Answer:** C
 
-**Explanation:** Job Management deals with automation workflows—running jobs, checking status, accessing job templates. Inventory Management deals with infrastructure—hosts, groups, variables.
+**Explanation:** Job Management deals with automation workflows, including running jobs, checking status, and accessing job templates. Inventory Management deals with infrastructure, such as hosts, groups, and variables.
 
 ---
 
@@ -291,7 +291,7 @@ What happens?
 a) Cursor searches the internet
 b) Cursor asks the AI model, which calls MCP tools, which queries AAP  ✓
 c) Cursor runs a local command
-d) Nothing—you need to manually query AAP first
+d) Nothing, because you need to manually query AAP first
 
 **Answer:** B
 
@@ -450,11 +450,11 @@ Practice:
 
 ## Tips for Using This Knowledge Check
 
-1. **Take it honestly** — This is for you, not graded
-2. **Review weaknesses** — Use the scoring guide to focus study
-3. **Re-take it later** — Test yourself again after time passes
-4. **Apply it** — The real test is using MCP successfully
-5. **Help others** — Teaching others deepens your understanding
+1. **Take it honestly** since this is for you and not graded
+2. **Review weaknesses** by using the scoring guide to focus study
+3. **Re-take it later** to test yourself again after time passes
+4. **Apply it** because the real test is using MCP successfully
+5. **Help others,** as teaching others deepens your understanding
 
 ---
 

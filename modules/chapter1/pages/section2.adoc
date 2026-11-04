@@ -8,17 +8,17 @@ MCP is built from **four main components**. Let's break them down:
 
 This is where *you* interact with the AI. It could be:
 
-* **OpenCode Desktop** — A desktop application by Anthropic
-* **Cursor IDE** — A code editor with AI built in
-* **LibreChat** — A web-based chat interface
-* **Qwen** — Alibaba's large language model
+* **OpenCode Desktop**, a desktop application by Anthropic
+* **Cursor IDE**, a code editor with AI built in
+* **LibreChat**, a web-based chat interface
+* **Qwen**, Alibaba's large language model
 * **Any MCP-compatible tool** you're using
 
 *Role*: You enter natural language requests here. "Show me failed jobs from yesterday." The client sends your request to the AI model.
 
 === Component 2: The AI Model (The Translator)
 
-This is the **large language model (LLM)** — the brain of the operation.
+This is the **large language model (LLM)**, which acts as the brain of the operation.
 
 Examples:
 * OpenCode (powered by Qwen)

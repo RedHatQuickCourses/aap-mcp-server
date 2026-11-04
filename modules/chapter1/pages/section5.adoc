@@ -18,9 +18,9 @@ To make use of the Ansible MCP Server, the following steps are required:
 
 The Ansible MCP Server runs as a containerized/pod service on your infrastructure. You can deploy it on:
 
-* **OpenShift Container Platform (OCP)** — Most common for enterprise
-* **RHEL with containers** — Simpler, on a single machine
-* **Kubernetes** — Any Kubernetes cluster
+* **OpenShift Container Platform (OCP),** the most common option for enterprise
+* **RHEL with containers,** which is simpler and runs on a single machine
+* **Kubernetes,** for any Kubernetes cluster
 
 Deploy the Ansible MCP Server to your OpenShift environment by enabling the MCP capability within the `AnsibleAutomationPlatform` custom resource.
 
@@ -96,8 +96,8 @@ Once the Ansible MCP Server is deployed and the API token is generated, the next
 
 Several AI tools can be used for this integration.
 
-* link:[https://opencode.ai[OpenCode,window=_blank]] — A terminal-based AI agent that can run from an OpenShift Dev Spaces workspace.
-* link:[https://www.librechat.ai[LibreChat,window=_blank]] — A web-based AI chat tool that can be accessed through a browser.
+* link:[https://opencode.ai[OpenCode,window=_blank]], a terminal-based AI agent that can run from an OpenShift Dev Spaces workspace.
+* link:[https://www.librechat.ai[LibreChat,window=_blank]], a web-based AI chat tool that can be accessed through a browser.
 
 Other AI tools, such as Qwen or OpenCode, may also support MCP integrations depending on their current capabilities and configuration options.
 

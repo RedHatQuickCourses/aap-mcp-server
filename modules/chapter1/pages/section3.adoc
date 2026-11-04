@@ -163,7 +163,7 @@ When you configure an AI tool, you connect it to **all 6 endpoints** so the AI h
 
 == Role-Based Access Control (RBAC)
 
-The MCP server respects your AAP permissions. If you create an API token for a user with "read-only" permissions, the AI can only read data—it cannot launch jobs or make changes.
+The MCP server respects your AAP permissions. If you create an API token for a user with "read-only" permissions, the AI can only read data, but it cannot launch jobs or make changes.
 
 .RBAC Example
 [source]

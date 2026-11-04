@@ -4,24 +4,24 @@ This section provides quick references, checklists, and deep-dive resources for 
 
 == What's in the Appendix?
 
-* **MCP Cheat Sheet** — Quick reference for common tasks and queries
-* **Knowledge Check** — Test your understanding with a quiz
-* **Troubleshooting Guide** — Solutions for complex issues
-* **Useful Links** — Official documentation and references
+* **MCP Cheat Sheet,** a quick reference for common tasks and queries
+* **Knowledge Check** to test your understanding with a quiz
+* **Troubleshooting Guide** with solutions for complex issues
+* **Useful Links** for official documentation and references
 
 == Quick Navigation
 
-* xref:cheat-sheet.adoc[MCP Cheat Sheet] — Copy-paste queries and configurations
-* xref:knowledge-check.adoc[Knowledge Check & Quiz] — Verify you learned the concepts
-* xref:troubleshooting.adoc[Troubleshooting Guide] — Detailed debugging steps
+* xref:cheat-sheet.adoc[MCP Cheat Sheet] for copy-paste queries and configurations
+* xref:knowledge-check.adoc[Knowledge Check & Quiz] to verify you learned the concepts
+* xref:troubleshooting.adoc[Troubleshooting Guide] with detailed debugging steps
 
 == External Resources
 
 === Official Documentation
 
-* https://modelcontextprotocol.io[Model Context Protocol Specification^] — The MCP standard
-* https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/containerized_installation/deploying-ansible-mcp-server[Red Hat AAP MCP Server Documentation^] — Official AAP MCP guide
-* https://docs.ansible.com[Ansible Documentation^] — General Ansible reference
+* https://modelcontextprotocol.io[Model Context Protocol Specification^], the MCP standard
+* https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/containerized_installation/deploying-ansible-mcp-server[Red Hat AAP MCP Server Documentation^], the official AAP MCP guide
+* https://docs.ansible.com[Ansible Documentation^], a general Ansible reference
 
 === AI Tools
 
@@ -31,9 +31,9 @@ This section provides quick references, checklists, and deep-dive resources for 
 
 === Community & Support
 
-* https://forum.ansible.com[Ansible Community Forum^] — Ask questions and get help
-* https://github.com/ansible-tmm/mcp-demo[Ansible TMM MCP Demo GitHub^] — Real-world examples
-* https://github.com/modelcontextprotocol[MCP GitHub Organization^] — MCP specs and tools
+* https://forum.ansible.com[Ansible Community Forum^] where you can ask questions and get help
+* https://github.com/ansible-tmm/mcp-demo[Ansible TMM MCP Demo GitHub^] with real-world examples
+* https://github.com/modelcontextprotocol[MCP GitHub Organization^] for MCP specs and tools
 
 == How to Use This Appendix
 

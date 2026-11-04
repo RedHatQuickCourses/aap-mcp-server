@@ -10,12 +10,12 @@ Whether you're an automation engineer, a cloud architect, or a developer looking
 
 By the end of this course, you will:
 
-* **Understand what MCP is** — the open standard that connects AI tools to your infrastructure
-* **Grasp the architecture** — how different components work together
-* **Deploy MCP** — get it running on OpenShift Container Platform (OCP)
-* **Integrate with AAP** — connect your favorite AI tools to Ansible Automation Platform
-* **Query and interact** — use natural language to ask questions and run automation tasks
-* **Troubleshoot** — solve common issues and understand the workflow
+* **Understand what MCP is** as the open standard that connects AI tools to your infrastructure
+* **Grasp the architecture** to see how different components work together
+* **Deploy MCP** and get it running on OpenShift Container Platform (OCP)
+* **Integrate with AAP** and connect your favorite AI tools to Ansible Automation Platform
+* **Query and interact** by using natural language to ask questions and run automation tasks
+* **Troubleshoot** to solve common issues and understand the workflow
 
 === Course Structure
 
@@ -48,10 +48,10 @@ This is designed as an **instructor-led course**, but you can also self-study.
 
 For each concept, we follow this pattern:
 
-1. **What is it?** — Simple explanation without jargon
-2. **Why is it needed?** — Real-world problem it solves
-3. **How does it work?** — Architecture and flow diagrams
-4. **Try it yourself** — Hands-on labs with step-by-step commands
+1. **What is it?** with a simple explanation without jargon
+2. **Why is it needed?** covering the real-world problem it solves
+3. **How does it work?** using architecture and flow diagrams
+4. **Try it yourself** through hands-on labs with step-by-step commands
 
 === Time Required
 
