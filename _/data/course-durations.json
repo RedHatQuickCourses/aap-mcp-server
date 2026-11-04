@@ -1,5 +1,5 @@
 {
-  "totalSeconds": 2420,
+  "totalSeconds": 2429,
   "pageCount": 15,
   "pages": [
     {
@@ -20,17 +20,17 @@
     {
       "module": "chapter1",
       "page": "section1.adoc",
-      "seconds": 126
+      "seconds": 127
     },
     {
       "module": "chapter1",
       "page": "section2.adoc",
-      "seconds": 80
+      "seconds": 81
     },
     {
       "module": "chapter1",
       "page": "section3.adoc",
-      "seconds": 150
+      "seconds": 151
     },
     {
       "module": "chapter1",
@@ -40,7 +40,7 @@
     {
       "module": "chapter1",
       "page": "section5.adoc",
-      "seconds": 396
+      "seconds": 397
     },
     {
       "module": "chapter1",
@@ -65,7 +65,7 @@
     {
       "module": "appendix",
       "page": "appendix.adoc",
-      "seconds": 55
+      "seconds": 56
     },
     {
       "module": "appendix",
@@ -75,7 +75,7 @@
     {
       "module": "appendix",
       "page": "knowledge-check.adoc",
-      "seconds": 687
+      "seconds": 691
     }
   ]
 }
